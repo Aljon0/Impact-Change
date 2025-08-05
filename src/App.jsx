@@ -7,7 +7,7 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Stats from "./components/Stats";
 import Testimonials from "./components/Testimonials";
-import TrustedBy from "./components/TrustedBY";
+import TrustedBy from "./components/TrustedBy";
 
 function App() {
   return (
