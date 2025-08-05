@@ -1,42 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
+import About from "./components/About";
+import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
-import Navigation from "./components/Navigation";
-import AboutSection from "./components/sections/AboutSection";
-import ContactSection from "./components/sections/ContactSection";
-import FAQsSection from "./components/sections/FAQsSection";
-import HomeSection from "./components/sections/HomeSection";
-import TestimonialsSection from "./components/sections/TestimonialsSection";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import Stats from "./components/Stats";
+import Testimonials from "./components/Testimonials";
+import TrustedBy from "./components/TrustedBY";
 
-const App = () => {
-  const [activeSection, setActiveSection] = useState("home");
-
-  const renderSection = () => {
-    switch (activeSection) {
-      case "home":
-        return <HomeSection />;
-      case "about":
-        return <AboutSection />;
-      case "testimonials":
-        return <TestimonialsSection />;
-      case "faqs":
-        return <FAQsSection />;
-      case "contact":
-        return <ContactSection />;
-      default:
-        return <HomeSection />;
-    }
-  };
-
+function App() {
   return (
     <div className="min-h-screen bg-white">
-      <Navigation
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-      />
-      <main className="pt-16">{renderSection()}</main>
+      <Header />
+      <Hero />
+      <TrustedBy />
+      <About />
+      <Services />
+      <Stats />
+      <Testimonials />
+      <FinalCTA />
       <Footer />
     </div>
   );
-};
+}
 
 export default App;
