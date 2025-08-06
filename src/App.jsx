@@ -1,27 +1,17 @@
 import React from "react";
-import About from "./components/About";
-import FinalCTA from "./components/FinalCTA";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import Stats from "./components/Stats";
-import Testimonials from "./components/Testimonials";
-import TrustedBy from "./components/TrustedBy";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <TrustedBy />
-      <About />
-      <Services />
-      <Stats />
-      <Testimonials />
-      <FinalCTA />
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-white">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* Add other routes here as you create new pages */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
