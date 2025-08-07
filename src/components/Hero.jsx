@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       className="py-38 bg-cover bg-center"
-      style={{ backgroundImage: "url('/HomePage/Background.png')" }}
+      style={{ backgroundImage: "url('/HomePage/Background.webp')" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-5xl mx-auto">

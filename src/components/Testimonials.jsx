@@ -6,7 +6,7 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import ClientLogos from "./ClientLogos"; // Import the ClientLogos component
+import ClientLogos from "./ClientLogos";
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -65,6 +65,39 @@ const Testimonials = () => {
         { label: "Real Estate", icon: "buildings", variant: "green" },
       ],
     },
+    {
+      text: "This is my second experience with this incredible service, and I must say, it feels like a dream come true for any startup. The ability to transform my concepts into a professional presentation, complete with clear and realistic visuals, is truly invaluable. I can already envision returning to this service time and again. The quality of work is exceptional, reflecting a high level of professionalism, and the communication has been outstanding. They address all feedback promptly and thoroughly, ensuring that every detail is accounted for. The research exceeds expectations in providing accurate facts.",
+      name: "Anna",
+      title: "",
+      company: "",
+      companyIcon: "",
+      avatar: "/HomePage/Anna.png",
+      tags: [
+        {
+          label: "Funding Pitch Presentation",
+          icon: "",
+          variant: "blue",
+        },
+        { label: "Startup", icon: "🚀", variant: "green" },
+      ],
+    },
+    {
+      text: "Working with Will Bryant was a FANTASTIC experience! Not only was his expertise in strategic business planning but he also amazed with his quick responsiveness and polite demeanor. His ENERGY and motivation are infectious, and he truly understands how to guide and motivate clients—HIGHLY recommended! 😊",
+      name: "kmondragones",
+      title: "",
+      company: "",
+      companyIcon: "",
+      avatar: "",
+      tags: [
+        {
+          label: "Startup Adviser & Mentor",
+          icon: "",
+          variant: "blue",
+        },
+        { label: "Business Strategy", icon: "💼", variant: "green" },
+      ],
+    },
+    {},
   ];
 
   // Auto-rotate testimonials every 5 seconds

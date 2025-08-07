@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [dropdowns, setDropdowns] = useState({
@@ -29,7 +30,10 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link
+            to="/"
+            className="flex items-center hover:opacity-80 transition-opacity duration-200"
+          >
             <img
               src="/Logo2.png"
               alt="Impact Change Logo"
@@ -43,14 +47,14 @@ const Header = () => {
                 CHANGE
               </span>
             </div>
-          </div>
+          </Link>
 
           {/* Centered Navigation */}
           <nav className="hidden md:flex items-center justify-center flex-1 mx-8">
             <div className="flex items-center space-x-8">
               {/* About Dropdown */}
               <div className="relative">
-                <button className="flex items-center text-[#131e3D] cursor-pointer">
+                <button className="flex items-center text-[#131e3D] cursor-pointer hover:text-blue-600 transition-colors">
                   About
                 </button>
               </div>
@@ -59,7 +63,7 @@ const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => toggleDropdown("services")}
-                  className="flex items-center text-[#131e3D] cursor-pointer"
+                  className="flex items-center text-[#131e3D] cursor-pointer hover:text-blue-600 transition-colors"
                 >
                   Services
                   <svg
@@ -104,7 +108,7 @@ const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => toggleDropdown("caseStudies")}
-                  className="flex items-center text-[#131e3D] cursor-pointer"
+                  className="flex items-center text-[#131e3D] cursor-pointer hover:text-blue-600 transition-colors"
                 >
                   Case Studies
                   <svg
@@ -149,7 +153,7 @@ const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => toggleDropdown("resources")}
-                  className="flex items-center text-[#131e3D] cursor-pointer"
+                  className="flex items-center text-[#131e3D] cursor-pointer hover:text-blue-600 transition-colors"
                 >
                   Resources
                   <svg
@@ -193,9 +197,12 @@ const Header = () => {
           </nav>
 
           {/* Contact Us Button */}
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer">
+          <Link
+            to="/contact"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
+          >
             Contact Us
-          </button>
+          </Link>
 
           {/* Click outside to close dropdowns */}
           {(dropdowns.about ||
