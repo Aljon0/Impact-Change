@@ -24,7 +24,7 @@ const Services = () => {
             <div className="order-2 lg:order-1">
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                  src="/HomePage/PitchDeck.gif"
                   alt="Professional pitch deck designs"
                   className="w-full h-80 object-cover rounded-2xl shadow-lg"
                 />
@@ -72,7 +72,7 @@ const Services = () => {
                 investors, lenders, or internal strategy. Clear, compelling, and
                 built to impress.
               </p>
-              <button className="bg-transparent text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors border-2 border-blue-600 cursor-pointer">
+              <button className="bg-transparent text-blue-600 px-8 py-3 rounded-lg font-semibold border-2 border-blue-600 cursor-pointer">
                 Get Expert Support
               </button>
             </div>
@@ -80,8 +80,73 @@ const Services = () => {
             <div className="order-2">
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80"
+                  src="/HomePage/BusinessPlan.gif"
                   alt="Business plan and financial documents"
+                  className="w-full h-80 object-cover rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Service 3: Comprehensive Market Research */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="relative">
+                <img
+                  src="/HomePage/MarketResearch.gif"
+                  alt="Market research and data analysis"
+                  className="w-full h-80 object-cover rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-8">
+                <img
+                  src="/HomePage/CMR.png"
+                  alt="Comprehensive Market Research Icon"
+                  className="w-8 h-8 brightness-0 invert"
+                />
+              </div>
+              <h3 className="text-3xl font-bold text-[#131e3D] mb-6">
+                Comprehensive Market Research
+              </h3>
+              <p className="text-lg text-[#4a4949] leading-relaxed mb-8">
+                We will do an in-depth analysis of your competitive landscape,
+                market opportunity, and ideal customer segments in a
+                professionally written and designed report.
+              </p>
+              <button className="bg-transparent text-blue-600 px-8 py-3 rounded-lg font-semibold border-2 border-blue-600 cursor-pointer">
+                Explore Services
+              </button>
+            </div>
+          </div>
+
+          {/* Service 4: High Impact Investor One-Pager */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="order-1">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-8">
+                <img src="/HomePage/HII.png" alt="" className="w-8 h-8" />
+              </div>
+              <h3 className="text-3xl font-bold text-[#131e3D] mb-6">
+                High Impact Investor One-Pager
+              </h3>
+              <p className="text-lg text-[#4a4949] leading-relaxed mb-8">
+                A concise, powerful, and professionally designed one-page
+                summary of your business. We distill your entire venture into a
+                single, compelling document created to capture investor interest
+                quickly and make a powerful first impression.
+              </p>
+              <button className="bg-transparent text-blue-600 px-8 py-3 rounded-lg font-semibold border-2 border-blue-600 cursor-pointer">
+                Explore Services
+              </button>
+            </div>
+
+            <div className="order-2">
+              <div className="relative">
+                <img
+                  src="/HomePage/HighImpact.gif"
+                  alt="Professional one-pager document"
                   className="w-full h-80 object-cover rounded-2xl shadow-lg"
                 />
               </div>

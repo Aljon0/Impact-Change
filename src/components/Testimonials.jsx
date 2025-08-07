@@ -1,15 +1,23 @@
-import { Building2, Star, UtensilsCrossed } from "lucide-react";
-import React from "react";
+import {
+  Building2,
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  UtensilsCrossed,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import ClientLogos from "./ClientLogos"; // Import the ClientLogos component
 
 const Testimonials = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const testimonials = [
     {
       text: "A genius at bringing to life the story I wanted to create. Will was exceptional. Understood the ask very quickly, and created a masterpiece of a pitch deck. A genius at bringing to life the story I wanted to create. I now have a tool which will be priceless when pitching to investors and to detail the problem and solution.",
       name: "Zhen Hussain",
       title: "Founder",
-      company: "RunTheDish",
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      company: "/HomePage/RunTheDish.png",
+      avatar: "/HomePage/ZhenHussain.png",
       tags: [
         {
           label: "Investor Pitch Deck",
@@ -18,16 +26,14 @@ const Testimonials = () => {
         },
         { label: "Recipe App", icon: "spoon-fork", variant: "green" },
       ],
-      layout: "large",
     },
     {
       text: "Will truly listened to how and what I need and what I needed from a business plan and made it work for me. Truly exceptional work removing dozens of hours of work from my plate. I highly recommend Will and his team!",
       name: "Dr. Edward Cunningham",
       title: "Wellness Coach",
-      company: "Attivo Wellness",
+      company: "/HomePage/AttivoWellness.png",
       companyIcon: "/HomePage/BusinessPlanBook.svg",
-      avatar:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
+      avatar: "/HomePage/EdwardCunningham.png",
       tags: [
         {
           label: "Business Plan",
@@ -36,16 +42,20 @@ const Testimonials = () => {
         },
         { label: "Wellness", icon: "💚", variant: "green" },
       ],
-      layout: "small",
+      // Add custom formatting for this testimonial
+      customFormatting: {
+        boldText: "Will truly listened to how and what I need",
+        normalText:
+          "Will truly listened to how and what I need and what I needed from a business plan and made it work for me. Truly exceptional work removing dozens of hours of work from my plate. I highly recommend Will and his team!",
+      },
     },
     {
       text: "I look forward to working with him again! I can't see enough wonderful things about him he's just absolutely the best when it comes to optimizing linkedin and discussing business plans. I look forward to working with him again!",
       name: "Andrew LeBaron",
       title: "CEO & Founder",
-      company: "Parkrise",
+      company: "/HomePage/Parkrise.png",
       companyIcon: "/HomePage/Linkedin.svg",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      avatar: "/HomePage/AndrewLebaron.png",
       tags: [
         {
           label: "Optimized LinkedIn Profile",
@@ -54,9 +64,31 @@ const Testimonials = () => {
         },
         { label: "Real Estate", icon: "buildings", variant: "green" },
       ],
-      layout: "small",
     },
   ];
+
+  // Auto-rotate testimonials every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  const goToPrevious = () => {
+    setCurrentIndex(
+      currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentIndex(
+      currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1
+    );
+  };
 
   const Badge = ({ tag }) => {
     const baseClasses =
@@ -92,97 +124,172 @@ const Testimonials = () => {
     );
   };
 
-  const CompanyLogo = ({ company, icon, isLarge = false }) => {
-    if (isLarge) {
-      return null;
-    }
+  // Function to get the first sentence and remaining text
+  const getFormattedText = (text) => {
+    const sentences = text.match(/[^\.!?]*[\.!?]+/g) || [text];
+    const firstSentence = sentences[0]?.trim() || "";
+    const remainingText = sentences.slice(1).join(" ").trim();
 
-    const isEmoji = typeof icon === "string" && !icon.includes(".svg");
-
-    return (
-      <div className="flex items-center gap-2 mt-2">
-        <div className="w-6 h-6 bg-white bg-opacity-20 rounded flex items-center justify-center">
-          {isEmoji ? (
-            <span className="text-sm">{icon}</span>
-          ) : (
-            <img src={icon} alt={company} className="w-4 h-4" />
-          )}
-        </div>
-        <span className="text-white font-medium text-sm">{company}</span>
-      </div>
-    );
+    return { firstSentence, remainingText };
   };
 
+  const currentTestimonial = testimonials[currentIndex];
+  const isShortTitle = currentTestimonial.title.split(" ").length <= 1;
+  const { firstSentence, remainingText } = getFormattedText(
+    currentTestimonial.text
+  );
+
   return (
-    <section id="testimonials" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6">
-            Client Wins
+    <>
+      <section id="testimonials" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center px-4 py-2 mb-6">
+              <img
+                src="/HomePage/ClientWins.png"
+                alt="Client Wins"
+                className="h-16"
+              />
+            </div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Founders choose us for the speed,
+              <br />
+              focus, and traction we bring.
+            </h2>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Founders choose us for the speed,
-            <br />
-            focus, and traction we bring.
-          </h2>
-        </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Large testimonial */}
-          <div className="lg:col-span-2">
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-8 rounded-2xl text-white relative overflow-hidden">
-              <div className="relative z-10 flex items-start justify-between">
-                {/* Left side - compressed text */}
-                <div className="w-full lg:w-2/3 pr-8">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {testimonials[0].tags.map((tag, i) => (
-                      <Badge key={i} tag={tag} />
-                    ))}
+          {/* Single Testimonial Container with Navigation */}
+          <div className="relative">
+            {/* Navigation Buttons - Outside the container */}
+            <button
+              onClick={goToPrevious}
+              className="absolute -left-16 top-1/2 -translate-y-1/2 z-20 bg-blue-600  text-white p-3 rounded-full shadow-lg border border-gray-200 cursor-pointer"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            <button
+              onClick={goToNext}
+              className="absolute -right-16 top-1/2 -translate-y-1/2 z-20 bg-blue-600 text-white p-3 rounded-full shadow-lg border border-gray-200 cursor-pointer"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Testimonial Card */}
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-8 rounded-2xl text-white relative overflow-hidden min-h-[400px] transition-all duration-500">
+              <div className="relative z-10 flex items-start justify-between h-full">
+                {/* Left side - content */}
+                <div className="w-full lg:w-2/3 pr-8 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {currentTestimonial.tags.map((tag, i) => (
+                        <Badge key={i} tag={tag} />
+                      ))}
+                    </div>
+
+                    <div className="flex mb-6">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-5 h-5 text-yellow-400 fill-current"
+                        />
+                      ))}
+                    </div>
+
+                    <p className="mb-8">
+                      {currentTestimonial.customFormatting ? (
+                        <>
+                          <span className="text-xl font-bold block mb-4">
+                            {currentTestimonial.customFormatting.boldText}
+                          </span>
+                          <span className="text-lg leading-relaxed">
+                            {currentTestimonial.customFormatting.normalText}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-xl font-bold block mb-4">
+                            {firstSentence}
+                          </span>
+                          {remainingText && (
+                            <span className="text-lg leading-relaxed">
+                              {remainingText}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </p>
                   </div>
 
-                  <div className="flex mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 text-yellow-400 fill-current"
-                      />
-                    ))}
-                  </div>
-
-                  <p className="mb-8">
-                    <span className="text-xl font-bold block mb-4">
-                      A genius at bringing to life the story I wanted to create.
-                    </span>
-                    <span className="text-lg leading-relaxed">
-                      Will was exceptional. Understood the ask very quickly, and
-                      created a masterpiece of a pitch deck. I now have a tool
-                      which will be priceless when pitching to investors.
-                    </span>
-                  </p>
-
-                  <button className="border border-white hover:bg-white hover:bg-opacity-10 text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                  <button className="border border-white text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 w-fit cursor-pointer">
                     Read Case Study <span>→</span>
                   </button>
                 </div>
 
-                {/* Right side - larger image */}
-                <div className="hidden lg:flex flex-col items-start ml-4">
+                {/* Right side - image and info - moved slightly left */}
+                <div className="hidden lg:flex flex-col items-center ml-2">
                   <img
-                    src={testimonials[0].avatar}
-                    alt={testimonials[0].name}
-                    className="w-32 h-32 rounded-full border-4 border-white object-cover mb-4"
+                    src={currentTestimonial.avatar}
+                    alt={currentTestimonial.name}
+                    className="w-32 h-32 rounded-full border-4 border-white object-cover mb-4 transition-all duration-500"
                   />
-                  <div className="text-left">
-                    <div className="text-lg">
-                      {" "}
-                      {/* Removed font-semibold */}
-                      {testimonials[0].name}, {testimonials[0].title}
+                  <div className="text-center">
+                    <h3 className="text-lg font-semibold">
+                      {currentTestimonial.name}
+                      {isShortTitle ? `, ${currentTestimonial.title}` : ""}
+                    </h3>
+                    {!isShortTitle && (
+                      <p className="text-sm opacity-90">
+                        {currentTestimonial.title}
+                      </p>
+                    )}
+                    {currentTestimonial.company && (
+                      <div className="flex justify-center">
+                        <img
+                          src={currentTestimonial.company}
+                          alt="Company logo"
+                          className="h-32 w-auto object-contain flex-shrink-0"
+                          onError={(e) => {
+                            e.target.style.display = "none";
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Mobile view - bottom info */}
+                <div className="lg:hidden absolute bottom-8 left-8 flex items-center gap-3">
+                  <img
+                    src={currentTestimonial.avatar}
+                    alt={currentTestimonial.name}
+                    className="w-12 h-12 rounded-full border-2 border-white object-cover"
+                  />
+                  <div>
+                    <div className="text-sm">
+                      {currentTestimonial.name}
+                      {isShortTitle ? `, ${currentTestimonial.title}` : ""}
                     </div>
-                    <div className="text-white font-bold text-lg mt-1">
-                      {testimonials[0].company}
-                    </div>
+                    {!isShortTitle && (
+                      <div className="text-sm opacity-90">
+                        {currentTestimonial.title}
+                      </div>
+                    )}
+                    {currentTestimonial.company && (
+                      <div className="mt-1">
+                        <img
+                          src={currentTestimonial.company}
+                          alt="Company logo"
+                          className="h-6 object-contain"
+                          onError={(e) => {
+                            e.target.style.display = "none";
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -190,71 +297,29 @@ const Testimonials = () => {
               {/* Background decoration */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full opacity-10 -translate-y-32 translate-x-32"></div>
             </div>
-          </div>
 
-          {/* Two smaller testimonials */}
-          {testimonials.slice(1).map((testimonial, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-2xl text-white relative overflow-hidden"
-            >
-              <div className="relative z-10">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {testimonial.tags.map((tag, i) => (
-                    <Badge key={i} tag={tag} />
-                  ))}
-                </div>
-
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 text-yellow-400 fill-current"
-                    />
-                  ))}
-                </div>
-
-                <p className="mb-6">
-                  <span className="text-lg font-bold block mb-3">
-                    {index === 0
-                      ? "Will truly listened to how and what I need"
-                      : "I look forward to working with him again!"}
-                  </span>
-                  <span className="text-base leading-relaxed">
-                    {index === 0
-                      ? "Will truly listened to how and what I needed from a business plan and made it work for me. Truly exceptional work removing dozens of hours of work from my plate."
-                      : "I can't see enough wonderful things about him he's just absolutely the best when it comes to optimizing linkedin and discussing business plans."}
-                  </span>
-                </p>
-
-                <div className="flex items-center gap-3 mb-2">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full border-2 border-white object-cover"
-                  />
-                  <div>
-                    <div className="text-sm">
-                      {" "}
-                      {/* Removed font-semibold */}
-                      {testimonial.name}, {testimonial.title}
-                    </div>
-                    <div className="text-sm font-bold">
-                      {" "}
-                      {/* Added font-bold */}
-                      {testimonial.company}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Background decoration */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full opacity-10 -translate-y-16 translate-x-16"></div>
+            {/* Dots Indicator */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                    index === currentIndex
+                      ? "bg-blue-600 w-8"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Client Logos Section */}
+      <ClientLogos />
+    </>
   );
 };
 

@@ -11,12 +11,12 @@ const Hero = () => {
           <h1 className="text-6xl md:text-5xl font-bold text-white mb-6 leading-none whitespace-nowrap">
             Build Faster. Raise Smarter. Lead Better.
           </h1>
-          <p className="text-lg text-white mb-8 max-w-3xl mx-auto leading-relaxed text-center">
-            I help ambitious founders and leaders build, fund, and scale
-            remarkable businesses.
-            <br />
-            Get strategic guidance from a proven operator who has been in the
-            trenches, from global corporations to multiple startup exits.
+          <p className="text-md text-white mb-8 max-w-3xl mx-auto leading-relaxed text-center">
+            Impact Change is a consultancy dedicated to helping ambitious
+            founders and leaders build, <br /> fund, and scale remarkable
+            businesses. We provide strategic guidance rooted in real-world
+            experience from leading global corporations to achieving multiple
+            startup exits.
           </p>
           <button className="bg-white text-black px-8 py-3 rounded-lg text-xl font-semibold inline-flex items-center group cursor-pointer hover:bg-blue-50 transition-colors">
             Start Your Project

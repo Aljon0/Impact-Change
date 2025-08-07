@@ -19,7 +19,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-[#131e3D] mb-6">
               About Will Bryant
             </h2>
-            <p className="text-lg text-[#4a4949] mb-6 leading-relaxed">
+            <p className="text-lg text-black mb-6 leading-relaxed italic">
               <span>
                 You have the <span className="font-bold">ambition</span>. I have
                 the <span className="font-bold">roadmap</span>.

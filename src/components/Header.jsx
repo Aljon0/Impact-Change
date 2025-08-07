@@ -50,47 +50,9 @@ const Header = () => {
             <div className="flex items-center space-x-8">
               {/* About Dropdown */}
               <div className="relative">
-                <button
-                  onClick={() => toggleDropdown("about")}
-                  className="flex items-center text-[#131e3D] cursor-pointer"
-                >
+                <button className="flex items-center text-[#131e3D] cursor-pointer">
                   About
-                  <svg
-                    className="ml-1 h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
                 </button>
-                {dropdowns.about && (
-                  <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                    <a
-                      href="#our-story"
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                    >
-                      Our Story
-                    </a>
-                    <a
-                      href="#team"
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                    >
-                      Team
-                    </a>
-                    <a
-                      href="#mission"
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                    >
-                      Mission
-                    </a>
-                  </div>
-                )}
               </div>
 
               {/* Services Dropdown */}

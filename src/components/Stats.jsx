@@ -16,7 +16,7 @@ const Stats = () => {
               <img
                 src="/HomePage/Star.png"
                 alt="Star icon"
-                className="w-8 h-8"
+                className="w-16 h-16"
               />
             </div>
             <div className="text-4xl font-bold text-white mb-2">5.0 Stars</div>
@@ -28,7 +28,7 @@ const Stats = () => {
               <img
                 src="/HomePage/Dollar.png"
                 alt="Dollar icon"
-                className="w-8 h-8"
+                className="w-16 h-16"
               />
             </div>
             <div className="text-4xl font-bold text-white mb-2">
@@ -39,7 +39,7 @@ const Stats = () => {
 
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <img src="/HomePage/User.png" alt="User" className="w-8 h-8" />
+              <img src="/HomePage/User.png" alt="User" className="w-16 h-16" />
             </div>
             <div className="text-4xl font-bold text-white mb-2">1,500+</div>
             <div className="text-blue-100">Founders Coached & Supported</div>
@@ -50,7 +50,7 @@ const Stats = () => {
               <img
                 src="/HomePage/Achievement.png"
                 alt="Achievement icon"
-                className="w-8 h-8"
+                className="w-16 h-16"
               />
             </div>
             <div className="text-4xl font-bold text-white mb-2">2</div>
