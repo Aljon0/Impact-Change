@@ -320,12 +320,35 @@ const Testimonials = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center px-4 py-2 mb-6">
-              <img
-                src="/HomePage/ClientWins.png"
-                alt="Client Wins"
-                className="h-16"
-              />
+            <div className="inline-flex items-center justify-center px-6 py-3 mb-6">
+              <div className="relative">
+                {/* Main badge container */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-full px-6 py-2 shadow-sm">
+                  <div className="flex items-center space-x-3">
+                    {/* Trophy/Star icon */}
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md">
+                      <svg
+                        className="w-5 h-5 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                    </div>
+
+                    {/* Text */}
+                    <span className="text-blue-700 font-semibold text-lg tracking-wide">
+                      Client Wins
+                    </span>
+
+                    {/* Decorative element */}
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full blur-lg opacity-20 -z-10 scale-110"></div>
+              </div>
             </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Founders choose us for the speed,
