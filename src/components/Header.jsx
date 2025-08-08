@@ -35,28 +35,24 @@ const Header = () => {
             className="flex items-center hover:opacity-80 transition-opacity duration-200"
           >
             <img
-              src="/Logo2.png"
+              src="/ImpactChange.png"
               alt="Impact Change Logo"
-              className="h-16 w-auto"
+              className="h-8 w-auto"
             />
-            <div className="flex flex-col leading-tight">
-              <span className="text-xl font-bold italic text-[#131e3D] ml-4">
-                IMPACT
-              </span>
-              <span className="text-xl font-bold italic text-[#131e3D]">
-                CHANGE
-              </span>
-            </div>
           </Link>
 
           {/* Centered Navigation */}
           <nav className="hidden md:flex items-center justify-center flex-1 mx-8">
             <div className="flex items-center space-x-8">
-              {/* About Dropdown */}
+              {/* About Link */}
               <div className="relative">
-                <button className="flex items-center text-[#131e3D] cursor-pointer hover:text-blue-600 transition-colors">
+                <Link
+                  to="/about"
+                  className="flex items-center text-[#131e3D] cursor-pointer hover:text-blue-600 transition-colors"
+                  onClick={closeAllDropdowns}
+                >
                   About
-                </button>
+                </Link>
               </div>
 
               {/* Services Dropdown */}
@@ -81,24 +77,24 @@ const Header = () => {
                   </svg>
                 </button>
                 {dropdowns.services && (
-                  <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                  <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-10">
                     <a
-                      href="#consulting"
+                      href="#strategic-business-coaching"
                       className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
-                      Consulting
+                      Strategic Business & Startup Coaching
                     </a>
                     <a
-                      href="#development"
+                      href="#investor-readiness"
                       className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
-                      Development
+                      Investor Readiness & Fundraising Documents
                     </a>
                     <a
-                      href="#strategy"
+                      href="#professional-branding"
                       className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
-                      Strategy
+                      Professional Branding & Career Coaching
                     </a>
                   </div>
                 )}

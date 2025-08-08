@@ -5,19 +5,18 @@ const TermsPrivacyModal = ({ onAccept }) => {
   const [hasAccepted, setHasAccepted] = useState(false);
 
   useEffect(() => {
-    // Check if terms were already accepted (using in-memory storage for Claude.ai compatibility)
-    // In a real application, you would use localStorage here
+    // Check if terms were already accepted
     const checkAccepted = () => {
       try {
-        // For demo purposes, we'll assume not accepted initially
-        // Replace this with localStorage.getItem("termsPrivacyAccepted") in production
-        const accepted = false;
+        const accepted =
+          localStorage.getItem("termsPrivacyAccepted") === "true";
         if (accepted) {
           setHasAccepted(true);
           if (onAccept) onAccept();
         }
       } catch (error) {
         console.warn("Storage not available");
+        // Don't auto-accept if storage fails
       }
     };
 
@@ -26,9 +25,7 @@ const TermsPrivacyModal = ({ onAccept }) => {
 
   const handleAccept = () => {
     try {
-      // For demo purposes, we'll just set local state
-      // Replace this with localStorage.setItem("termsPrivacyAccepted", "true") in production
-      console.log("Terms accepted - would save to localStorage in production");
+      localStorage.setItem("termsPrivacyAccepted", "true");
     } catch (error) {
       console.warn("Storage not available");
     }
@@ -55,7 +52,7 @@ const TermsPrivacyModal = ({ onAccept }) => {
         {/* Tabs */}
         <div className="flex border-b border-gray-200">
           <button
-            className={`flex-1 py-3 px-6 text-center font-medium transition-colors ${
+            className={`flex-1 py-3 px-6 text-center font-medium transition-colors cursor-pointer ${
               activeTab === "terms"
                 ? "bg-blue-50 text-blue-700 border-b-2 border-blue-700"
                 : "text-gray-600 hover:text-blue-700"
@@ -65,7 +62,7 @@ const TermsPrivacyModal = ({ onAccept }) => {
             Terms & Conditions
           </button>
           <button
-            className={`flex-1 py-3 px-6 text-center font-medium transition-colors ${
+            className={`flex-1 py-3 px-6 text-center font-medium transition-colors cursor-pointer ${
               activeTab === "privacy"
                 ? "bg-blue-50 text-blue-700 border-b-2 border-blue-700"
                 : "text-gray-600 hover:text-blue-700"
@@ -306,7 +303,7 @@ const TermsPrivacyModal = ({ onAccept }) => {
           </p>
           <button
             onClick={handleAccept}
-            className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+            className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 cursor-pointer"
           >
             Accept All
           </button>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -9,18 +10,10 @@ const Footer = () => {
           <div className="flex-1 max-w-sm">
             <div className="flex items-center mb-6">
               <img
-                src="/Logo2.png"
+                src="/ImpactChange.png"
                 alt="Impact Change Logo"
-                className="h-16 w-auto"
+                className="h-8 w-auto"
               />
-              <div className="flex flex-col leading-tight">
-                <span className="text-xl font-bold italic text-[#131e3D] ml-4">
-                  IMPACT
-                </span>
-                <span className="text-xl font-bold italic text-[#131e3D]">
-                  CHANGE
-                </span>
-              </div>
             </div>
             <p className="text-[#4a4949] text-sm leading-relaxed italic">
               Great ideas deserve great execution. If you're ready to move
@@ -117,28 +110,28 @@ const Footer = () => {
             <div className="min-w-max">
               <h3 className="text-lg font-bold text-blue-600 mb-4">Services</h3>
               <div className="space-y-1">
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Market Research
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Pitch Deck Creation
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Pitch Deck Redesign
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Investor One-Pager
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Business Plan Writing
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   LinkedIn Profile Optimization
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   LinkedIn Page Setup
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Fundraising Document Prep
                 </div>
               </div>
@@ -148,18 +141,33 @@ const Footer = () => {
             <div className="min-w-max">
               <h3 className="text-lg font-bold text-blue-600 mb-4">Company</h3>
               <div className="space-y-1">
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   About
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Case Studies
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Testimonials
                 </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600 cursor-pointer">
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Resources
                 </div>
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
+                  Contact Us
+                </div>
+                <Link
+                  to="/terms"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Terms & Condition
+                </Link>
+                <Link
+                  to="/privacy"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Privacy Policy
+                </Link>
               </div>
             </div>
           </div>

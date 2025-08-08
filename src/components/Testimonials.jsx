@@ -1,8 +1,13 @@
 import {
+  Briefcase,
   Building2,
   ChevronLeft,
   ChevronRight,
+  Linkedin,
+  Presentation,
+  Search,
   Star,
+  User,
   UtensilsCrossed,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -42,7 +47,6 @@ const Testimonials = () => {
         },
         { label: "Wellness", icon: "💚", variant: "green" },
       ],
-      // Add custom formatting for this testimonial
       customFormatting: {
         boldText: "Will truly listened to how and what I need",
         normalText:
@@ -66,38 +70,101 @@ const Testimonials = () => {
       ],
     },
     {
-      text: "This is my second experience with this incredible service, and I must say, it feels like a dream come true for any startup. The ability to transform my concepts into a professional presentation, complete with clear and realistic visuals, is truly invaluable. I can already envision returning to this service time and again. The quality of work is exceptional, reflecting a high level of professionalism, and the communication has been outstanding. They address all feedback promptly and thoroughly, ensuring that every detail is accounted for. The research exceeds expectations in providing accurate facts.",
+      text: "Beyond satisfied with the time we shared with William! Whom ever is considering purchasing his services needs not to hesitate and go straight ahead and booked a date and time. We will put the work in to move forward with our projects and set a new meeting with William to receive valuable insight on how to keep going! Thanks again William, Anna & Alejandro.",
       name: "Anna",
-      title: "",
-      company: "",
-      companyIcon: "",
-      avatar: "/HomePage/Anna.png",
+      title: "Business Owner",
+      company: null,
+      companyIcon: null,
+      avatar: null,
       tags: [
         {
-          label: "Funding Pitch Presentation",
-          icon: "",
+          label: "Expert Business Consultant",
+          icon: "briefcase",
           variant: "blue",
         },
         { label: "Startup", icon: "🚀", variant: "green" },
       ],
     },
     {
-      text: "Working with Will Bryant was a FANTASTIC experience! Not only was his expertise in strategic business planning but he also amazed with his quick responsiveness and polite demeanor. His ENERGY and motivation are infectious, and he truly understands how to guide and motivate clients—HIGHLY recommended! 😊",
-      name: "kmondragones",
-      title: "",
-      company: "",
-      companyIcon: "",
-      avatar: "",
+      text: "Will went above and beyond to understand my specific situation, who I was and what I have done. But beyond that helped me see what I could achieve which I was not aware of with a specific action plan not just advice. I would highly recommend Will, it was incredibly valuable working with him.",
+      name: "Phillip Trevilli",
+      title: "Professional",
+      company: null,
+      companyIcon: null,
+      avatar: null,
       tags: [
         {
-          label: "Startup Adviser & Mentor",
-          icon: "",
+          label: "Career Consulting",
+          icon: "user",
           variant: "blue",
         },
-        { label: "Business Strategy", icon: "💼", variant: "green" },
+        { label: "Entrepreneurship", icon: "🚀", variant: "green" },
       ],
     },
-    {},
+    {
+      text: "Working with Will Bryant was an absolute delight! His keen attention to detail and exceptional data interpretation skills surpassed all expectations. His DEEP UNDERSTANDING and cooperative spirit, coupled with his strategic insights, made our short 30-minute session incredibly productive—I'm walking away with BRILLIANT ideas for immediate implementation. 🙌 Highly recommend! ",
+      name: "nitzanco",
+      title: "Business Analyst",
+      company: null,
+      companyIcon: null,
+      avatar: null,
+      tags: [
+        {
+          label: "Business Strategy & Innovation",
+          icon: "search",
+          variant: "blue",
+        },
+        { label: "Business", icon: "💼", variant: "green" },
+      ],
+    },
+    {
+      text: "This is my second experience with this incredible service, and I must say, it feels like a dream come true for any startup. The ability to transform my concepts into a professional presentation, complete with clear and realistic visuals, is truly invaluable. I can already envision returning to this service...",
+      name: "Anna Martinez",
+      title: "Startup Founder",
+      company: null,
+      companyIcon: null,
+      avatar: null,
+      tags: [
+        {
+          label: "Funding Pitch Presentation",
+          icon: "presentation",
+          variant: "blue",
+        },
+        { label: "Startup", icon: "🚀", variant: "green" },
+      ],
+    },
+    {
+      text: "Will was absolutely fantastic to work with. I had the opportunity to speak with Will before he started my project so that he knew exactly what I wanted. His work was of very high quality, and his communication was excellent; I strongly recommend Will.",
+      name: "Jamm",
+      title: "Professional",
+      company: null,
+      companyIcon: null,
+      avatar: null,
+      tags: [
+        {
+          label: "Linkedin Profile",
+          icon: "linkedin",
+          variant: "blue",
+        },
+        { label: "Professional Branding", icon: "💼", variant: "green" },
+      ],
+    },
+    {
+      text: "Working with Will Bryant in Career Counseling was an outstanding experience! His attention to detail and PROFESSIONALISM exceeded my expectations, and his quick responsiveness and deep understanding truly made a difference. Will went above and beyond in every aspect—highly recommended! 👏",
+      name: "Kaufman JJ",
+      title: "Job Seeker",
+      company: null,
+      companyIcon: null,
+      avatar: null,
+      tags: [
+        {
+          label: "Interview Prep",
+          icon: "user",
+          variant: "blue",
+        },
+        { label: "Career Counseling", icon: "💼", variant: "green" },
+      ],
+    },
   ];
 
   // Auto-rotate testimonials every 5 seconds
@@ -123,6 +190,31 @@ const Testimonials = () => {
     );
   };
 
+  // Function to generate initials from name
+  const getInitials = (name) => {
+    return name
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase())
+      .join("")
+      .slice(0, 2); // Limit to 2 characters
+  };
+
+  // Function to generate avatar background color based on name
+  const getAvatarColor = (name) => {
+    const colors = [
+      "bg-blue-500",
+      "bg-green-500",
+      "bg-purple-500",
+      "bg-red-500",
+      "bg-yellow-500",
+      "bg-pink-500",
+      "bg-indigo-500",
+      "bg-teal-500",
+    ];
+    const index = name.length % colors.length;
+    return colors[index];
+  };
+
   const Badge = ({ tag }) => {
     const baseClasses =
       "inline-flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium";
@@ -134,18 +226,39 @@ const Testimonials = () => {
     const isEmoji =
       typeof tag.icon === "string" &&
       !tag.icon.includes(".svg") &&
-      tag.icon !== "spoon-fork" &&
-      tag.icon !== "buildings";
+      ![
+        "spoon-fork",
+        "buildings",
+        "briefcase",
+        "user",
+        "search",
+        "presentation",
+        "linkedin",
+      ].includes(tag.icon);
 
     const renderIcon = () => {
-      if (tag.icon === "spoon-fork") {
-        return <UtensilsCrossed className="w-3 h-3 text-white" />;
-      } else if (tag.icon === "buildings") {
-        return <Building2 className="w-3 h-3 text-white" />;
-      } else if (isEmoji) {
-        return <span>{tag.icon}</span>;
-      } else {
-        return <img src={tag.icon} alt={tag.label} className="w-3 h-3" />;
+      switch (tag.icon) {
+        case "spoon-fork":
+          return <UtensilsCrossed className="w-3 h-3 text-white" />;
+        case "buildings":
+          return <Building2 className="w-3 h-3 text-white" />;
+        case "briefcase":
+          return <Briefcase className="w-3 h-3 text-white" />;
+        case "user":
+          return <User className="w-3 h-3 text-white" />;
+        case "search":
+          return <Search className="w-3 h-3 text-white" />;
+        case "presentation":
+          return <Presentation className="w-3 h-3 text-white" />;
+        case "linkedin":
+          return <Linkedin className="w-3 h-3 text-white" />;
+        default:
+          if (isEmoji) {
+            return <span>{tag.icon}</span>;
+          } else if (tag.icon) {
+            return <img src={tag.icon} alt={tag.label} className="w-3 h-3" />;
+          }
+          return null;
       }
     };
 
@@ -167,10 +280,39 @@ const Testimonials = () => {
   };
 
   const currentTestimonial = testimonials[currentIndex];
-  const isShortTitle = currentTestimonial.title.split(" ").length <= 1;
+  const isShortTitle =
+    currentTestimonial.title && currentTestimonial.title.split(" ").length <= 1;
   const { firstSentence, remainingText } = getFormattedText(
     currentTestimonial.text
   );
+
+  // Avatar component that handles both image and initials
+  const Avatar = ({ testimonial, size = "large" }) => {
+    const sizeClasses = {
+      large: "w-32 h-32 text-2xl",
+      small: "w-12 h-12 text-sm",
+    };
+
+    if (testimonial.avatar) {
+      return (
+        <img
+          src={testimonial.avatar}
+          alt={testimonial.name}
+          className={`${sizeClasses[size]} rounded-full border-4 border-white object-cover transition-all duration-500`}
+        />
+      );
+    }
+
+    return (
+      <div
+        className={`${sizeClasses[size]} ${getAvatarColor(
+          testimonial.name
+        )} rounded-full border-4 border-white flex items-center justify-center font-bold text-white transition-all duration-500`}
+      >
+        {getInitials(testimonial.name)}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -197,7 +339,7 @@ const Testimonials = () => {
             {/* Navigation Buttons - Outside the container */}
             <button
               onClick={goToPrevious}
-              className="absolute -left-16 top-1/2 -translate-y-1/2 z-20 bg-blue-600  text-white p-3 rounded-full shadow-lg border border-gray-200 cursor-pointer"
+              className="absolute -left-16 top-1/2 -translate-y-1/2 z-20 bg-blue-600 text-white p-3 rounded-full shadow-lg border border-gray-200 cursor-pointer"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -262,25 +404,21 @@ const Testimonials = () => {
                   </button>
                 </div>
 
-                {/* Right side - image and info - moved slightly left */}
+                {/* Right side - image and info */}
                 <div className="hidden lg:flex flex-col items-center ml-2">
-                  <img
-                    src={currentTestimonial.avatar}
-                    alt={currentTestimonial.name}
-                    className="w-32 h-32 rounded-full border-4 border-white object-cover mb-4 transition-all duration-500"
-                  />
-                  <div className="text-center">
+                  <Avatar testimonial={currentTestimonial} size="large" />
+                  <div className="text-center mt-4">
                     <h3 className="text-lg font-semibold">
                       {currentTestimonial.name}
                       {isShortTitle ? `, ${currentTestimonial.title}` : ""}
                     </h3>
-                    {!isShortTitle && (
+                    {!isShortTitle && currentTestimonial.title && (
                       <p className="text-sm opacity-90">
                         {currentTestimonial.title}
                       </p>
                     )}
                     {currentTestimonial.company && (
-                      <div className="flex justify-center">
+                      <div className="flex justify-center mt-2">
                         <img
                           src={currentTestimonial.company}
                           alt="Company logo"
@@ -296,17 +434,13 @@ const Testimonials = () => {
 
                 {/* Mobile view - bottom info */}
                 <div className="lg:hidden absolute bottom-8 left-8 flex items-center gap-3">
-                  <img
-                    src={currentTestimonial.avatar}
-                    alt={currentTestimonial.name}
-                    className="w-12 h-12 rounded-full border-2 border-white object-cover"
-                  />
+                  <Avatar testimonial={currentTestimonial} size="small" />
                   <div>
                     <div className="text-sm">
                       {currentTestimonial.name}
                       {isShortTitle ? `, ${currentTestimonial.title}` : ""}
                     </div>
-                    {!isShortTitle && (
+                    {!isShortTitle && currentTestimonial.title && (
                       <div className="text-sm opacity-90">
                         {currentTestimonial.title}
                       </div>
