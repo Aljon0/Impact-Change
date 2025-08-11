@@ -1,48 +1,39 @@
 import React from "react";
 
 const TrustBar = () => {
-  // Combine all logos into a single continuous marquee
-  // TrustedBy logos (larger, more prominent)
-  const trustedByLogos = [
+  // All logos will now be the same size ("large")
+  const allLogos = [
     {
       src: "/HomePage/AmericanExpress.png",
       alt: "American Express",
-      size: "large",
     },
-    { src: "/HomePage/Fresha.png", alt: "Fresha", size: "large" },
-    { src: "/HomePage/Quandoo.png", alt: "Quandoo", size: "large" },
-    { src: "/HomePage/Reztorer.png", alt: "REZTORER", size: "large" },
-    { src: "/HomePage/cake.png", alt: "Cake", size: "large" },
-  ];
-
-  // ClientLogos (smaller)
-  const clientLogos = [
-    { src: "/HomePage/Birrdi.png", alt: "Birrdi", size: "small" },
-    { src: "/HomePage/WS.png", alt: "WS", size: "small" },
-    { src: "/HomePage/TSS.png", alt: "TSS", size: "small" },
-    { src: "/HomePage/BDA.png", alt: "BDA", size: "small" },
-    { src: "/HomePage/AR.png", alt: "AR", size: "small" },
-    { src: "/HomePage/CANCS.png", alt: "CANCS", size: "small" },
-    { src: "/HomePage/DETELIO.png", alt: "DETELIO", size: "small" },
-    { src: "/HomePage/LLC.png", alt: "LLC", size: "small" },
-    { src: "/HomePage/LISTRA.png", alt: "LISTRA", size: "small" },
+    { src: "/HomePage/Fresha.png", alt: "Fresha" },
+    { src: "/HomePage/Quandoo.png", alt: "Quandoo" },
+    { src: "/HomePage/Reztorer.png", alt: "REZTORER" },
+    { src: "/HomePage/cake.png", alt: "Cake" },
+    { src: "/HomePage/Birrdi.png", alt: "Birrdi" },
+    { src: "/HomePage/WS.png", alt: "WS" },
+    { src: "/HomePage/TSS.png", alt: "TSS" },
+    { src: "/HomePage/BDA.png", alt: "BDA" },
+    { src: "/HomePage/AR.png", alt: "AR" },
+    { src: "/HomePage/CANCS.png", alt: "CANCS" },
+    { src: "/HomePage/DETELIO.png", alt: "DETELIO" },
+    { src: "/HomePage/LLC.png", alt: "LLC" },
+    { src: "/HomePage/LISTRA.png", alt: "LISTRA" },
     {
       src: "/HomePage/AttivoWellness.png",
       alt: "Attivo Wellness",
-      size: "small",
     },
-    { src: "/HomePage/BIRD.png", alt: "BIRD", size: "small" },
-    { src: "/HomePage/BEAUTIFY.png", alt: "BEAUTIFY", size: "small" },
-    { src: "/HomePage/OOM.png", alt: "OOM", size: "small" },
-    { src: "/HomePage/LOGIX.png", alt: "LOGIX", size: "small" },
-    { src: "/HomePage/BONSAI.png", alt: "BONSAI", size: "small" },
-    { src: "/HomePage/UP.png", alt: "UP", size: "small" },
-    { src: "/HomePage/TANOIA.png", alt: "TANOIA", size: "small" },
-    { src: "/HomePage/HF.png", alt: "HF", size: "small" },
+    { src: "/HomePage/BIRD.png", alt: "BIRD" },
+    { src: "/HomePage/BEAUTIFY.png", alt: "BEAUTIFY" },
+    { src: "/HomePage/OOM.png", alt: "OOM" },
+    { src: "/HomePage/LOGIX.png", alt: "LOGIX" },
+    { src: "/HomePage/BONSAI.png", alt: "BONSAI" },
+    { src: "/HomePage/UP.png", alt: "UP" },
+    { src: "/HomePage/TANOIA.png", alt: "TANOIA" },
+    { src: "/HomePage/HF.png", alt: "HF" },
   ];
 
-  // Combine all logos for the continuous marquee
-  const allLogos = [...trustedByLogos, ...clientLogos];
   const totalLogos = allLogos.length;
 
   return (
@@ -57,21 +48,19 @@ const TrustBar = () => {
               {allLogos.map((logo, index) => (
                 <div
                   key={index}
-                  className={`flex-shrink-0 flex items-center justify-center px-8 ${
-                    logo.size === "large" ? "w-64 h-32" : "w-48 h-24"
-                  }`}
+                  className="flex-shrink-0 flex items-center justify-center px-10 w-72 h-32"
                 >
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className={`${
-                      logo.size === "large" ? "w-56" : "max-w-full max-h-full"
-                    } h-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300`}
-                    onError={(e) => {
-                      console.log(`Failed to load image: ${logo.src}`);
-                      e.target.style.display = "none";
-                    }}
-                  />
+                  <div className="flex items-center justify-center w-64 h-full">
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="max-h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                      onError={(e) => {
+                        console.log(`Failed to load image: ${logo.src}`);
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
 
@@ -79,21 +68,19 @@ const TrustBar = () => {
               {allLogos.map((logo, index) => (
                 <div
                   key={`duplicate-${index}`}
-                  className={`flex-shrink-0 flex items-center justify-center px-8 ${
-                    logo.size === "large" ? "w-64 h-32" : "w-48 h-24"
-                  }`}
+                  className="flex-shrink-0 flex items-center justify-center px-10 w-72 h-32"
                 >
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className={`${
-                      logo.size === "large" ? "w-56" : "max-w-full max-h-full"
-                    } h-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300`}
-                    onError={(e) => {
-                      console.log(`Failed to load image: ${logo.src}`);
-                      e.target.style.display = "none";
-                    }}
-                  />
+                  <div className="flex items-center justify-center w-64 h-full">
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="max-h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                      onError={(e) => {
+                        console.log(`Failed to load image: ${logo.src}`);
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
