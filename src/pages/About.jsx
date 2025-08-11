@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ClientLogos from "../components/ClientLogos";
 import Footer from "../components/Footer";
-import TrustedBy from "../components/TrustedBy";
+import TrustBar from "../components/TrustBar";
+
 const About = () => {
   const [activeTimelineItem, setActiveTimelineItem] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -112,7 +112,7 @@ const About = () => {
         </div>
       </section>
 
-      <TrustedBy />
+      <TrustBar />
 
       {/* Story Section with Creative Layout */}
       <section id="journey" className="py-20 bg-white relative">
@@ -363,7 +363,6 @@ const About = () => {
         </div>
       </section>
 
-      <ClientLogos />
       <Footer />
     </>
   );

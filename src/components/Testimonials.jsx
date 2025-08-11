@@ -11,7 +11,7 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import ClientLogos from "./ClientLogos";
+import TrustBar from "./TrustBar";
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -507,8 +507,7 @@ const Testimonials = () => {
         </div>
       </section>
 
-      {/* Client Logos Section */}
-      <ClientLogos />
+      <TrustBar />
     </>
   );
 };

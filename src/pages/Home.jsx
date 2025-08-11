@@ -6,16 +6,16 @@ import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Stats from "../components/Stats";
 import Testimonials from "../components/Testimonials";
-import TrustedBy from "../components/TrustedBy";
+import TrustBar from "../components/TrustBar";
 
 const Home = () => {
   return (
     <>
       <Hero />
-      <TrustedBy />
+      <TrustBar />
+      <Stats />
       <About />
       <Services />
-      <Stats />
       <Testimonials />
       <FinalCTA />
       <Footer />

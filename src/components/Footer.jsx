@@ -111,28 +111,16 @@ const Footer = () => {
               <h3 className="text-lg font-bold text-blue-600 mb-4">Services</h3>
               <div className="space-y-1">
                 <div className="text-[#4a4949] text-sm hover:text-blue-600">
+                  Pitch Decks
+                </div>
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
+                  Business Plans
+                </div>
+                <div className="text-[#4a4949] text-sm hover:text-blue-600">
                   Market Research
                 </div>
                 <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Pitch Deck Creation
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Pitch Deck Redesign
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Investor One-Pager
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Business Plan Writing
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  LinkedIn Profile Optimization
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  LinkedIn Page Setup
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Fundraising Document Prep
+                  Consulting
                 </div>
               </div>
             </div>

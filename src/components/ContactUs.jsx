@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TrustedBy from "../components/TrustedBy";
+import TrustBar from "./TrustBar";
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -164,7 +164,7 @@ const ContactUs = () => {
         </div>
       </section>
 
-      <TrustedBy />
+      <TrustBar />
 
       {/* Enhanced Contact Form Section - White background like About page */}
       <section className="py-20 bg-white relative">
