@@ -99,7 +99,7 @@ const Services = () => {
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
                   />
 
                   {/* Floating animated orbs */}

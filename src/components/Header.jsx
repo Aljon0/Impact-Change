@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const [dropdowns, setDropdowns] = useState({
-    about: false,
     services: false,
-    caseStudies: false,
-    resources: false,
+    work: false,
+    reviews: false,
+    process: false,
   });
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -22,20 +22,20 @@ const Header = () => {
 
   const toggleDropdown = (dropdown) => {
     setDropdowns((prev) => ({
-      about: false,
       services: false,
-      caseStudies: false,
-      resources: false,
+      work: false,
+      reviews: false,
+      process: false,
       [dropdown]: !prev[dropdown],
     }));
   };
 
   const closeAllDropdowns = () => {
     setDropdowns({
-      about: false,
       services: false,
-      caseStudies: false,
-      resources: false,
+      work: false,
+      reviews: false,
+      process: false,
     });
   };
 
@@ -123,19 +123,19 @@ const Header = () => {
           {/* Centered Navigation */}
           <nav className="hidden md:flex items-center justify-center flex-1 mx-8">
             <div className="flex items-center space-x-8">
-              {/* About Link */}
+              {/* Home Link */}
               <div className="relative">
                 <Link
-                  to="/about"
+                  to="/"
                   className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
                   onClick={closeAllDropdowns}
-                  onMouseEnter={() => setHoveredItem("about")}
+                  onMouseEnter={() => setHoveredItem("home")}
                   onMouseLeave={() => setHoveredItem(null)}
                 >
-                  About
+                  Home
                   <div
                     className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
-                      hoveredItem === "about" ? "w-full" : "w-0"
+                      hoveredItem === "home" ? "w-full" : "w-0"
                     }`}
                   ></div>
                 </Link>
@@ -161,106 +161,220 @@ const Header = () => {
                 </button>
                 <AnimatedDropdown isOpen={dropdowns.services}>
                   <DropdownItem
-                    to="/portfolio/pitch-decks"
+                    to="/services/pitch-decks"
                     onClick={closeAllDropdowns}
                   >
                     Pitch Decks
                   </DropdownItem>
                   <DropdownItem
-                    to="/portfolio/business-plans"
+                    to="/services/business-plans"
                     onClick={closeAllDropdowns}
                   >
                     Business Plans
                   </DropdownItem>
                   <DropdownItem
-                    to="/portfolio/market-research"
+                    to="/services/market-research"
                     onClick={closeAllDropdowns}
                   >
                     Market Research
                   </DropdownItem>
-                  <DropdownItem to="/consulting" onClick={closeAllDropdowns}>
+                  <DropdownItem
+                    to="/services/consulting"
+                    onClick={closeAllDropdowns}
+                  >
                     Consulting
                   </DropdownItem>
                 </AnimatedDropdown>
               </div>
 
-              {/* Case Studies Dropdown */}
+              {/* Work Dropdown */}
               <div className="relative">
                 <button
-                  onClick={() => toggleDropdown("caseStudies")}
-                  onMouseEnter={() => setHoveredItem("caseStudies")}
+                  onClick={() => toggleDropdown("work")}
+                  onMouseEnter={() => setHoveredItem("work")}
                   onMouseLeave={() => setHoveredItem(null)}
                   className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
                 >
-                  Case Studies
-                  <DropdownArrow isOpen={dropdowns.caseStudies} />
+                  Work
+                  <DropdownArrow isOpen={dropdowns.work} />
                   <div
                     className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
-                      hoveredItem === "caseStudies" || dropdowns.caseStudies
+                      hoveredItem === "work" || dropdowns.work
                         ? "w-full"
                         : "w-0"
                     }`}
                   ></div>
                 </button>
-                <AnimatedDropdown isOpen={dropdowns.caseStudies} width="w-48">
-                  <DropdownItem href="#portfolio">Portfolio</DropdownItem>
-                  <DropdownItem href="#success-stories">
-                    Success Stories
+                <AnimatedDropdown isOpen={dropdowns.work} width="w-48">
+                  <DropdownItem to="/portfolio" onClick={closeAllDropdowns}>
+                    Portfolio
                   </DropdownItem>
-                  <DropdownItem href="#client-work">Client Work</DropdownItem>
+                  <DropdownItem
+                    to="/work/case-studies"
+                    onClick={closeAllDropdowns}
+                  >
+                    Case Studies
+                  </DropdownItem>
+                  <DropdownItem
+                    to="/work/client-work"
+                    onClick={closeAllDropdowns}
+                  >
+                    Client Work
+                  </DropdownItem>
                 </AnimatedDropdown>
               </div>
 
-              {/* Resources Dropdown */}
+              {/* Reviews Dropdown */}
               <div className="relative">
                 <button
-                  onClick={() => toggleDropdown("resources")}
-                  onMouseEnter={() => setHoveredItem("resources")}
+                  onClick={() => toggleDropdown("reviews")}
+                  onMouseEnter={() => setHoveredItem("reviews")}
                   onMouseLeave={() => setHoveredItem(null)}
                   className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
                 >
-                  Resources
-                  <DropdownArrow isOpen={dropdowns.resources} />
+                  Reviews
+                  <DropdownArrow isOpen={dropdowns.reviews} />
                   <div
                     className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
-                      hoveredItem === "resources" || dropdowns.resources
+                      hoveredItem === "reviews" || dropdowns.reviews
                         ? "w-full"
                         : "w-0"
                     }`}
                   ></div>
                 </button>
-                <AnimatedDropdown isOpen={dropdowns.resources} width="w-48">
-                  <DropdownItem href="#blog">Blog</DropdownItem>
-                  <DropdownItem href="#guides">Guides</DropdownItem>
-                  <DropdownItem href="#downloads">Downloads</DropdownItem>
+                <AnimatedDropdown isOpen={dropdowns.reviews} width="w-48">
+                  <DropdownItem
+                    to="/reviews/testimonials"
+                    onClick={closeAllDropdowns}
+                  >
+                    Testimonials
+                  </DropdownItem>
+                  <DropdownItem
+                    to="/reviews/client-feedback"
+                    onClick={closeAllDropdowns}
+                  >
+                    Client Feedback
+                  </DropdownItem>
+                  <DropdownItem
+                    to="/reviews/success-stories"
+                    onClick={closeAllDropdowns}
+                  >
+                    Success Stories
+                  </DropdownItem>
                 </AnimatedDropdown>
+              </div>
+
+              {/* Process Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => toggleDropdown("process")}
+                  onMouseEnter={() => setHoveredItem("process")}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
+                >
+                  Process
+                  <DropdownArrow isOpen={dropdowns.process} />
+                  <div
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
+                      hoveredItem === "process" || dropdowns.process
+                        ? "w-full"
+                        : "w-0"
+                    }`}
+                  ></div>
+                </button>
+                <AnimatedDropdown isOpen={dropdowns.process} width="w-48">
+                  <DropdownItem
+                    to="/process/how-it-works"
+                    onClick={closeAllDropdowns}
+                  >
+                    How It Works
+                  </DropdownItem>
+                  <DropdownItem
+                    to="/process/methodology"
+                    onClick={closeAllDropdowns}
+                  >
+                    Methodology
+                  </DropdownItem>
+                  <DropdownItem
+                    to="/process/timeline"
+                    onClick={closeAllDropdowns}
+                  >
+                    Timeline
+                  </DropdownItem>
+                </AnimatedDropdown>
+              </div>
+
+              {/* Pricing Link */}
+              <div className="relative">
+                <Link
+                  to="/pricing"
+                  className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
+                  onClick={closeAllDropdowns}
+                  onMouseEnter={() => setHoveredItem("pricing")}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  Pricing
+                  <div
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
+                      hoveredItem === "pricing" ? "w-full" : "w-0"
+                    }`}
+                  ></div>
+                </Link>
+              </div>
+
+              {/* Who we are Link */}
+              <div className="relative">
+                <Link
+                  to="/who-we-are"
+                  className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
+                  onClick={closeAllDropdowns}
+                  onMouseEnter={() => setHoveredItem("about")}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  Who we are
+                  <div
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
+                      hoveredItem === "about" ? "w-full" : "w-0"
+                    }`}
+                  ></div>
+                </Link>
               </div>
             </div>
           </nav>
 
-          {/* Contact Us Button with enhanced animation */}
+          {/* Start Your Project Button with enhanced animation */}
           <Link
             to="/contact"
             className="relative bg-gradient-to-r from-blue-600 to-[#131e3D] text-white px-6 py-2 rounded-lg font-medium cursor-pointer overflow-hidden group transition-all duration-300 ease-out hover:shadow-lg hover:shadow-[#131e3D]/25 hover:-translate-y-0.5"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-[#131e3D] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
             <span className="relative z-10 transition-all duration-300 ease-out group-hover:text-white">
-              Contact Us
+              Start Your Project
             </span>
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-[#131e3D] rounded-lg opacity-0 group-hover:opacity-30 blur transition-all duration-300 ease-out -z-10"></div>
           </Link>
 
           {/* Click outside to close dropdowns */}
-          {(dropdowns.about ||
-            dropdowns.services ||
-            dropdowns.caseStudies ||
-            dropdowns.resources) && (
+          {(dropdowns.services ||
+            dropdowns.work ||
+            dropdowns.reviews ||
+            dropdowns.process) && (
             <div
               className="fixed inset-0 z-0 backdrop-blur-[1px] bg-black/5"
               onClick={closeAllDropdowns}
             ></div>
           )}
         </div>
+      </div>
+
+      {/* Sticky Mobile CTA */}
+      <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
+        <Link
+          to="/contact"
+          className="block w-full bg-gradient-to-r from-blue-600 to-[#131e3D] text-white text-center py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          Start Your Project
+        </Link>
       </div>
 
       {/* Floating particles effect (subtle) */}

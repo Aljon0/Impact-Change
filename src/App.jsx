@@ -1,11 +1,24 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
-import About from "./pages/About";
+import {
+  BusinessPlansPortfolio,
+  MarketResearchPortfolio,
+  PitchDecksPortfolio,
+  Portfolio,
+} from "./components/Portfolio";
+import PricingPage from "./components/PricingPage";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import WhoWeAre from "./pages/WhoWeAre";
 
 function App() {
   return (
@@ -15,10 +28,42 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
+
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/who-we-are" element={<WhoWeAre />} />
+
+          {/* Portfolio Routes */}
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route
+            path="/work/portfolio"
+            element={<Navigate to="/portfolio" replace />}
+          />
+          <Route
+            path="/portfolio/pitch-decks"
+            element={<PitchDecksPortfolio />}
+          />
+          <Route
+            path="/portfolio/business-plans"
+            element={<BusinessPlansPortfolio />}
+          />
+          <Route
+            path="/portfolio/market-research"
+            element={<MarketResearchPortfolio />}
+          />
+
+          {/* Work Routes */}
+          <Route
+            path="/work/case-studies"
+            element={<div>Case Studies Page</div>}
+          />
+          <Route
+            path="/work/client-work"
+            element={<div>Client Work Page</div>}
+          />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

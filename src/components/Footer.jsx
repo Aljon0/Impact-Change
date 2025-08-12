@@ -104,51 +104,76 @@ const Footer = () => {
           {/* Empty space to push content right */}
           <div className="flex-1"></div>
 
-          {/* Services and Company - Right aligned */}
-          <div className="flex space-x-16">
-            {/* Services Section */}
+          {/* Navigation Sections - Right aligned */}
+          <div className="flex space-x-12">
+            {/* Main Navigation */}
             <div className="min-w-max">
-              <h3 className="text-lg font-bold text-blue-600 mb-4">Services</h3>
+              <h3 className="text-lg font-bold text-blue-600 mb-4">
+                Navigation
+              </h3>
               <div className="space-y-1">
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Pitch Decks
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Business Plans
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Market Research
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Consulting
-                </div>
+                <Link
+                  to="/"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/services"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Services
+                </Link>
+                <Link
+                  to="/work"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Work
+                </Link>
+                <Link
+                  to="/reviews"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Reviews
+                </Link>
+                <Link
+                  to="/process"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Process
+                </Link>
+                <Link
+                  to="/pricing"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Pricing
+                </Link>
+                <Link
+                  to="/who-we-are"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Who we are
+                </Link>
               </div>
             </div>
 
-            {/* Company Section */}
+            {/* Legal & Support */}
             <div className="min-w-max">
-              <h3 className="text-lg font-bold text-blue-600 mb-4">Company</h3>
+              <h3 className="text-lg font-bold text-blue-600 mb-4">
+                Legal & Support
+              </h3>
               <div className="space-y-1">
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  About
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Case Studies
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Testimonials
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
-                  Resources
-                </div>
-                <div className="text-[#4a4949] text-sm hover:text-blue-600">
+                <Link
+                  to="/contact"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
                   Contact Us
-                </div>
+                </Link>
                 <Link
                   to="/terms"
                   className="text-[#4a4949] text-sm hover:text-blue-600 block"
                 >
-                  Terms & Condition
+                  Terms & Conditions
                 </Link>
                 <Link
                   to="/privacy"
