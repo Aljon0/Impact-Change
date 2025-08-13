@@ -1,3 +1,4 @@
+// Footer.js
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -141,6 +142,12 @@ const Footer = () => {
                   className="text-[#4a4949] text-sm hover:text-blue-600 block"
                 >
                   Process
+                </Link>
+                <Link
+                  to="/investing"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                >
+                  Investing
                 </Link>
                 <Link
                   to="/pricing"

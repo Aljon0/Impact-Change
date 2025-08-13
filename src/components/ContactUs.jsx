@@ -89,7 +89,7 @@ const ContactUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
             onClick={() => window.history.back()}
-            className="inline-flex items-center text-gray-600 hover:text-[#131e3D] transition-all duration-300 group bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white/80"
+            className="inline-flex items-center text-gray-600 hover:text-[#131e3D] transition-all cursor-pointer duration-300 group bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white/80"
           >
             <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-[#131e3D] group-hover:text-white transition-all duration-300">
               <svg

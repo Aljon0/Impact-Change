@@ -1,12 +1,13 @@
+// Header.js
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const [dropdowns, setDropdowns] = useState({
-    services: false,
     work: false,
     reviews: false,
     process: false,
+    services: false,
   });
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -22,20 +23,20 @@ const Header = () => {
 
   const toggleDropdown = (dropdown) => {
     setDropdowns((prev) => ({
-      services: false,
       work: false,
       reviews: false,
       process: false,
+      services: false,
       [dropdown]: !prev[dropdown],
     }));
   };
 
   const closeAllDropdowns = () => {
     setDropdowns({
-      services: false,
       work: false,
       reviews: false,
       process: false,
+      services: false,
     });
   };
 
@@ -159,30 +160,12 @@ const Header = () => {
                     }`}
                   ></div>
                 </button>
-                <AnimatedDropdown isOpen={dropdowns.services}>
+                <AnimatedDropdown isOpen={dropdowns.services} width="w-64">
                   <DropdownItem
-                    to="/services/pitch-decks"
+                    to="/services/advisor-equity"
                     onClick={closeAllDropdowns}
                   >
-                    Pitch Decks
-                  </DropdownItem>
-                  <DropdownItem
-                    to="/services/business-plans"
-                    onClick={closeAllDropdowns}
-                  >
-                    Business Plans
-                  </DropdownItem>
-                  <DropdownItem
-                    to="/services/market-research"
-                    onClick={closeAllDropdowns}
-                  >
-                    Market Research
-                  </DropdownItem>
-                  <DropdownItem
-                    to="/services/consulting"
-                    onClick={closeAllDropdowns}
-                  >
-                    Consulting
+                    Advisor Equity
                   </DropdownItem>
                 </AnimatedDropdown>
               </div>
@@ -304,6 +287,24 @@ const Header = () => {
                 </AnimatedDropdown>
               </div>
 
+              {/* Investing Link */}
+              <div className="relative">
+                <Link
+                  to="/investing"
+                  className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
+                  onClick={closeAllDropdowns}
+                  onMouseEnter={() => setHoveredItem("investing")}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  Investing
+                  <div
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
+                      hoveredItem === "investing" ? "w-full" : "w-0"
+                    }`}
+                  ></div>
+                </Link>
+              </div>
+
               {/* Pricing Link */}
               <div className="relative">
                 <Link
@@ -355,10 +356,10 @@ const Header = () => {
           </Link>
 
           {/* Click outside to close dropdowns */}
-          {(dropdowns.services ||
-            dropdowns.work ||
+          {(dropdowns.work ||
             dropdowns.reviews ||
-            dropdowns.process) && (
+            dropdowns.process ||
+            dropdowns.services) && (
             <div
               className="fixed inset-0 z-0 backdrop-blur-[1px] bg-black/5"
               onClick={closeAllDropdowns}
