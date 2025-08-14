@@ -198,12 +198,6 @@ const Header = () => {
                   >
                     Case Studies
                   </DropdownItem>
-                  <DropdownItem
-                    to="/work/client-work"
-                    onClick={closeAllDropdowns}
-                  >
-                    Client Work
-                  </DropdownItem>
                 </AnimatedDropdown>
               </div>
 
@@ -226,65 +220,28 @@ const Header = () => {
                   ></div>
                 </button>
                 <AnimatedDropdown isOpen={dropdowns.reviews} width="w-48">
-                  <DropdownItem
-                    to="/reviews/testimonials"
-                    onClick={closeAllDropdowns}
-                  >
+                  <DropdownItem to="/reviews" onClick={closeAllDropdowns}>
                     Testimonials
-                  </DropdownItem>
-                  <DropdownItem
-                    to="/reviews/client-feedback"
-                    onClick={closeAllDropdowns}
-                  >
-                    Client Feedback
-                  </DropdownItem>
-                  <DropdownItem
-                    to="/reviews/success-stories"
-                    onClick={closeAllDropdowns}
-                  >
-                    Success Stories
                   </DropdownItem>
                 </AnimatedDropdown>
               </div>
 
               {/* Process Dropdown */}
               <div className="relative">
-                <button
-                  onClick={() => toggleDropdown("process")}
+                <Link
+                  to="/process"
+                  className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
+                  onClick={closeAllDropdowns}
                   onMouseEnter={() => setHoveredItem("process")}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
                 >
                   Process
-                  <DropdownArrow isOpen={dropdowns.process} />
                   <div
                     className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
-                      hoveredItem === "process" || dropdowns.process
-                        ? "w-full"
-                        : "w-0"
+                      hoveredItem === "process" ? "w-full" : "w-0"
                     }`}
                   ></div>
-                </button>
-                <AnimatedDropdown isOpen={dropdowns.process} width="w-48">
-                  <DropdownItem
-                    to="/process/how-it-works"
-                    onClick={closeAllDropdowns}
-                  >
-                    How It Works
-                  </DropdownItem>
-                  <DropdownItem
-                    to="/process/methodology"
-                    onClick={closeAllDropdowns}
-                  >
-                    Methodology
-                  </DropdownItem>
-                  <DropdownItem
-                    to="/process/timeline"
-                    onClick={closeAllDropdowns}
-                  >
-                    Timeline
-                  </DropdownItem>
-                </AnimatedDropdown>
+                </Link>
               </div>
 
               {/* Investing Link */}

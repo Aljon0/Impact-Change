@@ -17,9 +17,11 @@ import {
   Portfolio,
 } from "./components/Portfolio";
 import PricingPage from "./components/PricingPage";
+import Reviews from "./components/Reviews";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
+import ProcessPage from "./pages/Process";
 import Terms from "./pages/Terms";
 import WhoWeAre from "./pages/WhoWeAre";
 
@@ -36,6 +38,8 @@ function App() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/who-we-are" element={<WhoWeAre />} />
           <Route path="/investing" element={<InvestingStartupsPage />} />
+          <Route path="/Process" element={<ProcessPage />} />
+          <Route path="/Reviews" element={<Reviews />} />
 
           {/* Services Routes */}
           <Route path="/services" element={<div>Services Page</div>} />

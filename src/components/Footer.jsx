@@ -120,13 +120,13 @@ const Footer = () => {
                   Home
                 </Link>
                 <Link
-                  to="/services"
+                  to="/services/advisor-equity"
                   className="text-[#4a4949] text-sm hover:text-blue-600 block"
                 >
                   Services
                 </Link>
                 <Link
-                  to="/work"
+                  to="/work/portfolio"
                   className="text-[#4a4949] text-sm hover:text-blue-600 block"
                 >
                   Work
@@ -138,7 +138,7 @@ const Footer = () => {
                   Reviews
                 </Link>
                 <Link
-                  to="/process"
+                  to="/Process"
                   className="text-[#4a4949] text-sm hover:text-blue-600 block"
                 >
                   Process
