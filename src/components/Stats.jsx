@@ -17,7 +17,7 @@ const AnimatedCounter = ({
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 } // Lower threshold for mobile devices
     );
 
     if (elementRef.current) {
@@ -62,35 +62,35 @@ const AnimatedCounter = ({
 
 const Stats = () => {
   return (
-    <section className="py-16 bg-[#0054ac]">
+    <section className="py-12 sm:py-16 bg-[#0054ac]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* First row - Main stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center mb-16">
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12 text-center mb-12 sm:mb-16">
+          <div className="flex flex-col items-center p-2 sm:p-4">
+            <div className="mb-2 sm:mb-4">
               <img
                 src="/HomePage/Star.png"
                 alt="Star icon"
-                className="w-12 h-12 md:w-14 md:h-14 mx-auto"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto"
               />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
               <AnimatedCounter end={5} suffix=".0 Stars" duration={1500} />
             </div>
-            <div className="text-sm md:text-base text-blue-100">
+            <div className="text-xs sm:text-sm md:text-base text-blue-100">
               <AnimatedCounter end={1800} suffix="+ Reviews" duration={2000} />
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
+          <div className="flex flex-col items-center p-2 sm:p-4">
+            <div className="mb-2 sm:mb-4">
               <img
                 src="/HomePage/Dollar.png"
                 alt="Dollar icon"
-                className="w-12 h-12 md:w-14 md:h-14 mx-auto"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto"
               />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
               <AnimatedCounter
                 end={2}
                 prefix="$"
@@ -98,48 +98,50 @@ const Stats = () => {
                 duration={2500}
               />
             </div>
-            <div className="text-sm md:text-base text-blue-100">
+            <div className="text-xs sm:text-sm md:text-base text-blue-100">
               For Clients
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
+          <div className="flex flex-col items-center p-2 sm:p-4">
+            <div className="mb-2 sm:mb-4">
               <img
                 src="/HomePage/User.png"
                 alt="User"
-                className="w-12 h-12 md:w-14 md:h-14 mx-auto"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto"
               />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
               <AnimatedCounter end={1500} suffix="+" duration={2200} />
             </div>
-            <div className="text-sm md:text-base text-blue-100">
+            <div className="text-xs sm:text-sm md:text-base text-blue-100">
               Founders Supported
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
+          <div className="flex flex-col items-center p-2 sm:p-4">
+            <div className="mb-2 sm:mb-4">
               <img
                 src="/HomePage/Achievement.png"
                 alt="Achievement icon"
-                className="w-12 h-12 md:w-14 md:h-14 mx-auto"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto"
               />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
               <AnimatedCounter end={2} suffix=" Exits" duration={1000} />
             </div>
-            <div className="text-sm md:text-base text-blue-100">Successful</div>
+            <div className="text-xs sm:text-sm md:text-base text-blue-100">
+              Successful
+            </div>
           </div>
         </div>
 
         {/* Second row - Additional stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center mb-12">
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12 text-center mb-8 sm:mb-12">
+          <div className="flex flex-col items-center p-2 sm:p-4">
+            <div className="mb-2 sm:mb-4">
               <svg
-                className="w-12 h-12 md:w-14 md:h-14 text-purple-400 mx-auto"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-purple-400 mx-auto"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -150,18 +152,18 @@ const Stats = () => {
                 />
               </svg>
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
               <AnimatedCounter end={1200} suffix="+" duration={2300} />
             </div>
-            <div className="text-sm md:text-base text-blue-100">
+            <div className="text-xs sm:text-sm md:text-base text-blue-100">
               Pitch Decks
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
+          <div className="flex flex-col items-center p-2 sm:p-4">
+            <div className="mb-2 sm:mb-4">
               <svg
-                className="w-12 h-12 md:w-14 md:h-14 text-indigo-400 mx-auto"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-indigo-400 mx-auto"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -172,18 +174,18 @@ const Stats = () => {
                 />
               </svg>
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
               <AnimatedCounter end={1000} suffix="+" duration={2100} />
             </div>
-            <div className="text-sm md:text-base text-blue-100">
+            <div className="text-xs sm:text-sm md:text-base text-blue-100">
               Business Plans
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
+          <div className="flex flex-col items-center p-2 sm:p-4">
+            <div className="mb-2 sm:mb-4">
               <svg
-                className="w-12 h-12 md:w-14 md:h-14 text-teal-400 mx-auto"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-teal-400 mx-auto"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -194,10 +196,10 @@ const Stats = () => {
                 />
               </svg>
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
               <AnimatedCounter end={10000} suffix="+" duration={2800} />
             </div>
-            <div className="text-sm md:text-base text-blue-100">
+            <div className="text-xs sm:text-sm md:text-base text-blue-100">
               Consulting Hours
             </div>
           </div>
@@ -205,10 +207,10 @@ const Stats = () => {
 
         {/* Enhanced methodology link */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-blue-500/20 to-blue-400/20 backdrop-blur-sm border border-blue-300/30 hover:from-blue-500/30 hover:to-blue-400/30 hover:border-blue-300/50 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl">
-            <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300">
+          <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 md:py-4 rounded-full bg-gradient-to-r from-blue-500/20 to-blue-400/20 backdrop-blur-sm border border-blue-300/30 hover:from-blue-500/30 hover:to-blue-400/30 hover:border-blue-300/50 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl">
+            <div className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300">
               <svg
-                className="w-4 h-4 text-white"
+                className="w-3 h-3 sm:w-4 sm:h-4 text-white"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -219,12 +221,12 @@ const Stats = () => {
                 />
               </svg>
             </div>
-            <span className="text-base font-medium text-white group-hover:text-blue-100 transition-colors duration-300">
+            <span className="text-sm sm:text-base font-medium text-white group-hover:text-blue-100 transition-colors duration-300">
               Learn about our methodology
             </span>
             <div className="flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

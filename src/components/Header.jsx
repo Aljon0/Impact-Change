@@ -1,4 +1,3 @@
-// Header.js
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,6 +10,7 @@ const Header = () => {
   });
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Handle scroll effect
   useEffect(() => {
@@ -38,6 +38,7 @@ const Header = () => {
       process: false,
       services: false,
     });
+    setMobileMenuOpen(false);
   };
 
   const DropdownArrow = ({ isOpen }) => (
@@ -120,6 +121,37 @@ const Header = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-[#131e3D]/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out -z-10 blur-xl"></div>
             </div>
           </Link>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-gray-700 hover:text-blue-600 focus:outline-none transition-colors duration-200"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {mobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
 
           {/* Centered Navigation */}
           <nav className="hidden md:flex items-center justify-center flex-1 mx-8">
@@ -303,7 +335,7 @@ const Header = () => {
           {/* Start Your Project Button with enhanced animation */}
           <Link
             to="/contact"
-            className="relative bg-gradient-to-r from-blue-600 to-[#131e3D] text-white px-6 py-2 rounded-lg font-medium cursor-pointer overflow-hidden group transition-all duration-300 ease-out hover:shadow-lg hover:shadow-[#131e3D]/25 hover:-translate-y-0.5"
+            className="hidden md:block relative bg-gradient-to-r from-blue-600 to-[#131e3D] text-white px-6 py-2 rounded-lg font-medium cursor-pointer overflow-hidden group transition-all duration-300 ease-out hover:shadow-lg hover:shadow-[#131e3D]/25 hover:-translate-y-0.5"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-[#131e3D] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
             <span className="relative z-10 transition-all duration-300 ease-out group-hover:text-white">
@@ -316,12 +348,188 @@ const Header = () => {
           {(dropdowns.work ||
             dropdowns.reviews ||
             dropdowns.process ||
-            dropdowns.services) && (
+            dropdowns.services ||
+            mobileMenuOpen) && (
             <div
               className="fixed inset-0 z-0 backdrop-blur-[1px] bg-black/5"
               onClick={closeAllDropdowns}
             ></div>
           )}
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-white/95 backdrop-blur-xl transition-all duration-300 ease-out transform ${
+          mobileMenuOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Mobile Menu Header with Logo and Close Button */}
+        <div className="bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-200/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between py-4">
+              {/* Logo in mobile menu */}
+              <Link
+                to="/"
+                className="flex items-center group transition-all duration-300 ease-out hover:scale-105"
+                onClick={closeAllDropdowns}
+              >
+                <div className="relative">
+                  <img
+                    src="/ImpactChange.png"
+                    alt="Impact Change Logo"
+                    className="h-8 w-auto transition-all duration-300 ease-out group-hover:brightness-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-[#131e3D]/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out -z-10 blur-xl"></div>
+                </div>
+              </Link>
+
+              {/* Close button */}
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-gray-700 hover:text-blue-600 focus:outline-none transition-colors duration-200 p-2"
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu Content */}
+        <div className="container mx-auto px-4 py-8 h-full overflow-y-auto">
+          <div className="flex flex-col space-y-6">
+            <Link
+              to="/"
+              className="text-2xl font-medium text-gray-800 hover:text-blue-600 py-3 border-b border-gray-100"
+              onClick={closeAllDropdowns}
+            >
+              Home
+            </Link>
+
+            <div className="border-b border-gray-100 pb-3">
+              <button
+                onClick={() => toggleDropdown("services")}
+                className="flex items-center justify-between w-full text-2xl font-medium text-gray-800 hover:text-blue-600 py-3"
+              >
+                Services
+                <DropdownArrow isOpen={dropdowns.services} />
+              </button>
+              {dropdowns.services && (
+                <div className="pl-4 mt-2 space-y-3">
+                  <Link
+                    to="/services/advisor-equity"
+                    className="block text-xl text-gray-700 hover:text-blue-600"
+                    onClick={closeAllDropdowns}
+                  >
+                    Advisor Equity
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <div className="border-b border-gray-100 pb-3">
+              <button
+                onClick={() => toggleDropdown("work")}
+                className="flex items-center justify-between w-full text-2xl font-medium text-gray-800 hover:text-blue-600 py-3"
+              >
+                Work
+                <DropdownArrow isOpen={dropdowns.work} />
+              </button>
+              {dropdowns.work && (
+                <div className="pl-4 mt-2 space-y-3">
+                  <Link
+                    to="/portfolio"
+                    className="block text-xl text-gray-700 hover:text-blue-600"
+                    onClick={closeAllDropdowns}
+                  >
+                    Portfolio
+                  </Link>
+                  <Link
+                    to="/work/case-studies"
+                    className="block text-xl text-gray-700 hover:text-blue-600"
+                    onClick={closeAllDropdowns}
+                  >
+                    Case Studies
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <div className="border-b border-gray-100 pb-3">
+              <button
+                onClick={() => toggleDropdown("reviews")}
+                className="flex items-center justify-between w-full text-2xl font-medium text-gray-800 hover:text-blue-600 py-3"
+              >
+                Reviews
+                <DropdownArrow isOpen={dropdowns.reviews} />
+              </button>
+              {dropdowns.reviews && (
+                <div className="pl-4 mt-2 space-y-3">
+                  <Link
+                    to="/reviews"
+                    className="block text-xl text-gray-700 hover:text-blue-600"
+                    onClick={closeAllDropdowns}
+                  >
+                    Testimonials
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <Link
+              to="/process"
+              className="text-2xl font-medium text-gray-800 hover:text-blue-600 py-3 border-b border-gray-100"
+              onClick={closeAllDropdowns}
+            >
+              Process
+            </Link>
+
+            <Link
+              to="/investing"
+              className="text-2xl font-medium text-gray-800 hover:text-blue-600 py-3 border-b border-gray-100"
+              onClick={closeAllDropdowns}
+            >
+              Investing
+            </Link>
+
+            <Link
+              to="/pricing"
+              className="text-2xl font-medium text-gray-800 hover:text-blue-600 py-3 border-b border-gray-100"
+              onClick={closeAllDropdowns}
+            >
+              Pricing
+            </Link>
+
+            <Link
+              to="/who-we-are"
+              className="text-2xl font-medium text-gray-800 hover:text-blue-600 py-3 border-b border-gray-100"
+              onClick={closeAllDropdowns}
+            >
+              Who we are
+            </Link>
+
+            <Link
+              to="/contact"
+              className="mt-8 bg-gradient-to-r from-blue-600 to-[#131e3D] text-white text-2xl font-medium py-4 px-6 rounded-lg text-center"
+              onClick={closeAllDropdowns}
+            >
+              Start Your Project
+            </Link>
+          </div>
         </div>
       </div>
 

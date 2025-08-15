@@ -4,25 +4,25 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-white py-12 border-t border-gray-200">
+    <footer className="bg-white py-8 md:py-12 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-start mb-8">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-8 space-y-8 lg:space-y-0">
           {/* Left Section - Logo and Tagline */}
-          <div className="flex-1 max-w-sm">
-            <div className="flex items-center mb-6">
+          <div className="flex-1 max-w-full lg:max-w-sm">
+            <div className="flex justify-center lg:justify-start items-center mb-4 lg:mb-6">
               <img
                 src="/ImpactChange.png"
                 alt="Impact Change Logo"
                 className="h-8 w-auto"
               />
             </div>
-            <p className="text-[#4a4949] text-sm leading-relaxed italic">
+            <p className="text-[#4a4949] text-sm leading-relaxed italic text-center lg:text-left mb-6">
               Great ideas deserve great execution. If you're ready to move
               forward and build real momentum, let's talk.
             </p>
 
             {/* Social Icons */}
-            <div className="flex space-x-3 mt-6">
+            <div className="flex justify-center lg:justify-start space-x-3">
               <a
                 href="#"
                 className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
@@ -102,62 +102,59 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Empty space to push content right */}
-          <div className="flex-1"></div>
-
-          {/* Navigation Sections - Right aligned */}
-          <div className="flex space-x-12">
+          {/* Navigation Sections - Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:space-x-8 xl:space-x-12 gap-6 sm:gap-8 lg:gap-0">
             {/* Main Navigation */}
             <div className="min-w-max">
-              <h3 className="text-lg font-bold text-blue-600 mb-4">
+              <h3 className="text-lg font-bold text-blue-600 mb-3 lg:mb-4 text-center sm:text-left">
                 Navigation
               </h3>
-              <div className="space-y-1">
+              <div className="space-y-1 text-center sm:text-left">
                 <Link
                   to="/"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Home
                 </Link>
                 <Link
                   to="/services/advisor-equity"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Services
                 </Link>
                 <Link
                   to="/work/portfolio"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Work
                 </Link>
                 <Link
                   to="/reviews"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Reviews
                 </Link>
                 <Link
                   to="/Process"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Process
                 </Link>
                 <Link
                   to="/investing"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Investing
                 </Link>
                 <Link
                   to="/pricing"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Pricing
                 </Link>
                 <Link
                   to="/who-we-are"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Who we are
                 </Link>
@@ -166,25 +163,25 @@ const Footer = () => {
 
             {/* Legal & Support */}
             <div className="min-w-max">
-              <h3 className="text-lg font-bold text-blue-600 mb-4">
+              <h3 className="text-lg font-bold text-blue-600 mb-3 lg:mb-4 text-center sm:text-left">
                 Legal & Support
               </h3>
-              <div className="space-y-1">
+              <div className="space-y-1 text-center sm:text-left">
                 <Link
                   to="/contact"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Contact Us
                 </Link>
                 <Link
                   to="/terms"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Terms & Conditions
                 </Link>
                 <Link
                   to="/privacy"
-                  className="text-[#4a4949] text-sm hover:text-blue-600 block"
+                  className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -194,7 +191,7 @@ const Footer = () => {
         </div>
 
         {/* Separator Line */}
-        <div className="border-t border-gray-300 mb-6"></div>
+        <div className="border-t border-gray-300 mb-4 lg:mb-6"></div>
 
         {/* Bottom Section - Copyright */}
         <div className="text-center">

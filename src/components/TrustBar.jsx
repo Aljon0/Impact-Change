@@ -39,7 +39,7 @@ const TrustBar = () => {
   return (
     <>
       {/* Trust Bar - Single continuous marquee */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-8 md:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Moving logos container */}
           <div className="relative overflow-hidden">
@@ -48,13 +48,13 @@ const TrustBar = () => {
               {allLogos.map((logo, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 flex items-center justify-center px-10 w-72 h-32"
+                  className="flex-shrink-0 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-10 w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 h-20 sm:h-24 md:h-28 lg:h-32"
                 >
-                  <div className="flex items-center justify-center w-64 h-full">
+                  <div className="flex items-center justify-center w-full h-full">
                     <img
                       src={logo.src}
                       alt={logo.alt}
-                      className="max-h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                      className="max-h-12 sm:max-h-14 md:max-h-16 lg:max-h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
                       onError={(e) => {
                         console.log(`Failed to load image: ${logo.src}`);
                         e.target.style.display = "none";
@@ -68,13 +68,13 @@ const TrustBar = () => {
               {allLogos.map((logo, index) => (
                 <div
                   key={`duplicate-${index}`}
-                  className="flex-shrink-0 flex items-center justify-center px-10 w-72 h-32"
+                  className="flex-shrink-0 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-10 w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 h-20 sm:h-24 md:h-28 lg:h-32"
                 >
-                  <div className="flex items-center justify-center w-64 h-full">
+                  <div className="flex items-center justify-center w-full h-full">
                     <img
                       src={logo.src}
                       alt={logo.alt}
-                      className="max-h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                      className="max-h-12 sm:max-h-14 md:max-h-16 lg:max-h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
                       onError={(e) => {
                         console.log(`Failed to load image: ${logo.src}`);
                         e.target.style.display = "none";
@@ -106,6 +106,13 @@ const TrustBar = () => {
           /* Pause animation on hover */
           .animate-scroll:hover {
             animation-play-state: paused;
+          }
+
+          /* Adjust animation speed for mobile */
+          @media (max-width: 640px) {
+            .animate-scroll {
+              animation-duration: ${totalLogos * 1.5}s;
+            }
           }
         `}</style>
       </section>

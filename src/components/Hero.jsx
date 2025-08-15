@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
@@ -13,7 +14,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
+    <section className="relative py-16 md:py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Mountain silhouette */}
@@ -53,20 +54,23 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           {/* Rotating Text */}
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-none">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 leading-none">
             <span className="inline-block transition-all duration-500 ease-in-out transform">
               {words[currentWord]}.
             </span>
           </h1>
 
           {/* Subheading */}
-          <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
             Pitch decks and business plans that investors take seriously
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button className="bg-white text-blue-900 px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center group cursor-pointer hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto bg-white text-blue-900 px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-semibold inline-flex items-center justify-center group cursor-pointer hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
               Start Your Project
               <svg
                 className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform"
@@ -81,14 +85,33 @@ const Hero = () => {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </button>
+            </Link>
 
-            <a
-              href="#portfolio"
-              className="text-white/80 hover:text-white text-lg underline underline-offset-4 hover:underline-offset-8 transition-all duration-300 cursor-pointer"
+            <Link
+              to="/portfolio"
+              className="w-full sm:w-auto border-2 border-white/30 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-semibold inline-flex items-center justify-center group cursor-pointer hover:bg-white/10 hover:border-white/50 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              View the portfolio
-            </a>
+              View Portfolio
+              <svg
+                className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
