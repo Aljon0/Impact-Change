@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import TrustBar from "../components/TrustBar";
 
 const WhoWeAre = () => {
@@ -330,9 +331,9 @@ const WhoWeAre = () => {
               <span className="text-lg md:text-xl">🤝</span>
             </button>
             <button className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-3 cursor-pointer md:px-8 md:py-4 rounded-full font-semibold hover:bg-white hover:text-[#131e3D] transition-all duration-300">
-              <span className="mr-2 text-sm md:text-base">
+              <Link to="/contact" className="mr-2 text-sm md:text-base">
                 Start Your Project
-              </span>
+              </Link>
               <span className="text-lg md:text-xl">→</span>
             </button>
           </div>

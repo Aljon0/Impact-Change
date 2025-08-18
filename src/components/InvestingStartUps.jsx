@@ -8,18 +8,23 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const InvestingStartupsPage = () => {
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const waitlistRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     // In a real app, you'd send this data to your backend
     setTimeout(() => setIsSubmitted(false), 3000);
+  };
+
+  const scrollToWaitlist = () => {
+    waitlistRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -67,7 +72,10 @@ const InvestingStartupsPage = () => {
                 </p>
               </div>
 
-              <button className="group bg-gradient-to-r from-blue-500 to-indigo-600 text-white cursor-pointer px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-base md:text-lg hover:shadow-lg transition-all duration-300 flex items-center transform hover:scale-105">
+              <button
+                onClick={scrollToWaitlist}
+                className="group bg-gradient-to-r from-blue-500 to-indigo-600 text-white cursor-pointer px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-base md:text-lg hover:shadow-lg transition-all duration-300 flex items-center transform hover:scale-105"
+              >
                 Join the Waitlist
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -240,7 +248,10 @@ const InvestingStartupsPage = () => {
         </div>
 
         {/* Prepare for 2026 & Waitlist Section */}
-        <div className="bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 rounded-2xl md:rounded-3xl p-6 md:p-12 lg:p-20 text-white relative overflow-hidden">
+        <div
+          ref={waitlistRef}
+          className="bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 rounded-2xl md:rounded-3xl p-6 md:p-12 lg:p-20 text-white relative overflow-hidden"
+        >
           <div className="absolute inset-0">
             <div className="absolute top-4 md:top-10 right-4 md:right-10 w-36 md:w-72 h-36 md:h-72 bg-white/5 rounded-full blur-3xl"></div>
             <div className="absolute bottom-4 md:bottom-10 left-4 md:left-10 w-40 md:w-80 h-40 md:h-80 bg-white/5 rounded-full blur-3xl"></div>

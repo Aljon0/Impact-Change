@@ -1,4 +1,4 @@
-// App.js
+// src/App.js
 import React from "react";
 import {
   Navigate,
@@ -6,16 +6,14 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import AdvisorEquity from "./components/AdvisorEquity"; // Make sure this path is correct
+import AdvisorEquity from "./components/AdvisorEquity";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import InvestingStartupsPage from "./components/InvestingStartUps";
-import {
-  BusinessPlansPortfolio,
-  MarketResearchPortfolio,
-  PitchDecksPortfolio,
-  Portfolio,
-} from "./components/Portfolio";
+import { BusinessPlansPortfolio } from "./components/Portfolio/BusinessPlanPortfolio";
+import { MarketResearchPortfolio } from "./components/Portfolio/MarketResearchPortoflio";
+import { PitchDecksPortfolio } from "./components/Portfolio/PitchDeckPortoflio";
+import { Portfolio } from "./components/Portfolio/Portfolio";
 import PricingPage from "./components/PricingPage";
 import Reviews from "./components/Reviews";
 import Contact from "./pages/Contact";
@@ -39,7 +37,7 @@ function App() {
           <Route path="/who-we-are" element={<WhoWeAre />} />
           <Route path="/investing" element={<InvestingStartupsPage />} />
           <Route path="/Process" element={<ProcessPage />} />
-          <Route path="/Reviews" element={<Reviews />} />
+          <Route path="/reviews" element={<Reviews />} />
 
           {/* Services Routes */}
           <Route path="/services" element={<div>Services Page</div>} />

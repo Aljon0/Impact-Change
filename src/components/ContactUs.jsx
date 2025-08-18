@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TrustBar from "./TrustBar";
+
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -52,27 +53,14 @@ const ContactUs = () => {
     }, 3000);
   };
 
-  const getFieldIcon = (fieldName) => {
-    const icons = {
-      firstName: "👤",
-      lastName: "👤",
-      email: "📧",
-      company: "🏢",
-      phone: "📞",
-      projectType: "🎯",
-      message: "💬",
-    };
-    return icons[fieldName] || "✨";
-  };
-
   const projectTypeOptions = [
-    { value: "", label: "Select your adventure...", icon: "🚀" },
-    { value: "pitch-deck", label: "Pitch Deck Creation", icon: "📊" },
-    { value: "business-plan", label: "Business Plan Writing", icon: "📝" },
-    { value: "fundraising", label: "Fundraising Support", icon: "💰" },
-    { value: "market-research", label: "Market Research", icon: "📈" },
-    { value: "strategy", label: "Strategic Consulting", icon: "🧠" },
-    { value: "other", label: "Something Amazing", icon: "✨" },
+    { value: "", label: "Select your adventure..." },
+    { value: "pitch-deck", label: "Pitch Deck Creation" },
+    { value: "business-plan", label: "Business Plan Writing" },
+    { value: "fundraising", label: "Fundraising Support" },
+    { value: "market-research", label: "Market Research" },
+    { value: "strategy", label: "Strategic Consulting" },
+    { value: "other", label: "Something Amazing" },
   ];
 
   return (
@@ -85,7 +73,7 @@ const ContactUs = () => {
       </div>
 
       {/* Enhanced Back Button */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-40">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
             onClick={() => window.history.back()}
@@ -239,9 +227,6 @@ const ContactUs = () => {
                         htmlFor="firstName"
                         className="block text-sm font-medium text-[#4a4949] mb-2"
                       >
-                        <span className="mr-2">
-                          {getFieldIcon("firstName")}
-                        </span>
                         First Name *
                       </label>
                       <input
@@ -272,7 +257,6 @@ const ContactUs = () => {
                         htmlFor="lastName"
                         className="block text-sm font-medium text-[#4a4949] mb-2"
                       >
-                        <span className="mr-2">{getFieldIcon("lastName")}</span>
                         Last Name *
                       </label>
                       <input
@@ -306,7 +290,6 @@ const ContactUs = () => {
                         htmlFor="email"
                         className="block text-sm font-medium text-[#4a4949] mb-2"
                       >
-                        <span className="mr-2">{getFieldIcon("email")}</span>
                         Email Address *
                       </label>
                       <input
@@ -337,7 +320,6 @@ const ContactUs = () => {
                         htmlFor="company"
                         className="block text-sm font-medium text-[#4a4949] mb-2"
                       >
-                        <span className="mr-2">{getFieldIcon("company")}</span>
                         Company Name
                       </label>
                       <input
@@ -370,7 +352,6 @@ const ContactUs = () => {
                         htmlFor="phone"
                         className="block text-sm font-medium text-[#4a4949] mb-2"
                       >
-                        <span className="mr-2">{getFieldIcon("phone")}</span>
                         Phone Number
                       </label>
                       <input
@@ -400,9 +381,6 @@ const ContactUs = () => {
                         htmlFor="projectType"
                         className="block text-sm font-medium text-[#4a4949] mb-2"
                       >
-                        <span className="mr-2">
-                          {getFieldIcon("projectType")}
-                        </span>
                         Project Type *
                       </label>
                       <select
@@ -421,7 +399,7 @@ const ContactUs = () => {
                       >
                         {projectTypeOptions.map((option) => (
                           <option key={option.value} value={option.value}>
-                            {option.icon} {option.label}
+                            {option.label}
                           </option>
                         ))}
                       </select>
@@ -439,7 +417,6 @@ const ContactUs = () => {
                       htmlFor="message"
                       className="block text-sm font-medium text-[#4a4949] mb-2"
                     >
-                      <span className="mr-2">{getFieldIcon("message")}</span>
                       Tell me about your project *
                     </label>
                     <textarea
@@ -589,7 +566,7 @@ const ContactUs = () => {
                 </h3>
                 <p className="text-[#4a4949] mb-6">Professional networking</p>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/impact-change/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-200 hover:scale-105"

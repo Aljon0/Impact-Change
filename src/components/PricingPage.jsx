@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const PricingPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("pitch-decks");
@@ -374,7 +375,7 @@ const PricingPage = () => {
             your project.
           </p>
           <button className="bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold cursor-pointer transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:-translate-y-2 animate-cta-glow">
-            Contact Us Today
+            <Link to="/contact">Contact Us Today</Link>
           </button>
         </div>
       </div>

@@ -7,7 +7,7 @@ const Services = () => {
       id: 1,
       title: "Investor-Ready Pitch Decks",
       description:
-        "Compelling pitch decks that tell your story and get investors to pay attention.",
+        "I’ll write and design a compelling pitch deck that tells your story, highlights your strengths, and gets investors to pay attention. Clean, strategic, and visually on point.",
       icon: "/HomePage/PitchDeckDashboard.svg",
       image: "/HomePage/PitchDeck.gif",
       gradient: "from-blue-400 via-blue-600 to-blue-800",
@@ -16,9 +16,9 @@ const Services = () => {
     },
     {
       id: 2,
-      title: "Business Plans & Financial Forecasts",
+      title: "Business Plan & 5 Year Financial Forecast",
       description:
-        "Professionally written business plans with detailed financial projections for investors and lenders.",
+        "Get a professionally written and designed business plan paired with a detailed 5-year financial forecast, perfect for investors, lenders, or internal strategy. Clear, compelling, and built to impress.",
       icon: "/HomePage/BusinessPlanBook.svg",
       image: "/HomePage/BusinessPlan.gif",
       gradient: "from-blue-500 via-blue-700 to-blue-900",
@@ -29,7 +29,7 @@ const Services = () => {
       id: 3,
       title: "Comprehensive Market Research",
       description:
-        "In-depth competitive landscape analysis and market opportunity assessments.",
+        "We will do an in-depth analysis of your competitive landscape, market opportunity, and ideal customer segments in a professionally written and designed report.",
       icon: "/HomePage/CMR.png",
       image: "/HomePage/MarketResearch.gif",
       gradient: "from-blue-300 via-blue-500 to-blue-700",
@@ -38,13 +38,13 @@ const Services = () => {
     },
     {
       id: 4,
-      title: "Strategic Business Consulting",
+      title: "High Impact Investor One-Pager",
       description:
-        "Expert guidance for startups and growing businesses to accelerate growth and success.",
+        "A concise, powerful, and professionally designed one-page summary of your business. We distill your entire venture into a single, compelling document created to capture investor interest quickly and make a powerful first impression.",
       icon: "/HomePage/HII.png",
       image: "/HomePage/HighImpact.gif",
       gradient: "from-blue-600 via-blue-800 to-blue-900",
-      buttonText: "Book Consultation",
+      buttonText: "View Portfolio",
       link: "/consulting",
     },
   ];

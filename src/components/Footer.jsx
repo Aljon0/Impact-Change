@@ -1,4 +1,4 @@
-// Footer.js
+// src/components/Footer/Footer.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -123,10 +123,10 @@ const Footer = () => {
                   Services
                 </Link>
                 <Link
-                  to="/work/portfolio"
+                  to="/portfolio"
                   className="text-[#4a4949] text-sm hover:text-blue-600 block transition-colors"
                 >
-                  Work
+                  Portfolio
                 </Link>
                 <Link
                   to="/reviews"
