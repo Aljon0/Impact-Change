@@ -55,12 +55,12 @@ export const Portfolio = () => {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900">
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
               Our <span className="text-blue-300">Portfolio</span>
             </h1>
-            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto">
               Discover how we've helped founders scale their businesses with
               compelling pitch decks, comprehensive business plans, and
               strategic market research.
@@ -69,74 +69,78 @@ export const Portfolio = () => {
         </div>
 
         {/* Animated background elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-400/20 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-indigo-400/20 rounded-full animate-bounce"></div>
+        <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-16 sm:w-20 h-16 sm:h-20 bg-blue-400/20 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-24 sm:w-32 h-24 sm:h-32 bg-indigo-400/20 rounded-full animate-bounce"></div>
       </div>
 
       {/* Stats Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 -mt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 -mt-8 sm:-mt-12">
           {portfolioStats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-xl p-6 text-center transform hover:scale-105 transition-all duration-300"
+              className="bg-white rounded-lg sm:rounded-xl shadow-md sm:shadow-xl p-4 sm:p-6 text-center transform hover:scale-105 transition-all duration-300"
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <stat.icon className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">
                 {stat.value}
               </div>
-              <div className="text-gray-600">{stat.label}</div>
+              <div className="text-xs sm:text-sm text-gray-600">
+                {stat.label}
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Services Portfolio */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Explore Our Work
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Browse our portfolio by service category to see real examples of our
             work and success stories.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((service, index) => (
             <Link key={index} to={service.link} className="group">
-              <div className="relative overflow-hidden rounded-2xl shadow-xl bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+              <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl bg-white hover:shadow-xl sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
                 <div
-                  className={`h-48 bg-gradient-to-br ${service.gradient} relative`}
+                  className={`h-40 sm:h-48 bg-gradient-to-br ${service.gradient} relative`}
                 >
                   <div className="absolute inset-0 bg-black/10"></div>
-                  <div className="relative p-8 h-full flex flex-col justify-between">
+                  <div className="relative p-6 sm:p-8 h-full flex flex-col justify-between">
                     <div className="flex items-center justify-between">
-                      <service.icon className="w-10 h-10 text-white" />
-                      <div className="text-white/80 text-lg font-semibold">
+                      <service.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                      <div className="text-white/80 text-base sm:text-lg font-semibold">
                         {service.count}
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-2">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">
                         {service.title}
                       </h3>
                     </div>
                   </div>
 
                   {/* Animated elements */}
-                  <div className="absolute top-4 right-4 w-8 h-8 bg-white/10 rounded-full animate-pulse"></div>
-                  <div className="absolute bottom-4 left-4 w-4 h-4 bg-white/20 rounded-full"></div>
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-6 sm:w-8 h-6 sm:h-8 bg-white/10 rounded-full animate-pulse"></div>
+                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 w-3 sm:w-4 h-3 sm:h-4 bg-white/20 rounded-full"></div>
                 </div>
 
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4">{service.description}</p>
-                  <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-800 transition-colors">
+                <div className="p-4 sm:p-6">
+                  <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+                    {service.description}
+                  </p>
+                  <div className="flex items-center text-blue-600 font-semibold text-sm sm:text-base group-hover:text-blue-800 transition-colors">
                     View Portfolio{" "}
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </div>
@@ -147,18 +151,19 @@ export const Portfolio = () => {
 
       {/* CTA Section */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
             Ready to Join Our Success Stories?
           </h2>
-          <p className="text-blue-200 text-xl mb-8">
+          <p className="text-blue-200 text-lg sm:text-xl mb-6 sm:mb-8">
             Let's create something amazing together.
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-900 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
+            className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-900 font-semibold rounded-lg sm:rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
           >
-            Start Your Project <ArrowRight className="w-5 h-5 ml-2" />
+            Start Your Project{" "}
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
           </Link>
         </div>
       </div>
@@ -266,36 +271,36 @@ export const PitchDecksPortfolio = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <Link
             to="/portfolio"
-            className="inline-flex items-center text-blue-300 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center text-blue-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Back to Portfolio
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Pitch Deck Portfolio
           </h1>
-          <p className="text-xl text-blue-200 max-w-3xl">
+          <p className="text-blue-200 text-base sm:text-lg lg:text-xl max-w-3xl">
             Compelling presentations that have helped startups raise over $500M
             in funding across various industries.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Category Filter */}
-        <div className="mb-12">
-          <div className="flex flex-wrap gap-4 justify-center">
+        <div className="mb-8 sm:mb-12">
+          <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`px-3 py-1 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
                   selectedCategory === category.id
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-white text-blue-600 hover:bg-blue-50 shadow-md"
+                    ? "bg-blue-600 text-white shadow-md sm:shadow-lg"
+                    : "bg-white text-blue-600 hover:bg-blue-50 shadow-sm sm:shadow-md"
                 }`}
               >
                 {category.label}
@@ -305,43 +310,48 @@ export const PitchDecksPortfolio = () => {
         </div>
 
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
           {filteredDecks.map((deck) => (
             <div key={deck.id} className="group cursor-pointer">
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                <div className="relative h-48 bg-gradient-to-br from-blue-600 to-blue-800">
+              <div className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
+                <div className="relative h-40 sm:h-48 bg-gradient-to-br from-blue-600 to-blue-800">
                   <img
                     src={deck.image}
                     alt={deck.title}
                     className="absolute inset-0 w-full h-full object-cover opacity-20"
                   />
                   <div className="absolute inset-0 bg-black/20"></div>
-                  <div className="relative p-6 h-full flex flex-col justify-between">
+                  <div className="relative p-4 sm:p-6 h-full flex flex-col justify-between">
                     <div className="flex justify-between items-start">
-                      <div className="bg-white/20 px-3 py-1 rounded-lg text-white text-sm font-semibold">
+                      <div className="bg-white/20 px-2 py-1 rounded-md sm:rounded-lg text-white text-xs sm:text-sm font-semibold">
                         {deck.industry}
                       </div>
                       <div className="text-right">
-                        <div className="text-white font-bold text-lg">
+                        <div className="text-white font-bold text-sm sm:text-base md:text-lg">
                           {deck.raised}
                         </div>
-                        <div className="text-blue-200 text-sm">
+                        <div className="text-blue-200 text-xs sm:text-sm">
                           {deck.stage}
                         </div>
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-white">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                         {deck.title}
                       </h3>
-                      <p className="text-blue-200">{deck.subtitle}</p>
+                      <p className="text-blue-200 text-sm sm:text-base">
+                        {deck.subtitle}
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4">{deck.description}</p>
-                  <div className="flex items-center text-blue-600 font-semibold">
-                    View Case Study <ArrowRight className="w-4 h-4 ml-2" />
+                <div className="p-4 sm:p-6">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">
+                    {deck.description}
+                  </p>
+                  <div className="flex items-center text-blue-600 font-semibold text-xs sm:text-sm">
+                    View Case Study{" "}
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
                   </div>
                 </div>
               </div>
@@ -422,73 +432,80 @@ export const BusinessPlansPortfolio = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <Link
             to="/portfolio"
-            className="inline-flex items-center text-blue-300 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center text-blue-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Back to Portfolio
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Business Plans Portfolio
           </h1>
-          <p className="text-xl text-blue-200 max-w-3xl">
+          <p className="text-blue-200 text-base sm:text-lg lg:text-xl max-w-3xl">
             Comprehensive business plans with detailed financial projections
             that have secured over $800M in funding.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Portfolio Items */}
-        <div className="space-y-8">
+        <div className="space-y-5 sm:space-y-6 md:space-y-8">
           {businessPlans.map((plan) => (
             <div
               key={plan.id}
-              className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500"
+              className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500"
             >
               <div className="flex flex-col lg:flex-row">
-                <div className="lg:w-1/3 bg-gradient-to-br from-blue-600 to-blue-800 p-8 text-white">
-                  <div className="mb-6">
-                    <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
-                    <p className="text-blue-200">{plan.industry}</p>
+                <div className="lg:w-1/3 bg-gradient-to-br from-blue-600 to-blue-800 p-4 sm:p-6 md:p-8 text-white">
+                  <div className="mb-4 sm:mb-6">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2">
+                      {plan.title}
+                    </h3>
+                    <p className="text-blue-200 text-sm sm:text-base">
+                      {plan.industry}
+                    </p>
                   </div>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                  <div className="space-y-3 sm:space-y-4">
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
                       <span className="text-blue-200">Funding Raised:</span>
                       <span className="font-semibold">{plan.funding}</span>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
                       <span className="text-blue-200">Document Length:</span>
                       <span className="font-semibold">{plan.pages}</span>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
                       <span className="text-blue-200">Timeline:</span>
                       <span className="font-semibold">{plan.timeline}</span>
                     </div>
                   </div>
                 </div>
-                <div className="lg:w-2/3 p-8">
-                  <p className="text-gray-600 mb-6">{plan.description}</p>
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                <div className="lg:w-2/3 p-4 sm:p-6 md:p-8">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-4 sm:mb-6">
+                    {plan.description}
+                  </p>
+                  <div className="mb-4 sm:mb-6">
+                    <h4 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
                       Key Highlights:
                     </h4>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1 sm:space-y-2">
                       {plan.highlights.map((highlight, idx) => (
                         <li
                           key={idx}
-                          className="flex items-center text-gray-600"
+                          className="flex items-center text-gray-600 text-xs sm:text-sm"
                         >
-                          <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mr-2 sm:mr-3"></div>
                           {highlight}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <button className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300">
-                    View Case Study <ArrowRight className="w-4 h-4 ml-2" />
+                  <button className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white font-semibold rounded-lg sm:rounded-xl hover:bg-blue-700 transition-all duration-300 text-xs sm:text-sm">
+                    View Case Study{" "}
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
                   </button>
                 </div>
               </div>
@@ -566,35 +583,39 @@ export const MarketResearchPortfolio = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <Link
             to="/portfolio"
-            className="inline-flex items-center text-blue-300 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center text-blue-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Back to Portfolio
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Market Research Portfolio
           </h1>
-          <p className="text-xl text-blue-200 max-w-3xl">
+          <p className="text-blue-200 text-base sm:text-lg lg:text-xl max-w-3xl">
             In-depth market analyses and competitive intelligence that inform
             strategic business decisions.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
           {researchProjects.map((project) => (
             <div
               key={project.id}
-              className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+              className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2"
             >
-              <div className="bg-gradient-to-br from-blue-700 to-blue-900 p-6 text-white">
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-blue-200 mb-4">{project.client}</p>
-                <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="bg-gradient-to-br from-blue-700 to-blue-900 p-4 sm:p-6 text-white">
+                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-blue-200 text-xs sm:text-sm mb-3 sm:mb-4">
+                  {project.client}
+                </p>
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                   <div>
                     <span className="text-blue-300">Scope:</span>
                     <div className="font-semibold">{project.scope}</div>
@@ -606,44 +627,44 @@ export const MarketResearchPortfolio = () => {
                 </div>
               </div>
 
-              <div className="p-6">
-                <div className="mb-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold text-gray-900">
+              <div className="p-4 sm:p-6">
+                <div className="mb-4 sm:mb-6">
+                  <div className="flex items-center justify-between mb-2 sm:mb-3">
+                    <h4 className="font-semibold text-gray-900 text-xs sm:text-sm">
                       Report Length
                     </h4>
-                    <span className="text-blue-600 font-semibold">
+                    <span className="text-blue-600 font-semibold text-xs sm:text-sm">
                       {project.pages}
                     </span>
                   </div>
                 </div>
 
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="font-semibold text-gray-900 text-xs sm:text-sm mb-2 sm:mb-3">
                     Key Findings
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1 sm:space-y-2">
                     {project.keyFindings.map((finding, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start text-sm text-gray-600"
+                        className="flex items-start text-gray-600 text-xs sm:text-sm"
                       >
-                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-2 flex-shrink-0"></div>
+                        <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-blue-600 rounded-full mt-1.5 sm:mt-2 mr-1.5 sm:mr-2 flex-shrink-0"></div>
                         {finding}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="font-semibold text-gray-900 text-xs sm:text-sm mb-2 sm:mb-3">
                     Deliverables
                   </h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     {project.deliverables.map((deliverable, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                        className="px-2 py-0.5 sm:px-3 sm:py-1 bg-blue-100 text-blue-800 text-xxs sm:text-xs rounded-full"
                       >
                         {deliverable}
                       </span>
@@ -651,8 +672,9 @@ export const MarketResearchPortfolio = () => {
                   </div>
                 </div>
 
-                <button className="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300">
-                  View Full Report <ArrowRight className="w-4 h-4 ml-2" />
+                <button className="w-full flex items-center justify-center px-3 py-2 sm:px-4 sm:py-3 bg-blue-600 text-white font-semibold rounded-lg sm:rounded-xl hover:bg-blue-700 transition-all duration-300 text-xs sm:text-sm">
+                  View Full Report{" "}
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
                 </button>
               </div>
             </div>
@@ -662,4 +684,5 @@ export const MarketResearchPortfolio = () => {
     </div>
   );
 };
+
 export default Portfolio;

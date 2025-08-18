@@ -243,7 +243,7 @@ const PricingPage = () => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 animate-category-item ${
+                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold cursor-pointer transition-all duration-500 transform hover:scale-105 animate-category-item ${
                   selectedCategory === category.id
                     ? "bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white shadow-xl scale-105"
                     : "bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-700"
@@ -346,7 +346,9 @@ const PricingPage = () => {
                   <button
                     className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden group/btn animate-button-glow`}
                   >
-                    <span className="relative z-10">Get Started</span>
+                    <span className="relative z-10 cursor-pointer">
+                      Get Started
+                    </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-300/20 to-blue-400/0 animate-shimmer"></div>
                   </button>
@@ -371,7 +373,7 @@ const PricingPage = () => {
             Let's discuss your specific needs and create a tailored package for
             your project.
           </p>
-          <button className="bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:-translate-y-2 animate-cta-glow">
+          <button className="bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold cursor-pointer transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:-translate-y-2 animate-cta-glow">
             Contact Us Today
           </button>
         </div>
