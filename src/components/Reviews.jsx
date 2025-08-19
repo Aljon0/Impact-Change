@@ -20,7 +20,7 @@ const Reviews = () => {
         <img
           src={testimonial.avatar}
           alt={testimonial.name}
-          className="w-12 h-12 rounded-full object-cover border-2 border-blue-200"
+          className="w-12 h-12 rounded-full object-cover border-2 border-blue-200 flex-shrink-0"
         />
       );
     }
@@ -32,7 +32,7 @@ const Reviews = () => {
       .toUpperCase();
 
     return (
-      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold text-sm border-2 border-blue-200">
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold text-sm border-2 border-blue-200 flex-shrink-0">
         {initials}
       </div>
     );
@@ -48,8 +48,15 @@ const Reviews = () => {
             : "bg-green-100 text-green-800 border border-green-200"
         }`}
       >
-        {typeof tag.icon === "string" && tag.icon.length <= 2 ? (
-          <span className="mr-1">{tag.icon}</span>
+        {tag.icon ? (
+          // Check if icon is an emoji (1-2 characters) or an image path
+          typeof tag.icon === "string" && tag.icon.length <= 2 ? (
+            <span className="mr-1">{tag.icon}</span>
+          ) : tag.icon.includes("/") || tag.icon.includes(".") ? (
+            <img src={tag.icon} alt="" className="w-3 h-3 mr-1" />
+          ) : (
+            <div className="w-3 h-3 mr-1 bg-current rounded-sm opacity-70"></div>
+          )
         ) : (
           <div className="w-3 h-3 mr-1 bg-current rounded-sm opacity-70"></div>
         )}
@@ -111,59 +118,39 @@ const Reviews = () => {
       {/* Reviews Grid */}
       <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {testimonials.slice(0, visibleReviews).map((testimonial, index) => (
               <div
                 key={index}
-                className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 hover:border-blue-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
+                className="group bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 hover:border-blue-400/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/20 flex flex-col"
               >
-                {/* Quote Icon */}
-                <div className="mb-4">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 10c0-2.761 2.239-5 5-5s5 2.239 5 5-2.239 5-5 5-5-2.239-5-5zm8 0c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </div>
-
                 {/* Review Text */}
-                <div className="mb-6">
-                  <p className="text-white leading-relaxed text-sm lg:text-base">
+                <div className="mb-8 flex-grow">
+                  <p className="text-white leading-relaxed text-base">
                     "{testimonial.text}"
                   </p>
                 </div>
 
                 {/* Tags */}
                 {testimonial.tags && (
-                  <div className="mb-6 flex flex-wrap gap-2">
-                    {renderTags(testimonial.tags)}
+                  <div className="mb-6">
+                    <div className="flex flex-wrap gap-2">
+                      {renderTags(testimonial.tags)}
+                    </div>
                   </div>
                 )}
 
-                {/* Author Info */}
-                <div className="flex items-center space-x-3">
+                {/* Author Info - Always at bottom */}
+                <div className="flex items-center space-x-4 mt-auto">
                   {renderAvatar(testimonial)}
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-white font-semibold text-sm truncate">
+                    <h4 className="text-white font-semibold text-base mb-1">
                       {testimonial.name}
                     </h4>
-                    <p className="text-blue-200 text-xs truncate">
+                    <p className="text-blue-200 text-sm leading-tight">
                       {testimonial.title}
                     </p>
                   </div>
-                  {testimonial.company && (
-                    <div className="w-8 h-8 bg-white rounded-lg p-1 flex-shrink-0">
-                      <div className="w-full h-full bg-gray-200 rounded"></div>
-                    </div>
-                  )}
                 </div>
               </div>
             ))}

@@ -1,4 +1,3 @@
-// src/components/Portfolio/MarketResearchPortfolio.jsx
 import { ArrowLeft, ArrowRight, Link } from "lucide-react";
 
 export const MarketResearchPortfolio = () => {

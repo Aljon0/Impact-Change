@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import {
   Navigate,
@@ -12,10 +11,16 @@ import Header from "./components/Header";
 import InvestingStartupsPage from "./components/InvestingStartUps";
 import { BusinessPlansPortfolio } from "./components/Portfolio/BusinessPlanPortfolio";
 import { MarketResearchPortfolio } from "./components/Portfolio/MarketResearchPortoflio";
+import { OnePagerPortfolio } from "./components/Portfolio/OnePagerPortfolio";
 import { PitchDecksPortfolio } from "./components/Portfolio/PitchDeckPortoflio";
 import { Portfolio } from "./components/Portfolio/Portfolio";
 import PricingPage from "./components/PricingPage";
 import Reviews from "./components/Reviews";
+import BusinessPlanWriting from "./components/services/BusinessPlanWriting";
+import InvestorOnePager from "./components/services/InvestorOnePager";
+import LinkedinProfile from "./components/services/LinkedinProfile";
+import MarketResearch from "./components/services/MarketResearch";
+import PitchDeck from "./components/services/PitchDeck";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
@@ -46,13 +51,19 @@ function App() {
             path="/services/business-plans"
             element={<div>Business Plans Page</div>}
           />
-          <Route
-            path="/services/pitch-decks"
-            element={<div>Pitch Decks Page</div>}
-          />
+          <Route path="/services/pitch-decks" element={<PitchDeck />} />
           <Route
             path="/services/market-research"
-            element={<div>Market Research Page</div>}
+            element={<MarketResearch />}
+          />
+          <Route
+            path="/services/linkedin-profile"
+            element={<LinkedinProfile />}
+          />
+          <Route path="/services/one-pager" element={<InvestorOnePager />} />
+          <Route
+            path="/services/business-plan"
+            element={<BusinessPlanWriting />}
           />
 
           {/* Portfolio Routes */}
@@ -73,6 +84,7 @@ function App() {
             path="/portfolio/market-research"
             element={<MarketResearchPortfolio />}
           />
+          <Route path="/portfolio/one-pagers" element={<OnePagerPortfolio />} />
 
           {/* Work Routes */}
           <Route

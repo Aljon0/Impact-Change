@@ -1,7 +1,7 @@
-// src/components/Portfolio/Portfolio.jsx
 import {
   ArrowRight,
   Building,
+  File,
   FileText,
   Search,
   Star,
@@ -47,6 +47,15 @@ export const Portfolio = () => {
       gradient: "from-blue-800 to-blue-950",
       icon: Search,
     },
+    {
+      title: "One-Pagers",
+      description:
+        "High-impact investor summaries that capture attention quickly",
+      count: "200+",
+      link: "/portfolio/one-pagers",
+      gradient: "from-blue-500 to-blue-700",
+      icon: File,
+    },
   ];
 
   return (
@@ -61,8 +70,8 @@ export const Portfolio = () => {
             </h1>
             <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto">
               Discover how we've helped founders scale their businesses with
-              compelling pitch decks, comprehensive business plans, and
-              strategic market research.
+              compelling pitch decks, comprehensive business plans, strategic
+              market research, and high-impact one-pagers.
             </p>
           </div>
         </div>
@@ -106,7 +115,7 @@ export const Portfolio = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {services.map((service, index) => (
             <Link key={index} to={service.link} className="group">
               <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl bg-white hover:shadow-xl sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">

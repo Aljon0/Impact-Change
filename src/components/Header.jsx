@@ -1,4 +1,3 @@
-// src/components/Header/Header.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -236,41 +235,48 @@ const Header = () => {
                       }`}
                     ></div>
                   </button>
-                  <AnimatedDropdown isOpen={dropdowns.services} width="w-64">
-                    <DropdownItem
-                      to="/services/advisor-equity"
-                      onClick={closeAllDropdowns}
-                      description="Strategic advisory services"
-                    >
-                      Advisor Equity
-                    </DropdownItem>
-                    <DropdownItem
-                      to="/services/business-plans"
-                      onClick={closeAllDropdowns}
-                      description="Comprehensive business planning"
-                    >
-                      Business Plans
-                    </DropdownItem>
-                    <DropdownItem
-                      to="/services/pitch-decks"
-                      onClick={closeAllDropdowns}
-                      description="Investor-ready presentations"
-                    >
-                      Pitch Decks
-                    </DropdownItem>
+                  <AnimatedDropdown isOpen={dropdowns.services} width="w-80">
                     <DropdownItem
                       to="/services/market-research"
                       onClick={closeAllDropdowns}
-                      description="Market analysis & insights"
+                      description="In-depth analysis & insights"
                     >
                       Market Research
                     </DropdownItem>
                     <DropdownItem
-                      to="/services/market-research"
+                      to="/services/pitch-decks"
                       onClick={closeAllDropdowns}
-                      description="High Impact Investor"
+                      description="Compelling investor presentations"
                     >
-                      One Pager
+                      Pitch Deck Writing
+                    </DropdownItem>
+                    <DropdownItem
+                      to="/services/linkedin-profile"
+                      onClick={closeAllDropdowns}
+                      description="Professional brand building"
+                    >
+                      LinkedIn Profile Optimization
+                    </DropdownItem>
+                    <DropdownItem
+                      to="/services/one-pager"
+                      onClick={closeAllDropdowns}
+                      description="Concise investor summary"
+                    >
+                      Investor One-Pager
+                    </DropdownItem>
+                    <DropdownItem
+                      to="/services/business-plan"
+                      onClick={closeAllDropdowns}
+                      description="Complete 5-year forecast"
+                    >
+                      Business Plan Writing
+                    </DropdownItem>
+                    <DropdownItem
+                      to="/services/advisor-equity"
+                      onClick={closeAllDropdowns}
+                      description="Fundraising & scaling support"
+                    >
+                      Investor Equity
                     </DropdownItem>
                   </AnimatedDropdown>
                 </div>
@@ -432,32 +438,46 @@ const Header = () => {
                 {dropdowns.services && (
                   <div className="pl-4 mt-2 space-y-3">
                     <Link
-                      to="/services/advisor-equity"
+                      to="/services/market-research"
                       className="block text-xl text-gray-700 hover:text-blue-600"
                       onClick={closeAllDropdowns}
                     >
-                      Advisor Equity
-                    </Link>
-                    <Link
-                      to="/services/business-plans"
-                      className="block text-xl text-gray-700 hover:text-blue-600"
-                      onClick={closeAllDropdowns}
-                    >
-                      Business Plans
+                      Market Research
                     </Link>
                     <Link
                       to="/services/pitch-decks"
                       className="block text-xl text-gray-700 hover:text-blue-600"
                       onClick={closeAllDropdowns}
                     >
-                      Pitch Decks
+                      Pitch Deck Writing
                     </Link>
                     <Link
-                      to="/services/market-research"
+                      to="/services/linkedin-profile"
                       className="block text-xl text-gray-700 hover:text-blue-600"
                       onClick={closeAllDropdowns}
                     >
-                      Market Research
+                      LinkedIn Profile Optimization
+                    </Link>
+                    <Link
+                      to="/services/one-pager"
+                      className="block text-xl text-gray-700 hover:text-blue-600"
+                      onClick={closeAllDropdowns}
+                    >
+                      Investor One-Pager
+                    </Link>
+                    <Link
+                      to="/services/business-plan"
+                      className="block text-xl text-gray-700 hover:text-blue-600"
+                      onClick={closeAllDropdowns}
+                    >
+                      Business Plan Writing
+                    </Link>
+                    <Link
+                      to="/services/advisor-equity"
+                      className="block text-xl text-gray-700 hover:text-blue-600"
+                      onClick={closeAllDropdowns}
+                    >
+                      Investor Equity
                     </Link>
                   </div>
                 )}

@@ -1,0 +1,273 @@
+/* PricingPage.css */
+
+/* Keyframe Animations */
+@keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fade-in-delay {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-15px) rotate(3deg);
+    }
+  }
+  
+  @keyframes float-reverse {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(15px) rotate(-3deg);
+    }
+  }
+  
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+  }
+  
+  @keyframes title-glow {
+    0%, 100% {
+      filter: brightness(1);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+      filter: brightness(1.1);
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+  }
+  
+  @keyframes badge-glow {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+    }
+  }
+  
+  @keyframes badge-bounce {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-3px) scale(1.05);
+    }
+  }
+  
+  @keyframes card-entrance {
+    from {
+      opacity: 0;
+      transform: translateY(50px) rotateY(10deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotateY(0deg);
+    }
+  }
+  
+  @keyframes card-glow {
+    0%, 100% {
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.1);
+    }
+    50% {
+      box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
+    }
+  }
+  
+  @keyframes content-float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+  
+  @keyframes price-glow {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.1);
+    }
+  }
+  
+  @keyframes feature-slide {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes check-bounce {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+  
+  @keyframes button-glow {
+    0%, 100% {
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+    50% {
+      box-shadow: 0 8px 40px rgba(59, 130, 246, 0.6);
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+  
+  @keyframes category-item {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes cta-glow {
+    0%, 100% {
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+      box-shadow: 0 8px 40px rgba(255, 255, 255, 0.5);
+    }
+  }
+  
+  /* Animation Classes */
+  .animate-fade-in-delay {
+    animation: fade-in-delay 0.8s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-float-reverse {
+    animation: float-reverse 8s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+  
+  .animate-title-glow {
+    animation: title-glow 3s ease-in-out infinite;
+  }
+  
+  .animate-badge-glow {
+    animation: badge-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-badge-bounce {
+    animation: badge-bounce 3s ease-in-out infinite;
+  }
+  
+  .animate-slide-up {
+    animation: slideInUp 0.8s ease-out forwards;
+  }
+  
+  .animate-category-item {
+    animation: category-item 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+  
+  .animate-card-entrance {
+    animation: card-entrance 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .animate-card-glow {
+    animation: card-glow 3s ease-in-out infinite;
+  }
+  
+  .animate-content-float {
+    animation: content-float 4s ease-in-out infinite;
+  }
+  
+  .animate-price-glow {
+    animation: price-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-feature-slide {
+    animation: feature-slide 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .animate-check-bounce {
+    animation: check-bounce 2s ease-in-out infinite;
+  }
+  
+  .animate-button-glow {
+    animation: button-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+  
+  .animate-cta-glow {
+    animation: cta-glow 2s ease-in-out infinite;
+  }
+  
+  /* Custom Utility Classes */
+  .shadow-3xl {
+    box-shadow: 0 35px 60px -12px rgba(59, 130, 246, 0.4);
+  }

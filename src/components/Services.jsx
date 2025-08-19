@@ -45,7 +45,7 @@ const Services = () => {
       image: "/HomePage/HighImpact.gif",
       gradient: "from-blue-600 via-blue-800 to-blue-900",
       buttonText: "View Portfolio",
-      link: "/consulting",
+      link: "/portfolio/one-pagers",
     },
   ];
 
