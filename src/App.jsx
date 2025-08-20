@@ -17,6 +17,7 @@ import { Portfolio } from "./components/Portfolio/Portfolio";
 import PricingPage from "./components/PricingPage";
 import Reviews from "./components/Reviews";
 import BusinessPlanWriting from "./components/services/BusinessPlanWriting";
+import InvestorEquity from "./components/services/InvestorEquity";
 import InvestorOnePager from "./components/services/InvestorOnePager";
 import LinkedinProfile from "./components/services/LinkedinProfile";
 import MarketResearch from "./components/services/MarketResearch";
@@ -64,6 +65,10 @@ function App() {
           <Route
             path="/services/business-plan"
             element={<BusinessPlanWriting />}
+          />
+          <Route
+            path="/services/investor-equity"
+            element={<InvestorEquity />}
           />
 
           {/* Portfolio Routes */}

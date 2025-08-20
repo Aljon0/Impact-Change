@@ -272,11 +272,18 @@ const Header = () => {
                       Business Plan Writing
                     </DropdownItem>
                     <DropdownItem
-                      to="/services/advisor-equity"
+                      to="/services/investor-equity"
                       onClick={closeAllDropdowns}
                       description="Fundraising & scaling support"
                     >
                       Investor Equity
+                    </DropdownItem>
+                    <DropdownItem
+                      to="/services/advisor-equity"
+                      onClick={closeAllDropdowns}
+                      description="Equity compensation for advisors"
+                    >
+                      Advisor Equity
                     </DropdownItem>
                   </AnimatedDropdown>
                 </div>
@@ -473,11 +480,18 @@ const Header = () => {
                       Business Plan Writing
                     </Link>
                     <Link
-                      to="/services/advisor-equity"
+                      to="/services/investor-equity"
                       className="block text-xl text-gray-700 hover:text-blue-600"
                       onClick={closeAllDropdowns}
                     >
                       Investor Equity
+                    </Link>
+                    <Link
+                      to="/services/advisor-equity"
+                      className="block text-xl text-gray-700 hover:text-blue-600"
+                      onClick={closeAllDropdowns}
+                    >
+                      Advisor Equity
                     </Link>
                   </div>
                 )}
