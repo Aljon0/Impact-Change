@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Navigate,
   Route,
   BrowserRouter as Router,
   Routes,
+  useLocation,
 } from "react-router-dom";
 import AdvisorEquity from "./components/AdvisorEquity";
 import Footer from "./components/Footer";
@@ -29,9 +30,22 @@ import ProcessPage from "./pages/Process";
 import Terms from "./pages/Terms";
 import WhoWeAre from "./pages/WhoWeAre";
 
+// ✅ ScrollToTop Component
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
+      {/* ✅ Place ScrollToTop inside Router */}
+      <ScrollToTop />
       <div className="min-h-screen bg-white">
         <Header />
         <Routes>

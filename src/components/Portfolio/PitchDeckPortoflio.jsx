@@ -1,4 +1,6 @@
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Enhanced LazyImage component with better loading states and intersection observer
 const LazyImage = ({ src, alt, className }) => {
@@ -327,6 +329,10 @@ export const PitchDecksPortfolio = () => {
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="inline-flex items-center text-slate-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base cursor-pointer">
+            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+            <Link to="/portfolio">Back to Portfolio</Link>
+          </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Pitch Deck Portfolio
           </h1>
@@ -379,39 +385,33 @@ export const PitchDecksPortfolio = () => {
                     alt={deck.title}
                     className="w-full h-full transition-transform duration-500 group-hover:scale-105"
                   />
-                  {/* Enhanced gradient overlay for better text visibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30"></div>
-
-                  {/* Title overlay positioned at the center */}
-                  <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 z-20">
-                    <div className="text-center">
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-2xl">
-                        {deck.title}
-                      </h3>
-                      <p className="text-gray-200 text-sm sm:text-base font-medium drop-shadow-lg">
-                        {deck.subtitle}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Corner elements */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <div className="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg text-slate-800 text-xs sm:text-sm font-semibold shadow-lg">
-                      {deck.industry}
-                    </div>
-                  </div>
-
-                  <div className="absolute top-4 right-4 z-10">
-                    <div className="text-right bg-black/70 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20">
-                      <div className="text-white font-bold text-sm sm:text-base">
-                        {deck.raised}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  <div className="relative p-4 sm:p-6 h-full flex flex-col justify-between z-10">
+                    <div className="flex justify-between items-start">
+                      <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md sm:rounded-lg text-slate-800 text-xs sm:text-sm font-semibold shadow-sm">
+                        {deck.industry}
                       </div>
-                      <div className="text-gray-200 text-xs">{deck.stage}</div>
+                      <div className="text-right bg-black/30 backdrop-blur-sm rounded-lg px-3 py-2">
+                        <div className="text-white font-bold text-sm sm:text-base md:text-lg">
+                          {deck.raised}
+                        </div>
+                        <div className="text-gray-200 text-xs sm:text-sm">
+                          {deck.stage}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="p-4 sm:p-6">
+                  <div className="mb-3">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-1">
+                      {deck.title}
+                    </h3>
+                    <p className="text-slate-600 text-sm sm:text-base font-medium">
+                      {deck.subtitle}
+                    </p>
+                  </div>
                   <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                     {deck.description}
                   </p>

@@ -1,5 +1,5 @@
-import { ArrowLeft, Link } from "lucide-react";
-
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 export const OnePagerPortfolio = () => {
   const onePagers = [
     {
@@ -164,18 +164,23 @@ export const OnePagerPortfolio = () => {
     },
   ];
 
+  const handleBackClick = () => {
+    // Replace with your navigation logic
+    console.log("Navigate back to portfolio");
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <Link
-            to="/portfolio"
-            className="inline-flex items-center text-blue-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base"
+          <button
+            onClick={handleBackClick}
+            className="inline-flex items-center text-blue-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base cursor-pointer"
           >
             <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-            Back to Portfolio
-          </Link>
+            <Link to="/portfolio">Back to Portfolio</Link>
+          </button>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             One-Pager Portfolio
           </h1>

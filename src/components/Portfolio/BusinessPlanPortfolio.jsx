@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const BusinessPlansPortfolio = () => {
   const businessPlans = [
@@ -107,7 +108,7 @@ export const BusinessPlansPortfolio = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <button className="inline-flex items-center text-blue-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base">
             <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-            Back to Portfolio
+            <Link to="/portfolio">Back to Portfolio</Link>
           </button>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Business Plans Portfolio
