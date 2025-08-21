@@ -68,7 +68,7 @@ const Hero = () => {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <Link
-              to="/contact"
+              to="/pricing"
               className="w-full sm:w-auto bg-white text-blue-900 px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-semibold inline-flex items-center justify-center group cursor-pointer hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Start Your Project

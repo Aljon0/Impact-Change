@@ -13,6 +13,8 @@ const ContactUs = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [focusedField, setFocusedField] = useState("");
   const [formProgress, setFormProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -32,25 +34,65 @@ const ContactUs = () => {
       ...prev,
       [name]: value,
     }));
+    // Clear any previous error when user starts typing
+    if (submitError) setSubmitError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError("");
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        company: "",
-        phone: "",
-        projectType: "",
-        message: "",
+    try {
+      const response = await fetch("https://formspree.io/f/xpwlgvwz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          projectType: formData.projectType,
+          message: formData.message,
+          // Add a subject line for better email organization
+          _subject: `New Contact Form Submission from ${formData.firstName} ${formData.lastName}`,
+          // Optional: Add a custom reply-to
+          _replyto: formData.email,
+        }),
       });
-    }, 3000);
+
+      if (response.ok) {
+        console.log("Form submitted successfully:", formData);
+        setIsSubmitted(true);
+
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            company: "",
+            phone: "",
+            projectType: "",
+            message: "",
+          });
+        }, 5000);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit form");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitError(
+        "Sorry, there was an error sending your message. Please try again or contact us directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const projectTypeOptions = [
@@ -115,7 +157,6 @@ const ContactUs = () => {
           }`}
         >
           <div className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-6 py-2 mb-8 border border-gray-200/50">
-            <span className="text-2xl mr-2">🚀</span>
             <span className="text-[#4a4949] font-medium">
               Let's Build Something Amazing
             </span>
@@ -219,7 +260,14 @@ const ContactUs = () => {
                   </p>
                 </div>
               ) : (
-                <div onSubmit={handleSubmit} className="space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Error Message */}
+                  {submitError && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+                      {submitError}
+                    </div>
+                  )}
+
                   {/* Name Fields */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="relative group">
@@ -238,10 +286,13 @@ const ContactUs = () => {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("firstName")}
                         onBlur={() => setFocusedField("")}
+                        disabled={isSubmitting}
                         className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
                           focusedField === "firstName" || formData.firstName
                             ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
                             : "border-gray-200 hover:border-gray-300"
+                        } ${
+                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                         placeholder="Your first name..."
                       />
@@ -268,10 +319,13 @@ const ContactUs = () => {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("lastName")}
                         onBlur={() => setFocusedField("")}
+                        disabled={isSubmitting}
                         className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
                           focusedField === "lastName" || formData.lastName
                             ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
                             : "border-gray-200 hover:border-gray-300"
+                        } ${
+                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                         placeholder="Your last name..."
                       />
@@ -301,10 +355,13 @@ const ContactUs = () => {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField("")}
+                        disabled={isSubmitting}
                         className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
                           focusedField === "email" || formData.email
                             ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
                             : "border-gray-200 hover:border-gray-300"
+                        } ${
+                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                         placeholder="your@email.com"
                       />
@@ -330,10 +387,13 @@ const ContactUs = () => {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("company")}
                         onBlur={() => setFocusedField("")}
+                        disabled={isSubmitting}
                         className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
                           focusedField === "company" || formData.company
                             ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
                             : "border-gray-200 hover:border-gray-300"
+                        } ${
+                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                         placeholder="Your amazing company..."
                       />
@@ -362,10 +422,13 @@ const ContactUs = () => {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("phone")}
                         onBlur={() => setFocusedField("")}
+                        disabled={isSubmitting}
                         className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
                           focusedField === "phone" || formData.phone
                             ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
                             : "border-gray-200 hover:border-gray-300"
+                        } ${
+                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                         placeholder="+1 (555) 123-4567"
                       />
@@ -391,10 +454,13 @@ const ContactUs = () => {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("projectType")}
                         onBlur={() => setFocusedField("")}
+                        disabled={isSubmitting}
                         className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
                           focusedField === "projectType" || formData.projectType
                             ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
                             : "border-gray-200 hover:border-gray-300"
+                        } ${
+                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                       >
                         {projectTypeOptions.map((option) => (
@@ -428,11 +494,12 @@ const ContactUs = () => {
                       onChange={handleInputChange}
                       onFocus={() => setFocusedField("message")}
                       onBlur={() => setFocusedField("")}
+                      disabled={isSubmitting}
                       className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 resize-none ${
                         focusedField === "message" || formData.message
                           ? "border-[#131e3D] bg-white shadow-lg"
                           : "border-gray-200 hover:border-gray-300"
-                      }`}
+                      } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                       placeholder="Tell me about your vision, goals, timeline, and how I can help you build something remarkable..."
                     />
                     {formData.message && (
@@ -446,19 +513,53 @@ const ContactUs = () => {
                   <div className="text-center pt-4">
                     <button
                       type="submit"
-                      className="relative overflow-hidden bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-12 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group"
+                      disabled={isSubmitting}
+                      className={`relative overflow-hidden bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-12 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group ${
+                        isSubmitting
+                          ? "opacity-50 cursor-not-allowed scale-100 hover:scale-100"
+                          : "cursor-pointer"
+                      }`}
                     >
                       <span className="relative z-10 flex items-center justify-center">
-                        <span className="mr-2">🚀</span>
-                        Start Your Project
-                        <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">
-                          →
-                        </span>
+                        {isSubmitting ? (
+                          <>
+                            <svg
+                              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
+                            </svg>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Start Your Project
+                            <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">
+                              →
+                            </span>
+                          </>
+                        )}
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      {!isSubmitting && (
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      )}
                     </button>
                   </div>
-                </div>
+                </form>
               )}
             </div>
           </div>
@@ -511,7 +612,6 @@ const ContactUs = () => {
                   href="mailto:hello@impactchange.com"
                   className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-200 hover:scale-105"
                 >
-                  <span className="mr-2">📧</span>
                   hello@impactchange.com
                 </a>
               </div>
@@ -543,7 +643,6 @@ const ContactUs = () => {
                   href="tel:+1234567890"
                   className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-200 hover:scale-105"
                 >
-                  <span className="mr-2">📞</span>
                   +1 (555) 123-4567
                 </a>
               </div>
@@ -571,7 +670,6 @@ const ContactUs = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-200 hover:scale-105"
                 >
-                  <span className="mr-2">👔</span>
                   Will Bryant
                 </a>
               </div>
@@ -584,7 +682,6 @@ const ContactUs = () => {
               <span className="text-[#4a4949] mr-3">
                 Ready to join 1,500+ successful founders?
               </span>
-              <span className="text-2xl">🎯</span>
             </div>
           </div>
         </div>

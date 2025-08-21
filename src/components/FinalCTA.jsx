@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const FinalCTA = () => {
   return (
@@ -17,7 +18,7 @@ const FinalCTA = () => {
           creating impact with Story.
         </p>
         <button className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center group cursor-pointer">
-          Start Your Project
+          <Link to="/pricing">Start Your Project</Link>
         </button>
       </div>
     </section>

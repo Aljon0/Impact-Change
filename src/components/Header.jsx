@@ -199,6 +199,24 @@ const Header = () => {
             {/* Centered Navigation */}
             <nav className="hidden md:flex items-center justify-center flex-1 mx-8">
               <div className="flex items-center space-x-8">
+                {/* Home Link */}
+                <div className="relative">
+                  <Link
+                    to="/"
+                    className="relative flex items-center text-[#131e3D] font-medium cursor-pointer transition-all duration-300 ease-out hover:text-blue-600 group py-2"
+                    onClick={closeAllDropdowns}
+                    onMouseEnter={() => setHoveredItem("home")}
+                    onMouseLeave={() => setHoveredItem(null)}
+                  >
+                    Home
+                    <div
+                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-[#131e3D] transition-all duration-300 ease-out ${
+                        hoveredItem === "home" ? "w-full" : "w-0"
+                      }`}
+                    ></div>
+                  </Link>
+                </div>
+
                 {/* Who we are Link */}
                 <div className="relative">
                   <Link
@@ -248,7 +266,7 @@ const Header = () => {
                       onClick={closeAllDropdowns}
                       description="Compelling investor presentations"
                     >
-                      Pitch Deck Writing
+                      Pitch Deck
                     </DropdownItem>
                     <DropdownItem
                       to="/services/linkedin-profile"
@@ -328,6 +346,12 @@ const Header = () => {
                       </DropdownItem>
                     </DropdownSection>
 
+                    <DropdownSection title="Contact">
+                      <DropdownItem to="/contact" onClick={closeAllDropdowns}>
+                        Contact
+                      </DropdownItem>
+                    </DropdownSection>
+
                     <DropdownSection title="Investment">
                       <DropdownItem to="/investing" onClick={closeAllDropdowns}>
                         Investing
@@ -338,9 +362,9 @@ const Header = () => {
               </div>
             </nav>
 
-            {/* Start Your Project Button */}
+            {/* Start Your Project Button - Linked to pricing page */}
             <Link
-              to="/contact"
+              to="/pricing"
               className="hidden md:block relative bg-gradient-to-r from-blue-600 to-[#131e3D] text-white px-6 py-2 rounded-lg font-medium cursor-pointer overflow-hidden group transition-all duration-300 ease-out hover:shadow-lg hover:shadow-[#131e3D]/25 hover:-translate-y-0.5"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-[#131e3D] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
@@ -426,6 +450,15 @@ const Header = () => {
           {/* Mobile Menu Content - With proper spacing */}
           <div className="px-4 py-8 h-full overflow-y-auto">
             <div className="flex flex-col space-y-6 pb-32">
+              {/* Home Link in mobile menu */}
+              <Link
+                to="/"
+                className="text-2xl font-medium text-gray-800 hover:text-blue-600 py-3 border-b border-gray-100"
+                onClick={closeAllDropdowns}
+              >
+                Home
+              </Link>
+
               <Link
                 to="/who-we-are"
                 className="text-2xl font-medium text-gray-800 hover:text-blue-600 py-3 border-b border-gray-100"
@@ -456,7 +489,7 @@ const Header = () => {
                       className="block text-xl text-gray-700 hover:text-blue-600"
                       onClick={closeAllDropdowns}
                     >
-                      Pitch Deck Writing
+                      Pitch Deck
                     </Link>
                     <Link
                       to="/services/linkedin-profile"
@@ -477,7 +510,7 @@ const Header = () => {
                       className="block text-xl text-gray-700 hover:text-blue-600"
                       onClick={closeAllDropdowns}
                     >
-                      Business Plan Writing
+                      Business Plan
                     </Link>
                     <Link
                       to="/services/investor-equity"
@@ -561,6 +594,21 @@ const Header = () => {
 
                     <div>
                       <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                        Contact
+                      </h4>
+                      <div className="pl-2">
+                        <Link
+                          to="/contact"
+                          className="block text-lg text-gray-700 hover:text-blue-600"
+                          onClick={closeAllDropdowns}
+                        >
+                          Contact
+                        </Link>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-800 mb-2">
                         Investment
                       </h4>
                       <div className="pl-2">
@@ -579,10 +627,10 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile Menu CTA - Fixed at bottom */}
+          {/* Mobile Menu CTA - Fixed at bottom - Linked to pricing page */}
           <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
             <Link
-              to="/contact"
+              to="/pricing"
               className="block w-full bg-gradient-to-r from-blue-600 to-[#131e3D] text-white text-center py-4 rounded-lg font-medium text-lg shadow-lg"
               onClick={closeAllDropdowns}
             >

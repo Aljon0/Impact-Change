@@ -1,4 +1,5 @@
 import {
+  ArrowRight,
   Award,
   Building2,
   DollarSign,
@@ -9,6 +10,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const InvestorEquity = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -131,7 +133,7 @@ const InvestorEquity = () => {
           </div>
 
           <h1 className="text-6xl lg:text-8xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
               Investor Equity
             </span>
           </h1>
@@ -148,6 +150,16 @@ const InvestorEquity = () => {
             </span>{" "}
             needed to scale your business.
           </p>
+
+          <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
+            <Link to="/pricing" className="relative">
+              Get Started Today
+              <ArrowRight
+                className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                size={24}
+              />
+            </Link>
+          </button>
         </section>
 
         {/* Highlights Section */}

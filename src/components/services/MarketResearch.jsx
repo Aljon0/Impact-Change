@@ -91,7 +91,7 @@ const MarketResearch = () => {
           </div>
 
           <h1 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
               Comprehensive Market Research
             </span>
             <span className="block text-gray-700 text-4xl lg:text-5xl mt-4">
@@ -114,15 +114,14 @@ const MarketResearch = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="group px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg rounded-xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300">
-              Get Started Today
-              <ArrowRight
-                className="inline ml-3 group-hover:translate-x-2 transition-transform"
-                size={22}
-              />
-            </button>
-            <button className="px-10 py-4 border-2 border-blue-200 text-blue-700 font-bold text-lg rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-300 transition-all duration-300">
-              View Sample Report
+            <button className="group px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-900 text-white font-bold text-lg rounded-xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300">
+              <Link to="/pricing">
+                Get Started Today
+                <ArrowRight
+                  className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                  size={22}
+                />
+              </Link>
             </button>
           </div>
         </section>

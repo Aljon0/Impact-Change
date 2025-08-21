@@ -32,6 +32,16 @@ const LinkedinProfile = () => {
             network, attracts key opportunities, and engages your target
             audience with authority.
           </p>
+
+          <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
+            <Link to="/Pricing" className="relative">
+              Get Started Today
+              <ArrowRight
+                className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                size={24}
+              />
+            </Link>
+          </button>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, DollarSign, Star, Users } from "lucide-react";
+import { ArrowRight, DollarSign, Percent, Star, Users } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -23,9 +23,9 @@ const PitchDeck = () => {
       delay: "delay-200",
     },
     {
-      number: "48-Hour",
-      text: "Average Turnaround for First Draft",
-      icon: Clock,
+      number: "99%",
+      text: "Positive Investor Feedback",
+      icon: Percent,
       delay: "delay-300",
     },
   ];
@@ -54,7 +54,7 @@ const PitchDeck = () => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          <h1 className="text-5xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent mb-6 leading-tight">
+          <h1 className="text-5xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600  to-blue-800 bg-clip-text text-transparent mb-6 leading-tight">
             Pitch Deck Writing
             <span className="block">& Designing</span>
           </h1>
@@ -70,6 +70,15 @@ const PitchDeck = () => {
             </span>
             .
           </p>
+          <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
+            <Link to="/pricing" className="relative">
+              Get Started
+              <ArrowRight
+                className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                size={24}
+              />
+            </Link>
+          </button>
         </section>
 
         {/* Highlights Section */}
@@ -201,7 +210,7 @@ const PitchDeck = () => {
             </div>
             <button
               onClick={scrollToPortfolio}
-              className="group px-10 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-bold mt-16 cursor-pointer text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 relative overflow-hidden"
+              className="group px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold mt-16 cursor-pointer text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 relative overflow-hidden"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
               <Link to="/portfolio" className="relative">

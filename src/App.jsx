@@ -9,7 +9,9 @@ import {
 import AdvisorEquity from "./components/AdvisorEquity";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import IntakeForm from "./components/IntakeForm";
 import InvestingStartupsPage from "./components/InvestingStartUps";
+import PaymentFlow from "./components/PaymentFlow";
 import { BusinessPlansPortfolio } from "./components/Portfolio/BusinessPlanPortfolio";
 import { MarketResearchPortfolio } from "./components/Portfolio/MarketResearchPortoflio";
 import { OnePagerPortfolio } from "./components/Portfolio/OnePagerPortfolio";
@@ -84,6 +86,8 @@ function App() {
             path="/services/investor-equity"
             element={<InvestorEquity />}
           />
+          <Route path="/intake-form" element={<IntakeForm />} />
+          <Route path="/payment-flow" element={<PaymentFlow />} />
 
           {/* Portfolio Routes */}
           <Route path="/portfolio" element={<Portfolio />} />

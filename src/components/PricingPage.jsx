@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PricingPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("pitch-decks");
+  const navigate = useNavigate();
 
   const pricingData = {
     "pitch-decks": [
@@ -90,12 +91,25 @@ const PricingPage = () => {
   };
 
   const categories = [
-    { id: "pitch-decks", name: "Pitch Decks", icon: "📊" },
-    { id: "business-plans", name: "Business Plans", icon: "📋" },
-    { id: "market-research", name: "Market Research", icon: "🔍" },
-    { id: "linkedin", name: "LinkedIn Optimization", icon: "💼" },
-    { id: "consulting", name: "Consulting", icon: "🎯" },
+    { id: "pitch-decks", name: "Pitch Decks" },
+    { id: "business-plans", name: "Business Plans" },
+    { id: "market-research", name: "Market Research" },
+    { id: "linkedin", name: "LinkedIn Optimization" },
+    { id: "consulting", name: "Consulting" },
   ];
+
+  const handleGetStarted = (plan) => {
+    // Store the selected plan in localStorage or pass via state
+    const selectedPlan = {
+      name: plan.name,
+      price: plan.price,
+      category: selectedCategory,
+      gradient: plan.gradient,
+    };
+
+    // Navigate to intake form with state
+    navigate("/intake-form", { state: { selectedPlan } });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100/50 to-blue-200/30">
@@ -195,6 +209,7 @@ const PricingPage = () => {
 
                   {/* CTA Button */}
                   <button
+                    onClick={() => handleGetStarted(plan)}
                     className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-xl font-semibold transition-all cursor-pointer duration-500 transform hover:scale-105 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden group/btn`}
                   >
                     <span className="relative z-10">Get Started</span>
