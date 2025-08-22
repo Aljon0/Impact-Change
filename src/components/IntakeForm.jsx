@@ -1,55 +1,77 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import BusinessDetails from "./BusinessDetails";
+import BusinessDifferentiation from "./BusinessDifferentation";
+import Confirmation from "./Confirmation";
+import EssentialBusinessInfo from "./EssentialBusinessInfo";
+import Financials from "./Financials";
+import OperationsLogistics from "./OperationsLogistics";
+import PersonnelStaffing from "./PersonnelStaffing";
+import SalesMarketing from "./SalesMarketing";
+
+// Replace with your Google Apps Script Web App URL
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyO9sXCDkxtwUsYJqa3T8ZLOa-o6A8qUx969R5LxMB4RvLzOj9AjxfQNWeNg4eMoMeB/exec";
 
 const IntakeForm = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     fiverrUsername: "",
-    businessName: "",
-    businessWebsite: "",
-    businessAddress: "",
-    founderName: "",
-    linkedinProfile: "",
-    legalStructure: "",
-    foundedYear: "",
-    businessSummary: "",
-    fundingAmount: "",
-    fundingPurpose: "",
-    milestones: "",
-    brandAssets: null,
-    assetsLink: "",
-    brandColors: "",
-    uniqueValue: "",
-    competitors: "",
-    problemSolved: "",
-    solutionDifferentiator: "",
-    relevantExperience: "",
-    previousBusiness: "",
-    skillsExpertise: "",
-    onlineStrategy: "",
-    offlineStrategy: "",
-    existingCustomers: "",
-    successfulMarketing: "",
-    customerRetention: "",
-    salesTeam: "",
-    keyProcesses: "",
-    suppliersPartners: "",
-    businessTools: "",
-    physicalLocation: "",
-    orderFulfillment: "",
-    operationalChallenges: "",
-    capitalExpenditure: "",
-    marketingCosts: "",
-    legalCosts: "",
-    developmentCosts: "",
-    keyProducts: "",
-    growthRate: "",
-    operatingExpenses: "",
-    currentEmployees: "",
-    hiringPlans: "",
-    employeeSalaries: "",
+    What_is_the_name_of_your_business: "",
+    What_is_your_businesswebsite__ifavailable: "",
+    What_is_the_physical_or_registered_business_address: "",
+    Who_is_the_founder_of_the_business: "",
+    Please_provide_the_LinkedIn_profile_of_the_founder_ifavailable: "",
+    What_is_the_legal_structure_of_your_business: "",
+    What_year_was_your_business_founded: "",
+    Provide_a_short_summary_of_what_your_business_does: "",
+    How_much_funding_are_you_seeking: "",
+    What_is_the_primary_purpose_of_this_funding: "",
+    Have_you_achieved_any_notable_milestones_so_far: "",
+    Do_you_have_any_brand_assets_you_like_to_include: null,
+    Please_share_the_Google_Drive_or_Dropbox_link_containing_the_assets_you_like_to_provide:
+      "",
+    What_are_your_brand_colors: "",
+    What_makes_your_business_unique: "",
+    Who_are_your_main_competitors: "",
+    What_problem_does_your_business_solve_for_customers: "",
+    How_does_your_business_solve_this_problem_better_than_other_solutions: "",
+    What_relevant_experience_do_you_or_your_team_have_that_makes_you_the_right_person_to_run_this_business:
+      "",
+    Have_you_or_your_team_built_or_scaled_a_business_before: "",
+    What_skills_or_expertise_do_you_bring_to_help_make_this_business_successful:
+      "",
+    What_are_your_sales_and_marketing_strategies_for_online_growth: "",
+    What_are_your_sales_and_marketing_strategies_for_offline_growth: "",
+    Do_you_have_an_existing_customer_base_If_yes_how_many_customers_or_users:
+      "",
+    What_has_been_your_most_successful_marketing_effort_so_far: "",
+    How_do_you_plan_to_retain_and_grow_your_customer_base: "",
+    Do_you_have_a_sales_team: "",
+    What_are_the_key_processes_in_your_business: "",
+    Do_you_have_suppliers_vendors_or_key_partnerships_that_are_essential_to_your_operations:
+      "",
+    What_tools_software_or_systems_do_you_use_to_manage_your_business: "",
+    Do_you_have_a_physical_location_office_or_warehouse_If_yes_provide_details:
+      "",
+    How_do_you_fulfill_orders_or_deliver_your_product_or_service: "",
+    What_challenges_do_you_face_in_operations: "",
+    What_capital_expenditures_CapEx_will_you_need: "",
+    What_are_your_initial_marketing_and_branding_setup_costs: "",
+    What_are_your_expected_legal_regulatory_and_compliance_costs: "",
+    What_are_your_product_development_or_inventory_costs: "",
+    List_up_to_five_key_products_or_services_their_price_and_expected_first_month_sales:
+      "",
+    What_is_your_projected_annual_growth_rate: "",
+    What_are_your_estimated_monthly_operating_expenses: "",
+    Do_you_currently_have_employees_If_yes_how_many_and_what_roles: "",
+    Do_you_plan_to_hire_employees_in_the_next_1_5_years_If_yes_what_positions_and_how_many:
+      "",
+    What_are_your_estimated_monthly_salaries_for_employees: "",
+    timestamp: new Date().toISOString(),
   });
 
   const handleInputChange = (field, value) => {
@@ -61,9 +83,45 @@ const IntakeForm = () => {
     setFormData((prev) => ({ ...prev, brandAssets: files }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowConfirmation(true);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Prepare data for submission
+      const submissionData = {
+        ...formData,
+        // Convert file object to file names string
+        brandAssets: formData.brandAssets
+          ? Array.from(formData.brandAssets)
+              .map((file) => file.name)
+              .join(", ")
+          : "",
+        submissionDate: new Date().toLocaleString(),
+      };
+
+      // Send data to Google Sheets
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      // Note: With no-cors mode, we can't read the response
+      // But the data should still be sent to Google Sheets
+      setShowConfirmation(true);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitError(
+        "Failed to submit form. Please try again or contact support."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const nextPage = () => {
@@ -94,980 +152,61 @@ const IntakeForm = () => {
     switch (currentPage) {
       case 1:
         return (
-          <div className="space-y-6">
-            <div className="bg-green-500 text-white px-4 py-3 rounded-lg font-medium">
-              Essential Business Information (Required – Please complete all
-              fields)
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  1. What is the name of your business?
-                </label>
-                <input
-                  type="text"
-                  value={formData.businessName}
-                  onChange={(e) =>
-                    handleInputChange("businessName", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  2. What is your business website (if available)?
-                </label>
-                <input
-                  type="url"
-                  value={formData.businessWebsite}
-                  onChange={(e) =>
-                    handleInputChange("businessWebsite", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  3. What is the physical or registered business address?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **If applicable, provide your home office if no formal address
-                  yet.
-                </p>
-                <input
-                  type="text"
-                  value={formData.businessAddress}
-                  onChange={(e) =>
-                    handleInputChange("businessAddress", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  4. Who is the founder of the business?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">** Enter full name</p>
-                <input
-                  type="text"
-                  value={formData.founderName}
-                  onChange={(e) =>
-                    handleInputChange("founderName", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  5. Please provide the LinkedIn profile of the founder (if
-                  available).
-                </label>
-                <input
-                  type="url"
-                  value={formData.linkedinProfile}
-                  onChange={(e) =>
-                    handleInputChange("linkedinProfile", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  6. What is the legal structure of your business?
-                </label>
-                <div className="space-y-2">
-                  {[
-                    "Sole Proprietor",
-                    "LLC",
-                    "Corporation",
-                    "Partnership",
-                    "Cooperative",
-                    "Non-Profit",
-                    "Other",
-                  ].map((option) => (
-                    <label key={option} className="flex items-center">
-                      <input
-                        type="radio"
-                        name="legalStructure"
-                        value={option}
-                        checked={formData.legalStructure === option}
-                        onChange={(e) =>
-                          handleInputChange("legalStructure", e.target.value)
-                        }
-                        className="mr-3 text-blue-600"
-                      />
-                      <span className="text-gray-700">{option}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  7. What year was your business founded?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **If not yet launched, provide the planned launch year.
-                </p>
-                <input
-                  type="text"
-                  value={formData.foundedYear}
-                  onChange={(e) =>
-                    handleInputChange("foundedYear", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+          <EssentialBusinessInfo
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
         );
-
       case 2:
         return (
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  8. Provide a short summary of what your business does.
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **One or two sentences explaining your product/service and
-                  industry
-                </p>
-                <textarea
-                  value={formData.businessSummary}
-                  onChange={(e) =>
-                    handleInputChange("businessSummary", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  9. How much funding are you seeking?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **Provide an approximate amount
-                </p>
-                <input
-                  type="text"
-                  value={formData.fundingAmount}
-                  onChange={(e) =>
-                    handleInputChange("fundingAmount", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  10. What is the primary purpose of this funding?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Examples: product development, marketing, hiring,
-                  inventory, expansion, other - please specify
-                </p>
-                <textarea
-                  value={formData.fundingPurpose}
-                  onChange={(e) =>
-                    handleInputChange("fundingPurpose", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  11. Have you achieved any notable milestones so far?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **Examples: product launch, first customers, revenue
-                  milestones, partnerships, funding rounds, press coverage.
-                </p>
-                <textarea
-                  value={formData.milestones}
-                  onChange={(e) =>
-                    handleInputChange("milestones", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  13. Do you have any brand assets you'd like to include? (If
-                  yes, upload them.)
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **Example brand guidelines, company logo, professional photos
-                  such as founder headshots, team photos, or product images)
-                </p>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
-                  <input
-                    type="file"
-                    multiple
-                    onChange={handleFileChange}
-                    className="w-full"
-                    accept="image/*,.pdf"
-                  />
-                  <p className="text-sm text-gray-500 mt-2">
-                    Upload up to 5 supported files. Max 100 MB per file.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  14. Please share the Google Drive or Dropbox link containing
-                  the assets you'd like to provide.
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  Make sure the link is set to 'Anyone with the link can view'
-                  so we can access the files without restrictions.
-                </p>
-                <input
-                  type="url"
-                  value={formData.assetsLink}
-                  onChange={(e) =>
-                    handleInputChange("assetsLink", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  12. What are your brand colors?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **Provide hex codes or descriptions.
-                </p>
-                <input
-                  type="text"
-                  value={formData.brandColors}
-                  onChange={(e) =>
-                    handleInputChange("brandColors", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+          <BusinessDetails
+            formData={formData}
+            handleInputChange={handleInputChange}
+            handleFileChange={handleFileChange}
+          />
         );
-
       case 3:
         return (
-          <div className="space-y-6">
-            <div className="bg-green-500 text-white px-4 py-3 rounded-lg font-medium">
-              Business Differentiation & Founder Expertise (Optional – Do your
-              best!)
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  1. What makes your business unique?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Describe your unique selling proposition (USP) or
-                  competitive advantage.
-                </p>
-                <textarea
-                  value={formData.uniqueValue}
-                  onChange={(e) =>
-                    handleInputChange("uniqueValue", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  2. Who are your main competitors? (List names or websites.)
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **List names or websites of businesses that offer similar
-                  products/services.
-                </p>
-                <textarea
-                  value={formData.competitors}
-                  onChange={(e) =>
-                    handleInputChange("competitors", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  3. What problem does your business solve for customers?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **Describe the key pain points your business addresses.
-                </p>
-                <textarea
-                  value={formData.problemSolved}
-                  onChange={(e) =>
-                    handleInputChange("problemSolved", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  4. How does your business solve this problem better than other
-                  solutions?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Highlight key differentiators like pricing, technology,
-                  customer service, or efficiency.
-                </p>
-                <textarea
-                  value={formData.solutionDifferentiator}
-                  onChange={(e) =>
-                    handleInputChange("solutionDifferentiator", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  5. What relevant experience do you (or your team) have that
-                  makes you the right person to run this business?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **Share your background, industry experience, or past
-                  successes.
-                </p>
-                <textarea
-                  value={formData.relevantExperience}
-                  onChange={(e) =>
-                    handleInputChange("relevantExperience", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  6. Have you or your team built or scaled a business before?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **If yes, provide details about the previous business, growth,
-                  and outcome.
-                </p>
-                <textarea
-                  value={formData.previousBusiness}
-                  onChange={(e) =>
-                    handleInputChange("previousBusiness", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  7. What skills or expertise do you bring to help make this
-                  business successful?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Examples: sales, marketing, technical, operational,
-                  finance, etc.
-                </p>
-                <textarea
-                  value={formData.skillsExpertise}
-                  onChange={(e) =>
-                    handleInputChange("skillsExpertise", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+          <BusinessDifferentiation
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
         );
-
       case 4:
         return (
-          <div className="space-y-6">
-            <div className="bg-green-500 text-white px-4 py-3 rounded-lg font-medium">
-              Sales & Marketing Strategy (Optional – Do your best!)
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  1. What are your sales and marketing strategies for online
-                  growth?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Examples: SEO, social media, paid ads, email marketing,
-                  content marketing.
-                </p>
-                <textarea
-                  value={formData.onlineStrategy}
-                  onChange={(e) =>
-                    handleInputChange("onlineStrategy", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  2. What are your sales and marketing strategies for offline
-                  growth?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **Examples: events, networking, retail partnerships, direct
-                  sales, PR, referrals.
-                </p>
-                <textarea
-                  value={formData.offlineStrategy}
-                  onChange={(e) =>
-                    handleInputChange("offlineStrategy", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  3. Do you have an existing customer base? If yes, how many
-                  customers or users?
-                </label>
-                <input
-                  type="text"
-                  value={formData.existingCustomers}
-                  onChange={(e) =>
-                    handleInputChange("existingCustomers", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  4. What has been your most successful marketing effort so far?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** If applicable, describe the campaign, channel, and results.
-                </p>
-                <textarea
-                  value={formData.successfulMarketing}
-                  onChange={(e) =>
-                    handleInputChange("successfulMarketing", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  5. How do you plan to retain and grow your customer base?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Examples: loyalty programs, community building, customer
-                  support, repeat purchase incentives.
-                </p>
-                <textarea
-                  value={formData.customerRetention}
-                  onChange={(e) =>
-                    handleInputChange("customerRetention", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  6. Do you have a sales team?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  **If yes, how is it structured?
-                </p>
-                <p className="text-sm text-gray-600 mb-2">
-                  **If no, do you plan to hire one?
-                </p>
-                <textarea
-                  value={formData.salesTeam}
-                  onChange={(e) =>
-                    handleInputChange("salesTeam", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+          <SalesMarketing
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
         );
-
       case 5:
         return (
-          <div className="space-y-6">
-            <div className="bg-green-500 text-white px-4 py-3 rounded-lg font-medium">
-              Operations & Logistics (Optional – Do your best!)
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  1. What are the key processes in your business?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Examples: manufacturing, service delivery, software
-                  development, customer support
-                </p>
-                <textarea
-                  value={formData.keyProcesses}
-                  onChange={(e) =>
-                    handleInputChange("keyProcesses", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  2. Do you have suppliers, vendors, or key partnerships that
-                  are essential to your operations?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** If yes, provide details.
-                </p>
-                <textarea
-                  value={formData.suppliersPartners}
-                  onChange={(e) =>
-                    handleInputChange("suppliersPartners", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  3. What tools, software, or systems do you use to manage your
-                  business?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Examples: POS system, CRM, inventory management, accounting
-                  software.
-                </p>
-                <textarea
-                  value={formData.businessTools}
-                  onChange={(e) =>
-                    handleInputChange("businessTools", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  4. Do you have a physical location, office, or warehouse? If
-                  yes, provide details.
-                </label>
-                <textarea
-                  value={formData.physicalLocation}
-                  onChange={(e) =>
-                    handleInputChange("physicalLocation", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  5. How do you fulfill orders or deliver your product/service?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Shipping, digital downloads, in-person service, etc.
-                </p>
-                <textarea
-                  value={formData.orderFulfillment}
-                  onChange={(e) =>
-                    handleInputChange("orderFulfillment", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  6. What challenges do you face in operations?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Examples: supply chain delays, hiring, inventory
-                  management.
-                </p>
-                <textarea
-                  value={formData.operationalChallenges}
-                  onChange={(e) =>
-                    handleInputChange("operationalChallenges", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+          <OperationsLogistics
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
         );
-
       case 6:
         return (
-          <div className="space-y-6">
-            <div className="bg-green-500 text-white px-4 py-3 rounded-lg font-medium">
-              Financials (Optional – Do your best!)
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  1. What capital expenditures (CapEx) will you need?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  CapEx refers to one-time purchases of physical or long-term
-                  assets essential for your business, such as office space,
-                  equipment, machinery, or major technology investments.
-                </p>
-                <textarea
-                  value={formData.capitalExpenditure}
-                  onChange={(e) =>
-                    handleInputChange("capitalExpenditure", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  2. What are your initial marketing and branding setup costs?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  Examples: advertising, social media campaigns, website
-                  development.
-                </p>
-                <textarea
-                  value={formData.marketingCosts}
-                  onChange={(e) =>
-                    handleInputChange("marketingCosts", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  3. What are your expected legal, regulatory, and compliance
-                  costs?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  Examples: business registration, patents, trademarks,
-                  contracts, licenses
-                </p>
-                <textarea
-                  value={formData.legalCosts}
-                  onChange={(e) =>
-                    handleInputChange("legalCosts", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  4. What are your product development or inventory costs?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  If applicable, list estimated costs for production, raw
-                  materials, initial stock.
-                </p>
-                <textarea
-                  value={formData.developmentCosts}
-                  onChange={(e) =>
-                    handleInputChange("developmentCosts", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  5. List up to five key products or services, their price, and
-                  expected first-month sales.
-                </label>
-                <p className="text-sm text-gray-600 mb-2">Include:</p>
-                <p className="text-sm text-gray-600 mb-2">
-                  1. Product/Service Name
-                </p>
-                <p className="text-sm text-gray-600 mb-2">2. Price Per Unit</p>
-                <p className="text-sm text-gray-600 mb-2">
-                  3. Expected Sales in First Month
-                </p>
-                <textarea
-                  value={formData.keyProducts}
-                  onChange={(e) =>
-                    handleInputChange("keyProducts", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="6"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  6. What is your projected annual growth rate?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  If possible, provide an estimate for each year. Example: Year
-                  1: 20%, Year 2: 50%, Year 3: 30%.
-                </p>
-                <textarea
-                  value={formData.growthRate}
-                  onChange={(e) =>
-                    handleInputChange("growthRate", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  7. What are your estimated monthly operating expenses?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Provide rough estimates for the following categories.
-                </p>
-                <textarea
-                  value={formData.operatingExpenses}
-                  onChange={(e) =>
-                    handleInputChange("operatingExpenses", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+          <Financials
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
         );
-
       case 7:
         return (
-          <div className="space-y-6">
-            <div className="bg-green-500 text-white px-4 py-3 rounded-lg font-medium">
-              Personnel & Staffing Costs (Optional – Do your best!)
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  1. Do you currently have employees? (If yes, how many and what
-                  roles?)
-                </label>
-                <textarea
-                  value={formData.currentEmployees}
-                  onChange={(e) =>
-                    handleInputChange("currentEmployees", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="3"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  2. Do you plan to hire employees in the next 1-5 years? (If
-                  yes, what positions and how many?)
-                </label>
-                <textarea
-                  value={formData.hiringPlans}
-                  onChange={(e) =>
-                    handleInputChange("hiringPlans", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  3. What are your estimated monthly salaries for employees?
-                </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  ** Provide rough estimates per role.
-                </p>
-                <textarea
-                  value={formData.employeeSalaries}
-                  onChange={(e) =>
-                    handleInputChange("employeeSalaries", e.target.value)
-                  }
-                  placeholder="Your answer"
-                  rows="4"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+          <PersonnelStaffing
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
         );
-
       default:
         return null;
     }
   };
 
   if (showConfirmation) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8 text-center">
-          <div className="mb-6">
-            <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg
-                className="w-10 h-10 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              Submission Successful!
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Thank you for providing your business information. We've received
-              your submission and will begin working on your pitch deck and
-              business plan.
-            </p>
-          </div>
-
-          <div className="bg-blue-50 rounded-lg p-6 mb-6">
-            <h3 className="text-xl font-semibold text-blue-800 mb-3">
-              What happens next?
-            </h3>
-            <div className="text-left space-y-2 text-gray-700">
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                <span>
-                  Our team will review your submission within 24 hours
-                </span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                <span>
-                  We'll create your custom pitch deck and business plan
-                </span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                <span>Standard delivery within one week</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition duration-300 text-lg cursor-pointer">
-              <Link to="/payment-flow">Proceed to Payment</Link>
-            </button>
-
-            <button
-              onClick={() => setShowConfirmation(false)}
-              className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-300 cursor-pointer"
-            >
-              Review Submission
-            </button>
-          </div>
-
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600">
-              Questions? Contact us at{" "}
-              <a
-                href="mailto:support@impactchange.com"
-                className="text-blue-600 hover:underline"
-              >
-                support@impactchange.com
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-    );
+    return <Confirmation setShowConfirmation={setShowConfirmation} />;
   }
 
   return (
@@ -1133,15 +272,21 @@ const IntakeForm = () => {
           {renderProgressBar()}
           {renderPage()}
 
+          {submitError && (
+            <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+              {submitError}
+            </div>
+          )}
+
           {/* Navigation */}
           <div className="flex items-center justify-between mt-8 pt-6 border-t">
             <button
               onClick={prevPage}
-              disabled={currentPage === 1}
-              className={`px-6 py-2 rounded-lg font-medium cursor-pointer ${
-                currentPage === 1
+              disabled={currentPage === 1 || isSubmitting}
+              className={`px-6 py-2 rounded-lg font-medium ${
+                currentPage === 1 || isSubmitting
                   ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
               }`}
             >
               Back
@@ -1154,53 +299,81 @@ const IntakeForm = () => {
                   setFormData({
                     email: "",
                     fiverrUsername: "",
-                    businessName: "",
-                    businessWebsite: "",
-                    businessAddress: "",
-                    founderName: "",
-                    linkedinProfile: "",
-                    legalStructure: "",
-                    foundedYear: "",
-                    businessSummary: "",
-                    fundingAmount: "",
-                    fundingPurpose: "",
-                    milestones: "",
-                    brandAssets: null,
-                    assetsLink: "",
-                    brandColors: "",
-                    uniqueValue: "",
-                    competitors: "",
-                    problemSolved: "",
-                    solutionDifferentiator: "",
-                    relevantExperience: "",
-                    previousBusiness: "",
-                    skillsExpertise: "",
-                    onlineStrategy: "",
-                    offlineStrategy: "",
-                    existingCustomers: "",
-                    successfulMarketing: "",
-                    customerRetention: "",
-                    salesTeam: "",
-                    keyProcesses: "",
-                    suppliersPartners: "",
-                    businessTools: "",
-                    physicalLocation: "",
-                    orderFulfillment: "",
-                    operationalChallenges: "",
-                    capitalExpenditure: "",
-                    marketingCosts: "",
-                    legalCosts: "",
-                    developmentCosts: "",
-                    keyProducts: "",
-                    growthRate: "",
-                    operatingExpenses: "",
-                    currentEmployees: "",
-                    hiringPlans: "",
-                    employeeSalaries: "",
+                    What_is_the_name_of_your_business: "",
+                    What_is_your_businesswebsite__ifavailable: "",
+                    What_is_the_physical_or_registered_business_address: "",
+                    Who_is_the_founder_of_the_business: "",
+                    Please_provide_the_LinkedIn_profile_of_the_founder_ifavailable:
+                      "",
+                    What_is_the_legal_structure_of_your_business: "",
+                    What_year_was_your_business_founded: "",
+                    Provide_a_short_summary_of_what_your_business_does: "",
+                    How_much_funding_are_you_seeking: "",
+                    What_is_the_primary_purpose_of_this_funding: "",
+                    Have_you_achieved_any_notable_milestones_so_far: "",
+                    Do_you_have_any_brand_assets_you_like_to_include: null,
+                    Please_share_the_Google_Drive_or_Dropbox_link_containing_the_assets_you_like_to_provide:
+                      "",
+                    What_are_your_brand_colors: "",
+                    What_makes_your_business_unique: "",
+                    Who_are_your_main_competitors: "",
+                    What_problem_does_your_business_solve_for_customers: "",
+                    How_does_your_business_solve_this_problem_better_than_other_solutions:
+                      "",
+                    What_relevant_experience_do_you_or_your_team_have_that_makes_you_the_right_person_to_run_this_business:
+                      "",
+                    Have_you_or_your_team_built_or_scaled_a_business_before: "",
+                    What_skills_or_expertise_do_you_bring_to_help_make_this_business_successful:
+                      "",
+                    What_are_your_sales_and_marketing_strategies_for_online_growth:
+                      "",
+                    What_are_your_sales_and_marketing_strategies_for_offline_growth:
+                      "",
+                    Do_you_have_an_existing_customer_base_If_yes,
+                    _how_many_customers_or_users: "",
+                    What_has_been_your_most_successful_marketing_effort_so_far:
+                      "",
+                    How_do_you_plan_to_retain_and_grow_your_customer_base: "",
+                    Do_you_have_a_sales_team: "",
+                    What_are_the_key_processes_in_your_business: "",
+                    Do_you_have_suppliers,
+                    _vendors,
+                    _or_key_partnerships_that_are_essential_to_your_operations:
+                      "",
+                    What_tools,
+                    _software,
+                    _or_systems_do_you_use_to_manage_your_business: "",
+                    Do_you_have_a_physical_location,
+                    _office,
+                    _or_warehouse_If_yes,
+                    _provide_details: "",
+                    How_do_you_fulfill_orders_or_deliver_your_product_or_service:
+                      "",
+                    What_challenges_do_you_face_in_operations: "",
+                    What_capital_expenditures_CapEx_will_you_need: "",
+                    What_are_your_initial_marketing_and_branding_setup_costs:
+                      "",
+                    What_are_your_expected_legal,
+                    _regulatory,
+                    _and_compliance_costs: "",
+                    What_are_your_product_development_or_inventory_costs: "",
+                    List_up_to_five_key_products_or_services,
+                    _their_price,
+                    _and_expected_first_month_sales: "",
+                    What_is_your_projected_annual_growth_rate: "",
+                    What_are_your_estimated_monthly_operating_expenses: "",
+                    Do_you_currently_have_employees_If_yes,
+                    _how_many_and_what_roles: "",
+                    Do_you_plan_to_hire_employees_in_the_next_1_5_years_If_yes,
+                    _what_positions_and_how_many: "",
+                    What_are_your_estimated_monthly_salaries_for_employees: "",
+                    timestamp: new Date().toISOString(),
                   });
                   setCurrentPage(1);
+                  setSubmitError(null);
                 }}
-                className="text-blue-600 hover:underline cursor-pointer"
+                disabled={isSubmitting}
+                className="text-blue-600 hover:underline disabled:text-gray-400 disabled:cursor-not-allowed"
               >
                 Clear form
               </button>
@@ -1209,16 +382,44 @@ const IntakeForm = () => {
             {currentPage < 7 ? (
               <button
                 onClick={nextPage}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 cursor-pointer"
+                disabled={isSubmitting}
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg cursor-pointer font-medium hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed"
               >
                 Next
               </button>
             ) : (
               <button
                 onClick={handleSubmit}
-                className="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 cursor-pointer"
+                disabled={isSubmitting}
+                className="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-green-400 cursor-pointer disabled:cursor-not-allowed flex items-center justify-center"
               >
-                Submit
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Submitting...
+                  </>
+                ) : (
+                  "Submit"
+                )}
               </button>
             )}
           </div>
