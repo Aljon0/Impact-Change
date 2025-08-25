@@ -326,12 +326,8 @@ const WhoWeAre = () => {
             your growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <button className="inline-flex items-center justify-center bg-white text-[#131e3D] cursor-pointer px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:hover:scale-105">
-              <span className="mr-2 text-sm md:text-base">Meet Our Team</span>
-              <span className="text-lg md:text-xl">🤝</span>
-            </button>
             <button className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-3 cursor-pointer md:px-8 md:py-4 rounded-full font-semibold hover:bg-white hover:text-[#131e3D] transition-all duration-300">
-              <Link to="/contact" className="mr-2 text-sm md:text-base">
+              <Link to="/pricing" className="mr-2 text-sm md:text-base">
                 Start Your Project
               </Link>
               <span className="text-lg md:text-xl">→</span>

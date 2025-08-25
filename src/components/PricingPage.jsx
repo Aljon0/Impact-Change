@@ -1,89 +1,125 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const PricingPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState("pitch-decks");
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    categoryFromUrl === "consulting" ? "consulting" : "pitch-decks"
+  );
+
+  // Add useEffect to handle URL parameter changes
+  useEffect(() => {
+    if (categoryFromUrl === "consulting") {
+      setSelectedCategory("consulting");
+    }
+  }, [categoryFromUrl]);
 
   const pricingData = {
     "pitch-decks": [
       {
+        id: "pd1",
         name: "12 slides",
-        price: "$650",
+        price: 650,
+        displayPrice: "$650",
         gradient: "from-blue-400 via-blue-600 to-blue-800",
         popular: false,
       },
       {
+        id: "pd2",
         name: "18 slides",
-        price: "$975",
+        price: 975,
+        displayPrice: "$975",
         gradient: "from-blue-500 via-blue-700 to-blue-900",
         popular: true,
       },
       {
+        id: "pd3",
         name: "24 slides",
-        price: "$1,300",
+        price: 1300,
+        displayPrice: "$1,300",
         gradient: "from-blue-600 via-blue-800 to-blue-900",
         popular: false,
       },
     ],
     "business-plans": [
       {
+        id: "bp1",
         name: "Without Financials",
-        price: "$750",
+        price: 750,
+        displayPrice: "$750",
         gradient: "from-blue-400 via-blue-600 to-blue-800",
         popular: false,
       },
       {
+        id: "bp2",
         name: "With Financials",
-        price: "$850",
+        price: 850,
+        displayPrice: "$850",
         gradient: "from-blue-500 via-blue-700 to-blue-900",
         popular: true,
       },
     ],
     "market-research": [
       {
+        id: "mr1",
         name: "Essential",
-        price: "$500",
+        price: 500,
+        displayPrice: "$500",
         gradient: "from-blue-300 via-blue-500 to-blue-700",
         popular: false,
       },
       {
+        id: "mr2",
         name: "Comprehensive",
-        price: "$900",
+        price: 900,
+        displayPrice: "$900",
         gradient: "from-blue-500 via-blue-700 to-blue-900",
         popular: true,
       },
     ],
     linkedin: [
       {
+        id: "lo1",
         name: "Personal Page",
-        price: "$750",
+        price: 750,
+        displayPrice: "$750",
         gradient: "from-blue-400 via-blue-600 to-blue-800",
         popular: true,
       },
       {
+        id: "lo2",
         name: "Company Page",
-        price: "$500",
+        price: 500,
+        displayPrice: "$500",
         gradient: "from-blue-300 via-blue-500 to-blue-700",
         popular: false,
       },
     ],
     consulting: [
       {
+        id: "c1",
         name: "30 minutes",
-        price: "$125",
+        price: 125,
+        displayPrice: "$125",
         gradient: "from-blue-300 via-blue-500 to-blue-700",
         popular: false,
       },
       {
+        id: "c2",
         name: "45 minutes",
-        price: "$155",
+        price: 155,
+        displayPrice: "$155",
         gradient: "from-blue-500 via-blue-700 to-blue-900",
         popular: true,
       },
       {
+        id: "c3",
         name: "60 minutes",
-        price: "$185",
+        price: 185,
+        displayPrice: "$185",
         gradient: "from-blue-600 via-blue-800 to-blue-900",
         popular: false,
       },
@@ -99,16 +135,20 @@ const PricingPage = () => {
   ];
 
   const handleGetStarted = (plan) => {
-    // Store the selected plan in localStorage or pass via state
+    // Store the selected plan in localStorage
     const selectedPlan = {
+      id: plan.id,
       name: plan.name,
       price: plan.price,
+      displayPrice: plan.displayPrice,
       category: selectedCategory,
       gradient: plan.gradient,
     };
 
-    // Navigate to intake form with state
-    navigate("/intake-form", { state: { selectedPlan } });
+    localStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
+
+    // Navigate to intake form
+    navigate("/intake-form");
   };
 
   return (
@@ -155,7 +195,6 @@ const PricingPage = () => {
                     : "bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-700"
                 }`}
               >
-                <span className="text-lg">{category.icon}</span>
                 <span>{category.name}</span>
               </button>
             ))}
@@ -202,7 +241,7 @@ const PricingPage = () => {
                       <span
                         className={`text-4xl font-bold bg-gradient-to-r ${plan.gradient} bg-clip-text text-transparent`}
                       >
-                        {plan.price}
+                        {plan.displayPrice}
                       </span>
                     </div>
                   </div>

@@ -170,7 +170,8 @@ export const Portfolio = () => {
             to="/pricing"
             className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-900 font-semibold rounded-lg sm:rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
           >
-            Avail Now <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+            Start Your Project{" "}
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
           </Link>
         </div>
       </div>

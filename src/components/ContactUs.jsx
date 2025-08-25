@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TrustBar from "./TrustBar";
 
 const ContactUs = () => {
@@ -18,6 +19,7 @@ const ContactUs = () => {
   const [focusedField, setFocusedField] = useState("");
   const [formProgress, setFormProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsVisible(true);
@@ -36,6 +38,21 @@ const ContactUs = () => {
     }));
     // Clear any previous error when user starts typing
     if (submitError) setSubmitError("");
+  };
+
+  const handleScheduleCall = () => {
+    navigate("/pricing?category=consulting");
+  };
+
+  const handleEmailClick = () => {
+    const email = "will@startscaleandsucceed.com";
+    const subject = "Inquiry from Contact Form";
+    const body = "Hello, I would like to discuss...";
+
+    // Open default email client with pre-filled email
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
   };
 
   const handleSubmit = async (e) => {
@@ -547,7 +564,7 @@ const ContactUs = () => {
                           </>
                         ) : (
                           <>
-                            Start Your Project
+                            Submit
                             <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">
                               →
                             </span>
@@ -608,12 +625,12 @@ const ContactUs = () => {
                 <p className="text-[#4a4949] mb-6">
                   Get a response within 24 hours
                 </p>
-                <a
-                  href="mailto:hello@impactchange.com"
-                  className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-200 hover:scale-105"
+                <button
+                  onClick={handleEmailClick}
+                  className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-200 hover:scale-105 cursor-pointer"
                 >
-                  hello@impactchange.com
-                </a>
+                  will@startscaleandsucceed.com
+                </button>
               </div>
             </div>
 
@@ -639,12 +656,12 @@ const ContactUs = () => {
                   Schedule a Call
                 </h3>
                 <p className="text-[#4a4949] mb-6">Book a free consultation</p>
-                <a
-                  href="tel:+1234567890"
-                  className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-2 rounded-full transition-all duration-200 hover:scale-105"
+                <button
+                  onClick={handleScheduleCall}
+                  className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 cursor-pointer py-2 rounded-full transition-all duration-200 hover:scale-105"
                 >
-                  +1 (555) 123-4567
-                </a>
+                  Click Here
+                </button>
               </div>
             </div>
 
@@ -657,7 +674,7 @@ const ContactUs = () => {
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.920-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-semibold text-[#131e3D] mb-2">

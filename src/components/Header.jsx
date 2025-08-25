@@ -325,15 +325,27 @@ const Header = () => {
                     ></div>
                   </button>
                   <AnimatedDropdown isOpen={dropdowns.resources} width="w-80">
-                    <DropdownSection title="Work">
+                    <DropdownSection title="">
                       <DropdownItem to="/portfolio" onClick={closeAllDropdowns}>
                         Portfolio
                       </DropdownItem>
                     </DropdownSection>
 
-                    <DropdownSection title="Reviews">
+                    <DropdownSection title="">
                       <DropdownItem to="/reviews" onClick={closeAllDropdowns}>
                         Testimonials
+                      </DropdownItem>
+                    </DropdownSection>
+
+                    <DropdownSection title="">
+                      <DropdownItem to="/contact" onClick={closeAllDropdowns}>
+                        Contact
+                      </DropdownItem>
+                    </DropdownSection>
+
+                    <DropdownSection title="">
+                      <DropdownItem to="/investing" onClick={closeAllDropdowns}>
+                        Investing
                       </DropdownItem>
                     </DropdownSection>
 
@@ -343,18 +355,6 @@ const Header = () => {
                       </DropdownItem>
                       <DropdownItem to="/pricing" onClick={closeAllDropdowns}>
                         Pricing
-                      </DropdownItem>
-                    </DropdownSection>
-
-                    <DropdownSection title="Contact">
-                      <DropdownItem to="/contact" onClick={closeAllDropdowns}>
-                        Contact
-                      </DropdownItem>
-                    </DropdownSection>
-
-                    <DropdownSection title="Investment">
-                      <DropdownItem to="/investing" onClick={closeAllDropdowns}>
-                        Investing
                       </DropdownItem>
                     </DropdownSection>
                   </AnimatedDropdown>
