@@ -71,7 +71,7 @@ const PitchDeck = () => {
             .
           </p>
           <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
-            <Link to="/pricing" className="relative">
+            <Link to="/pricing?category=pitch-decks" className="relative">
               Get Started
               <ArrowRight
                 className="inline ml-3 group-hover:translate-x-2 transition-transform"

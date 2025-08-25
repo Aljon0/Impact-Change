@@ -7,13 +7,13 @@ const PricingPage = () => {
   const categoryFromUrl = searchParams.get("category");
 
   const [selectedCategory, setSelectedCategory] = useState(
-    categoryFromUrl === "consulting" ? "consulting" : "pitch-decks"
+    categoryFromUrl || "pitch-decks"
   );
 
   // Add useEffect to handle URL parameter changes
   useEffect(() => {
-    if (categoryFromUrl === "consulting") {
-      setSelectedCategory("consulting");
+    if (categoryFromUrl) {
+      setSelectedCategory(categoryFromUrl);
     }
   }, [categoryFromUrl]);
 
@@ -135,6 +135,14 @@ const PricingPage = () => {
   ];
 
   const handleGetStarted = (plan) => {
+    // For consulting category, don't navigate to intake form
+    if (selectedCategory === "consulting") {
+      // You can replace this with your Calendly link later
+      // For now, it will just open a blank page
+      window.open("#", "_blank");
+      return;
+    }
+
     // Store the selected plan in localStorage
     const selectedPlan = {
       id: plan.id,
@@ -147,7 +155,7 @@ const PricingPage = () => {
 
     localStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
 
-    // Navigate to intake form
+    // Navigate to intake form for other categories
     navigate("/intake-form");
   };
 
@@ -251,7 +259,11 @@ const PricingPage = () => {
                     onClick={() => handleGetStarted(plan)}
                     className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-xl font-semibold transition-all cursor-pointer duration-500 transform hover:scale-105 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden group/btn`}
                   >
-                    <span className="relative z-10">Get Started</span>
+                    <span className="relative z-10">
+                      {selectedCategory === "consulting"
+                        ? "Schedule Now"
+                        : "Get Started"}
+                    </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
                   </button>
                 </div>

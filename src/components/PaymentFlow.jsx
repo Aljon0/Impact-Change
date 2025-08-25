@@ -1,7 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import AddOnsSection from "./AddOnsSection";
 import ConfirmationOverlay from "./ConfirmationOverlay";
 import OrderSummary from "./OrderSUmmary";
 import PaymentForm from "./PaymentForm";
@@ -10,40 +9,10 @@ import SuccessMessage from "./SuccessMessage";
 const PaymentFlow = () => {
   const [currentStep, setCurrentStep] = useState("payment"); // payment, confirmation, success
 
-  // Get selected plan from localStorage
+  // Get selected plan from memory instead of localStorage
   const getInitialSelectedService = () => {
-    const storedPlan = localStorage.getItem("selectedPlan");
-    if (storedPlan) {
-      const plan = JSON.parse(storedPlan);
-      return {
-        id: plan.id,
-        name: `${
-          plan.category === "pitch-decks"
-            ? "Pitch Deck"
-            : plan.category === "business-plans"
-            ? "Business Plan"
-            : plan.category === "market-research"
-            ? "Market Research"
-            : plan.category === "linkedin"
-            ? "LinkedIn Optimization"
-            : "Consulting"
-        } - ${plan.name}`,
-        price: plan.price,
-        category:
-          plan.category === "pitch-decks"
-            ? "Pitch Decks"
-            : plan.category === "business-plans"
-            ? "Business Plans"
-            : plan.category === "market-research"
-            ? "Market Research"
-            : plan.category === "linkedin"
-            ? "LinkedIn Optimization"
-            : "Consulting",
-        displayPrice: plan.displayPrice,
-      };
-    }
-
-    // Fallback if no plan is selected
+    // Since we can't use localStorage in artifacts, we'll use a default service
+    // In a real app, this would come from localStorage or props
     return {
       id: "pd1",
       name: "Pitch Deck - 12 slides",
@@ -53,327 +22,7 @@ const PaymentFlow = () => {
     };
   };
 
-  const [selectedService, setSelectedService] = useState(
-    getInitialSelectedService()
-  );
-  const [selectedAddOns, setSelectedAddOns] = useState([]);
-
-  // Available add-ons based on service categories (excluding the already selected service)
-  const availableAddOns = {
-    "Pitch Decks": [
-      {
-        id: "bp1",
-        name: "Business Plan - Without Financials",
-        price: 750,
-        category: "Business Plans",
-      },
-      {
-        id: "bp2",
-        name: "Business Plan - With Financials",
-        price: 850,
-        category: "Business Plans",
-      },
-      {
-        id: "mr1",
-        name: "Market Research - Essential",
-        price: 500,
-        category: "Market Research",
-      },
-      {
-        id: "mr2",
-        name: "Market Research - Comprehensive",
-        price: 900,
-        category: "Market Research",
-      },
-      {
-        id: "lo1",
-        name: "LinkedIn Optimization - Personal Page",
-        price: 750,
-        category: "LinkedIn Optimization",
-      },
-      {
-        id: "lo2",
-        name: "LinkedIn Optimization - Company Page",
-        price: 500,
-        category: "LinkedIn Optimization",
-      },
-      {
-        id: "c1",
-        name: "Consulting - 30 minutes",
-        price: 125,
-        category: "Consulting",
-      },
-      {
-        id: "c2",
-        name: "Consulting - 45 minutes",
-        price: 155,
-        category: "Consulting",
-      },
-      {
-        id: "c3",
-        name: "Consulting - 60 minutes",
-        price: 185,
-        category: "Consulting",
-      },
-    ],
-    "Business Plans": [
-      {
-        id: "pd1",
-        name: "Pitch Deck - 12 slides",
-        price: 650,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd2",
-        name: "Pitch Deck - 18 slides",
-        price: 975,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd3",
-        name: "Pitch Deck - 24 slides",
-        price: 1300,
-        category: "Pitch Decks",
-      },
-      {
-        id: "mr1",
-        name: "Market Research - Essential",
-        price: 500,
-        category: "Market Research",
-      },
-      {
-        id: "mr2",
-        name: "Market Research - Comprehensive",
-        price: 900,
-        category: "Market Research",
-      },
-      {
-        id: "lo1",
-        name: "LinkedIn Optimization - Personal Page",
-        price: 750,
-        category: "LinkedIn Optimization",
-      },
-      {
-        id: "lo2",
-        name: "LinkedIn Optimization - Company Page",
-        price: 500,
-        category: "LinkedIn Optimization",
-      },
-      {
-        id: "c1",
-        name: "Consulting - 30 minutes",
-        price: 125,
-        category: "Consulting",
-      },
-      {
-        id: "c2",
-        name: "Consulting - 45 minutes",
-        price: 155,
-        category: "Consulting",
-      },
-      {
-        id: "c3",
-        name: "Consulting - 60 minutes",
-        price: 185,
-        category: "Consulting",
-      },
-    ],
-    "Market Research": [
-      {
-        id: "pd1",
-        name: "Pitch Deck - 12 slides",
-        price: 650,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd2",
-        name: "Pitch Deck - 18 slides",
-        price: 975,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd3",
-        name: "Pitch Deck - 24 slides",
-        price: 1300,
-        category: "Pitch Decks",
-      },
-      {
-        id: "bp1",
-        name: "Business Plan - Without Financials",
-        price: 750,
-        category: "Business Plans",
-      },
-      {
-        id: "bp2",
-        name: "Business Plan - With Financials",
-        price: 850,
-        category: "Business Plans",
-      },
-      {
-        id: "lo1",
-        name: "LinkedIn Optimization - Personal Page",
-        price: 750,
-        category: "LinkedIn Optimization",
-      },
-      {
-        id: "lo2",
-        name: "LinkedIn Optimization - Company Page",
-        price: 500,
-        category: "LinkedIn Optimization",
-      },
-      {
-        id: "c1",
-        name: "Consulting - 30 minutes",
-        price: 125,
-        category: "Consulting",
-      },
-      {
-        id: "c2",
-        name: "Consulting - 45 minutes",
-        price: 155,
-        category: "Consulting",
-      },
-      {
-        id: "c3",
-        name: "Consulting - 60 minutes",
-        price: 185,
-        category: "Consulting",
-      },
-    ],
-    "LinkedIn Optimization": [
-      {
-        id: "pd1",
-        name: "Pitch Deck - 12 slides",
-        price: 650,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd2",
-        name: "Pitch Deck - 18 slides",
-        price: 975,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd3",
-        name: "Pitch Deck - 24 slides",
-        price: 1300,
-        category: "Pitch Decks",
-      },
-      {
-        id: "bp1",
-        name: "Business Plan - Without Financials",
-        price: 750,
-        category: "Business Plans",
-      },
-      {
-        id: "bp2",
-        name: "Business Plan - With Financials",
-        price: 850,
-        category: "Business Plans",
-      },
-      {
-        id: "mr1",
-        name: "Market Research - Essential",
-        price: 500,
-        category: "Market Research",
-      },
-      {
-        id: "mr2",
-        name: "Market Research - Comprehensive",
-        price: 900,
-        category: "Market Research",
-      },
-      {
-        id: "c1",
-        name: "Consulting - 30 minutes",
-        price: 125,
-        category: "Consulting",
-      },
-      {
-        id: "c2",
-        name: "Consulting - 45 minutes",
-        price: 155,
-        category: "Consulting",
-      },
-      {
-        id: "c3",
-        name: "Consulting - 60 minutes",
-        price: 185,
-        category: "Consulting",
-      },
-    ],
-    Consulting: [
-      {
-        id: "pd1",
-        name: "Pitch Deck - 12 slides",
-        price: 650,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd2",
-        name: "Pitch Deck - 18 slides",
-        price: 975,
-        category: "Pitch Decks",
-      },
-      {
-        id: "pd3",
-        name: "Pitch Deck - 24 slides",
-        price: 1300,
-        category: "Pitch Decks",
-      },
-      {
-        id: "bp1",
-        name: "Business Plan - Without Financials",
-        price: 750,
-        category: "Business Plans",
-      },
-      {
-        id: "bp2",
-        name: "Business Plan - With Financials",
-        price: 850,
-        category: "Business Plans",
-      },
-      {
-        id: "mr1",
-        name: "Market Research - Essential",
-        price: 500,
-        category: "Market Research",
-      },
-      {
-        id: "mr2",
-        name: "Market Research - Comprehensive",
-        price: 900,
-        category: "Market Research",
-      },
-      {
-        id: "lo1",
-        name: "LinkedIn Optimization - Personal Page",
-        price: 750,
-        category: "LinkedIn Optimization",
-      },
-      {
-        id: "lo2",
-        name: "LinkedIn Optimization - Company Page",
-        price: 500,
-        category: "LinkedIn Optimization",
-      },
-    ],
-  };
-
-  // Filter out the selected service from available add-ons
-  const getFilteredAddOns = () => {
-    const baseAddOns = availableAddOns[selectedService.category] || [];
-
-    // Filter out the selected service from add-ons
-    return baseAddOns.filter((addOn) => {
-      // For consulting, we need a different approach since the names are different
-      if (selectedService.category === "Consulting") {
-        return !addOn.name.includes(selectedService.name.split(" - ")[1]);
-      }
-
-      return !addOn.name.includes(selectedService.name.split(" - ")[1]);
-    });
-  };
+  const [selectedService] = useState(getInitialSelectedService());
 
   const [paymentData, setPaymentData] = useState({
     email: "",
@@ -391,23 +40,8 @@ const PaymentFlow = () => {
     },
   });
 
-  const handleAddOnToggle = (addOn) => {
-    setSelectedAddOns((prev) => {
-      const isSelected = prev.some((item) => item.id === addOn.id);
-      if (isSelected) {
-        return prev.filter((item) => item.id !== addOn.id);
-      } else {
-        return [...prev, addOn];
-      }
-    });
-  };
-
   const calculateTotal = () => {
-    const addOnsTotal = selectedAddOns.reduce(
-      (sum, addOn) => sum + addOn.price,
-      0
-    );
-    return selectedService.price + addOnsTotal;
+    return selectedService.price;
   };
 
   const handleInputChange = (field, value) => {
@@ -488,38 +122,26 @@ const PaymentFlow = () => {
     <div>
       {currentStep === "payment" && (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-8 px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <PaymentHeader />
 
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Left Column - Add-ons and Payment Form */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* Add-ons Section - This was likely missing */}
-                <AddOnsSection
-                  availableAddOns={getFilteredAddOns()}
-                  selectedService={selectedService}
-                  selectedAddOns={selectedAddOns}
-                  onAddOnToggle={handleAddOnToggle}
-                />
+            {/* Single Column Layout */}
+            <div className="space-y-8">
+              {/* Payment Form */}
+              <PaymentForm
+                paymentData={paymentData}
+                handleInputChange={handleInputChange}
+                handleCardNumberChange={handleCardNumberChange}
+                handleExpiryChange={handleExpiryChange}
+                handleCvvChange={handleCvvChange}
+                handleSubmitPayment={handleSubmitPayment}
+              />
 
-                <PaymentForm
-                  paymentData={paymentData}
-                  handleInputChange={handleInputChange}
-                  handleCardNumberChange={handleCardNumberChange}
-                  handleExpiryChange={handleExpiryChange}
-                  handleCvvChange={handleCvvChange}
-                  handleSubmitPayment={handleSubmitPayment}
-                />
-              </div>
-
-              {/* Right Column - Order Summary */}
-              <div className="lg:col-span-1">
-                <OrderSummary
-                  selectedService={selectedService}
-                  selectedAddOns={selectedAddOns}
-                  calculateTotal={calculateTotal}
-                />
-              </div>
+              {/* Order Summary Below */}
+              <OrderSummary
+                selectedService={selectedService}
+                calculateTotal={calculateTotal}
+              />
             </div>
           </div>
         </div>
@@ -528,44 +150,29 @@ const PaymentFlow = () => {
       {currentStep === "confirmation" && (
         <>
           <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-8 px-4">
-            <div className="max-w-6xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <PaymentHeader />
 
-              <div className="grid lg:grid-cols-3 gap-8">
-                {/* Left Column - Add-ons and Payment Form */}
-                <div className="lg:col-span-2 space-y-6">
-                  <AddOnsSection
-                    availableAddOns={getFilteredAddOns()}
-                    selectedService={selectedService}
-                    selectedAddOns={selectedAddOns}
-                    onAddOnToggle={handleAddOnToggle}
-                  />
+              <div className="space-y-8">
+                <PaymentForm
+                  paymentData={paymentData}
+                  handleInputChange={handleInputChange}
+                  handleCardNumberChange={handleCardNumberChange}
+                  handleExpiryChange={handleExpiryChange}
+                  handleCvvChange={handleCvvChange}
+                  handleSubmitPayment={handleSubmitPayment}
+                />
 
-                  <PaymentForm
-                    paymentData={paymentData}
-                    handleInputChange={handleInputChange}
-                    handleCardNumberChange={handleCardNumberChange}
-                    handleExpiryChange={handleExpiryChange}
-                    handleCvvChange={handleCvvChange}
-                    handleSubmitPayment={handleSubmitPayment}
-                  />
-                </div>
-
-                {/* Right Column - Order Summary */}
-                <div className="lg:col-span-1">
-                  <OrderSummary
-                    selectedService={selectedService}
-                    selectedAddOns={selectedAddOns}
-                    calculateTotal={calculateTotal}
-                  />
-                </div>
+                <OrderSummary
+                  selectedService={selectedService}
+                  calculateTotal={calculateTotal}
+                />
               </div>
             </div>
           </div>
 
           <ConfirmationOverlay
             selectedService={selectedService}
-            selectedAddOns={selectedAddOns}
             calculateTotal={calculateTotal}
             handleConfirmOrder={handleConfirmOrder}
             setCurrentStep={setCurrentStep}
@@ -577,7 +184,6 @@ const PaymentFlow = () => {
         <SuccessMessage
           paymentData={paymentData}
           selectedService={selectedService}
-          selectedAddOns={selectedAddOns}
           setCurrentStep={setCurrentStep}
         />
       )}

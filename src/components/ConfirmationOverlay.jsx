@@ -3,7 +3,6 @@ import React from "react";
 
 const ConfirmationOverlay = ({
   selectedService,
-  selectedAddOns,
   calculateTotal,
   handleConfirmOrder,
   setCurrentStep,
@@ -39,26 +38,6 @@ const ConfirmationOverlay = ({
                   ${selectedService.price}
                 </span>
               </div>
-
-              {/* Add-ons */}
-              {selectedAddOns.map((addOn) => (
-                <div
-                  key={addOn.id}
-                  className="flex justify-between items-center pl-3"
-                >
-                  <div>
-                    <span className="font-medium text-gray-700 text-sm">
-                      {addOn.name}
-                    </span>
-                    <p className="text-xs text-gray-500">
-                      {addOn.category} • Add-on
-                    </p>
-                  </div>
-                  <span className="font-medium text-gray-700">
-                    ${addOn.price}
-                  </span>
-                </div>
-              ))}
             </div>
 
             <div className="mt-4 pt-3 border-t">

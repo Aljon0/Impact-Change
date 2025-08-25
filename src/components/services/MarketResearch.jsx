@@ -115,7 +115,7 @@ const MarketResearch = () => {
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button className="group px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-900 text-white font-bold text-lg rounded-xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300">
-              <Link to="/pricing">
+              <Link to="/pricing?category=market-research">
                 Get Started Today
                 <ArrowRight
                   className="inline ml-3 group-hover:translate-x-2 transition-transform"
