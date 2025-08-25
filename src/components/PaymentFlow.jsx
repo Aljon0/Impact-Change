@@ -2,7 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ConfirmationOverlay from "./ConfirmationOverlay";
-import OrderSummary from "./OrderSUmmary";
+import OrderSummary from "./OrderSummary";
 import PaymentForm from "./PaymentForm";
 import SuccessMessage from "./SuccessMessage";
 
