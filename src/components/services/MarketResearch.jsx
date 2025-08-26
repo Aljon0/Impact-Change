@@ -1,12 +1,4 @@
-import {
-  ArrowRight,
-  Award,
-  ChevronRight,
-  Search,
-  Star,
-  Target,
-  TrendingUp,
-} from "lucide-react";
+import { ArrowRight, ChevronRight, Search, Star, Target } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -38,34 +30,6 @@ const MarketResearch = () => {
       clearTimeout(timer);
     };
   }, []);
-
-  const highlights = [
-    {
-      number: countUp.startups,
-      suffix: "+",
-      text: "Start-ups Guided",
-      icon: TrendingUp,
-      delay: "delay-100",
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      number: countUp.satisfaction,
-      suffix: "%",
-      text: "Client Satisfaction Rate",
-      icon: Award,
-      delay: "delay-200",
-      color: "from-blue-600 to-indigo-600",
-    },
-    {
-      number: countUp.funding,
-      prefix: "$",
-      suffix: "M+",
-      text: "in Early-Stage Funding Influenced",
-      icon: Target,
-      delay: "delay-300",
-      color: "from-indigo-600 to-purple-600",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden">
@@ -123,54 +87,16 @@ const MarketResearch = () => {
                 />
               </Link>
             </button>
-          </div>
-        </section>
 
-        {/* Highlights Section */}
-        <section className="mb-24">
-          <div className="grid md:grid-cols-3 gap-8">
-            {highlights.map((highlight, index) => {
-              const IconComponent = highlight.icon;
-              return (
-                <div
-                  key={index}
-                  className={`${
-                    highlight.delay
-                  } transform transition-all duration-700 ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-10 opacity-0"
-                  }`}
-                >
-                  <div className="group relative p-8 bg-white/80 backdrop-blur-sm border border-blue-100 rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 overflow-hidden">
-                    {/* Gradient overlay */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r ${highlight.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
-                    ></div>
-
-                    <div className="relative flex flex-col items-center text-center">
-                      <div
-                        className={`w-20 h-20 bg-gradient-to-br ${highlight.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}
-                      >
-                        <IconComponent className="text-white" size={32} />
-                      </div>
-
-                      <div className="mb-4">
-                        <span className="text-4xl lg:text-5xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
-                          {highlight.prefix}
-                          {highlight.number}
-                          {highlight.suffix}
-                        </span>
-                      </div>
-
-                      <p className="text-gray-600 font-medium text-lg leading-relaxed">
-                        {highlight.text}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            <button className="group px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-900 text-white font-bold cursor-pointer text-lg rounded-xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300">
+              <Link to="/portfolio">
+                View Portfolio
+                <ChevronRight
+                  className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                  size={22}
+                />
+              </Link>
+            </button>
           </div>
         </section>
 
@@ -290,32 +216,6 @@ const MarketResearch = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="text-center">
-          <div
-            className={`transform transition-all duration-1000 delay-1000 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            <div className="inline-block p-1 bg-blue-600 rounded-2xl shadow-2xl">
-              <Link
-                to="/portfolio"
-                className="flex items-center justify-center px-12 py-6 bg-white font-bold text-xl rounded-xl  transition-all duration-300 relative overflow-hidden"
-              >
-                <span className="text-transparent bg-clip-text bg-blue-600 ">
-                  Explore Our Portfolio
-                </span>
-                <ChevronRight
-                  className="ml-3 group-hover:translate-x-2 transition-transform"
-                  size={24}
-                />
-              </Link>
             </div>
           </div>
         </section>

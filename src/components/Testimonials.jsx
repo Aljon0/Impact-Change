@@ -366,26 +366,6 @@ const Testimonials = () => {
 
                 {/* Bottom Action Bar */}
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-                  <Link
-                    to={`/case-studies/${currentTestimonial.id}`}
-                    className="w-full sm:w-auto bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white font-bold px-4 sm:px-5 py-2 sm:py-3 rounded-lg text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-1 sm:gap-2 cursor-pointer shadow-md sm:shadow-lg border border-blue-400 border-opacity-50"
-                  >
-                    Read Case Study
-                    <svg
-                      className="w-3 h-3 sm:w-4 sm:h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </Link>
-
                   {/* Mobile Navigation - Show on mobile, hide on md+ */}
                   <div className="md:hidden flex items-center gap-3 w-full justify-center sm:justify-end">
                     <button

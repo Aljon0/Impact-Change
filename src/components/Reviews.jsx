@@ -95,22 +95,6 @@ const Reviews = () => {
               their visions to life. Every testimonial represents a success
               story and a partnership built on excellence.
             </p>
-
-            {/* Stats */}
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-2">1,500+</div>
-                <div className="text-blue-200">Happy Founders</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-2">$2B+</div>
-                <div className="text-blue-200">Raised by Clients</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-2">98%</div>
-                <div className="text-blue-200">Success Rate</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

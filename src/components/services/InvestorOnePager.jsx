@@ -3,12 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const InvestorOnePager = () => {
-  const highlights = [
-    { number: "300+", label: "One-Pagers Delivered" },
-    { number: "60-Second", label: "Read Time for Maximum Impact" },
-    { number: "99%", label: "Positive Investor Feedback" },
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
       {/* Hero Section */}
@@ -28,24 +22,6 @@ const InvestorOnePager = () => {
             We create a concise and impactful one-page summary of your business
             to quickly grab investor attention and spark interest.
           </p>
-        </div>
-      </div>
-
-      {/* Highlights Section */}
-      <div className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {highlights.map((highlight, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-blue-900 mb-3">
-                  {highlight.number}
-                </div>
-                <div className="text-gray-700 text-lg font-medium">
-                  {highlight.label}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 

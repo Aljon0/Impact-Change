@@ -7,45 +7,49 @@ const Services = () => {
       id: 1,
       title: "Investor-Ready Pitch Decks",
       description:
-        "I’ll write and design a compelling pitch deck that tells your story, highlights your strengths, and gets investors to pay attention. Clean, strategic, and visually on point.",
+        "We design and write compelling pitch decks that showcase your vision, highlight your strengths, and engage investors. Every deck is clean, strategic, and visually impactful.",
       icon: "/HomePage/PitchDeckDashboard.svg",
       image: "/HomePage/PitchDeck.gif",
       gradient: "from-blue-400 via-blue-600 to-blue-800",
       buttonText: "View Portfolio",
       link: "/portfolio/pitch-decks",
+      pricingTab: "pitch-decks",
     },
     {
       id: 2,
-      title: "Business Plan & 5 Year Financial Forecast",
+      title: "Business Plan & 5-Year Financial Forecast",
       description:
-        "Get a professionally written and designed business plan paired with a detailed 5-year financial forecast, perfect for investors, lenders, or internal strategy. Clear, compelling, and built to impress.",
+        "Get a professionally written and designed business plan, paired with a detailed five-year financial model. Built for investors, lenders, or internal planning, these documents are clear, credible, and built to impress.",
       icon: "/HomePage/BusinessPlanBook.svg",
       image: "/HomePage/BusinessPlan.gif",
       gradient: "from-blue-500 via-blue-700 to-blue-900",
       buttonText: "View Portfolio",
       link: "/portfolio/business-plans",
+      pricingTab: "business-plans",
     },
     {
       id: 3,
       title: "Comprehensive Market Research",
       description:
-        "We will do an in-depth analysis of your competitive landscape, market opportunity, and ideal customer segments in a professionally written and designed report.",
+        "We deliver in-depth research into your market, competition, and customer segments, packaged in a professionally written and designed report. Insightful analysis that empowers smart decisions.",
       icon: "/HomePage/CMR.png",
       image: "/HomePage/MarketResearch.gif",
       gradient: "from-blue-300 via-blue-500 to-blue-700",
       buttonText: "View Portfolio",
       link: "/portfolio/market-research",
+      pricingTab: "market-research",
     },
     {
       id: 4,
       title: "High Impact Investor One-Pager",
       description:
-        "A concise, powerful, and professionally designed one-page summary of your business. We distill your entire venture into a single, compelling document created to capture investor interest quickly and make a powerful first impression.",
+        "A concise, visually polished one-page overview that captures the essence of your venture. Designed to spark interest quickly and leave a lasting impression with investors and partners.",
       icon: "/HomePage/HII.png",
       image: "/HomePage/HighImpact.gif",
       gradient: "from-blue-600 via-blue-800 to-blue-900",
       buttonText: "View Portfolio",
       link: "/portfolio/one-pagers",
+      pricingTab: "one-pagers",
     },
   ];
 
@@ -63,13 +67,14 @@ const Services = () => {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 animate-fade-in">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent mb-4 sm:mb-6 animate-title-glow">
-            Your Strategic Partner for Growth
+            From Idea to Investment
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-3xl sm:max-w-4xl mx-auto leading-relaxed">
-            I offer sharp, hands-on services for founders, professionals, and
-            growing teams. Whether you're validating an idea, raising capital,
-            or building momentum, I deliver expert guidance that drives real
-            progress.
+            Whether you're validating your concept or pitching to VCs, we craft
+            investor-ready materials that help you tell your story with clarity
+            and impact. Having supported over 1,500 founders, delivered 1,200+
+            pitch decks and 1,000+ business plans, our work has been part of
+            journeys that collectively secured $2B+ in client funding.
           </p>
         </div>
 
@@ -138,16 +143,31 @@ const Services = () => {
                   {service.description}
                 </p>
 
-                <Link
-                  to={service.link}
-                  className={`relative inline-block overflow-hidden bg-gradient-to-r ${service.gradient} text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg sm:rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 lg:hover:scale-110 hover:shadow-lg lg:hover:shadow-xl hover:-translate-y-0.5 lg:hover:-translate-y-1 group/btn animate-button-glow`}
-                >
-                  <span className="relative z-10 transition-all duration-300">
-                    {service.buttonText}
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-300/20 to-blue-400/0 animate-shimmer"></div>
-                </Link>
+                {/* Button Container */}
+                <div className="flex flex-wrap gap-4">
+                  <Link
+                    to={service.link}
+                    className={`relative inline-block overflow-hidden bg-gradient-to-r ${service.gradient} text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg sm:rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 lg:hover:scale-110 hover:shadow-lg lg:hover:shadow-xl hover:-translate-y-0.5 lg:hover:-translate-y-1 group/btn animate-button-glow`}
+                  >
+                    <span className="relative z-10 transition-all duration-300">
+                      {service.buttonText}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-300/20 to-blue-400/0 animate-shimmer"></div>
+                  </Link>
+
+                  {/* New Start Your Project Button */}
+                  <Link
+                    to={`/pricing?category=${service.pricingTab}`}
+                    className={`relative inline-block overflow-hidden bg-gradient-to-r from-green-500 to-green-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg sm:rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 lg:hover:scale-110 hover:shadow-lg lg:hover:shadow-xl hover:-translate-y-0.5 lg:hover:-translate-y-1 group/btn animate-button-glow`}
+                  >
+                    <span className="relative z-10 transition-all duration-300">
+                      Start Your Project
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-400/0 via-green-300/20 to-green-400/0 animate-shimmer"></div>
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

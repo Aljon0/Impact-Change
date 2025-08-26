@@ -1,4 +1,4 @@
-import { ArrowRight, DollarSign, Percent, Star, Users } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,27 +8,6 @@ const PitchDeck = () => {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
-  const highlights = [
-    {
-      number: "200+",
-      text: "Pitch Decks Created",
-      icon: Users,
-      delay: "delay-100",
-    },
-    {
-      number: "$50M+",
-      text: "Raised by Our Clients",
-      icon: DollarSign,
-      delay: "delay-200",
-    },
-    {
-      number: "99%",
-      text: "Positive Investor Feedback",
-      icon: Percent,
-      delay: "delay-300",
-    },
-  ];
 
   const scrollToPortfolio = () => {
     // Scroll to portfolio section
@@ -70,49 +49,34 @@ const PitchDeck = () => {
             </span>
             .
           </p>
-          <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
-            <Link to="/pricing?category=pitch-decks" className="relative">
-              Get Started
-              <ArrowRight
-                className="inline ml-3 group-hover:translate-x-2 transition-transform"
-                size={24}
-              />
-            </Link>
-          </button>
-        </section>
 
-        {/* Highlights Section */}
-        <section className="mb-20">
-          <div className="grid md:grid-cols-3 gap-8">
-            {highlights.map((highlight, index) => {
-              const IconComponent = highlight.icon;
-              return (
-                <div
-                  key={index}
-                  className={`${
-                    highlight.delay
-                  } transform transition-all duration-700 ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-10 opacity-0"
-                  }`}
-                >
-                  <div className="group p-8 bg-white/70 backdrop-blur-sm border border-blue-100 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="text-white" size={28} />
-                      </div>
-                      <h3 className="text-3xl lg:text-4xl font-bold text-blue-600 mb-2 group-hover:text-indigo-600 transition-colors">
-                        {highlight.number}
-                      </h3>
-                      <p className="text-gray-600 font-medium leading-relaxed">
-                        {highlight.text}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
+              <Link
+                to="/pricing?category=pitch-decks"
+                className="relative flex items-center"
+              >
+                Get Started
+                <ArrowRight
+                  className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                  size={24}
+                />
+              </Link>
+            </button>
+
+            <button
+              onClick={scrollToPortfolio}
+              className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold cursor-pointer text-lg rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 relative overflow-hidden flex items-center justify-center"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+              <Link to="/portfolio" className="relative flex items-center">
+                View Portfolio
+                <ArrowRight
+                  className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                  size={24}
+                />
+              </Link>
+            </button>
           </div>
         </section>
 
@@ -208,19 +172,6 @@ const PitchDeck = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={scrollToPortfolio}
-              className="group px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold mt-16 cursor-pointer text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 relative overflow-hidden"
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
-              <Link to="/portfolio" className="relative">
-                Explore Our Portfolio
-                <ArrowRight
-                  className="inline ml-3 group-hover:translate-x-2 transition-transform"
-                  size={24}
-                />
-              </Link>
-            </button>
           </div>
         </section>
       </div>

@@ -51,6 +51,19 @@ const WhoWeAre = () => {
       background: "Corporate Communications & Journalism",
     },
     {
+      role: "Consultants",
+      icon: "💼",
+      description:
+        "Strategic advisors who turn complex ideas into clear plans and persuasive materials that move businesses forward.",
+      skills: [
+        "Pitch Deck Development",
+        "Business Planning",
+        "Market Research",
+        "Growth Strategy",
+      ],
+      background: "Management Consulting & Venture Advisory",
+    },
+    {
       role: "Accountants",
       icon: "📊",
       description:
@@ -80,22 +93,22 @@ const WhoWeAre = () => {
 
   const coreValues = [
     {
-      title: "Operator Experience",
+      title: "Startup Operator Experience",
       description:
-        "We've been in the trenches. Our team has built, scaled, and exited companies across multiple industries.",
+        "We have lived the founder journey by building, scaling, and exiting ventures across multiple industries. We know firsthand the challenges and opportunities that come with startup life.",
       icon: "⚡",
     },
     {
-      title: "Corporate Finance Background",
+      title: "Corporate Finance Expertise",
       description:
-        "Deep expertise from Wells Fargo, American Express, and other leading financial institutions.",
+        "Our background includes deep experience with institutions like Wells Fargo and American Express. We bring the rigor, structure, and credibility of corporate finance to every project.",
       icon: "🏛️",
     },
     {
-      title: "Hands-on Approach",
+      title: "Human Powered Intelligence",
       description:
-        "We don't just consult - we roll up our sleeves and work alongside founders to deliver results.",
-      icon: "🤝",
+        "We understand, and we treat your idea as our own. We then transform what you have, know and believe to create a narrative that brings clarity, credibility, and results.",
+      icon: "🧠",
     },
   ];
 
@@ -125,7 +138,8 @@ const WhoWeAre = () => {
               <p className="text-lg sm:text-xl lg:text-2xl text-[#4a4949] leading-relaxed mb-4 md:mb-8">
                 A multidisciplinary team of{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-[#131e3D] font-semibold">
-                  researchers, designers, writers, accountants, and modellers
+                  researchers, designers, writers, consultants, accountants, and
+                  modellers
                 </span>{" "}
                 who combine operator experience with corporate finance
                 expertise.
@@ -220,8 +234,8 @@ const WhoWeAre = () => {
               What Sets Us Apart
             </h2>
             <p className="text-base sm:text-lg text-[#4a4949] max-w-3xl mx-auto">
-              Our unique combination of experience gives us the insight to
-              deliver results that matter.
+              Our unique combination of startup and corporate experience gives
+              us the insight to deliver results that matter.
             </p>
           </div>
 
@@ -269,28 +283,38 @@ const WhoWeAre = () => {
                   "
                 </div>
                 <p className="text-base md:text-lg text-[#4a4949] leading-relaxed mb-4 md:mb-6 pt-6 md:pt-8">
-                  After building and selling other ventures, as well as working
-                  with teams at Wells Fargo and American Express, I saw too many
-                  founders paying a lot and getting very little. We decided to
-                  change that.
+                  After building and selling ventures, and working with teams at
+                  Wells Fargo and American Express, I saw too many founders
+                  paying a lot and getting very little. We decided to change
+                  that.
                 </p>
                 <p className="text-base md:text-lg text-[#4a4949] leading-relaxed mb-4 md:mb-6">
                   Impact Change was created over a decade ago to give
-                  entrepreneurs the high-level strategy, research and design
-                  that big companies get, without the inflated price tags.
-                  Today, we're a collective of researchers, writers, designers
-                  and financial modellers who partner with founders to craft
-                  investor-ready pitch decks, robust business plans and
-                  comprehensive market analyses.
+                  entrepreneurs the high-level strategy, research, and design
+                  that big companies get, without the inflated price tags. Our
+                  pricing is intentionally competitive because we are here to
+                  help founders make things possible, not sell courses or lock
+                  anyone into big ongoing packages. To keep costs fair for
+                  everyone, calls are offered as an optional paid extra rather
+                  than a requirement.
                 </p>
-                <p className="text-base md:text-lg text-[#4a4949] leading-relaxed mb-6 md:mb-8">
-                  We combine operator experience with investor insight to
-                  deliver clarity, credibility and clean design, helping more
-                  than{" "}
+                <p className="text-base md:text-lg text-[#4a4949] leading-relaxed mb-4 md:mb-6">
+                  Today, we are a collective of researchers, writers, designers,
+                  and financial modellers who partner with founders to craft
+                  investor-ready pitch decks, robust business plans, and
+                  comprehensive market analyses. We combine operator experience
+                  with investor insight to deliver clarity, credibility, and
+                  clean design, helping more than{" "}
                   <span className="font-bold text-[#131e3D]">
-                    1,500 founders raise over $2 billion
+                    1,500 founders on journeys that have collectively secured
+                    over $2 billion in funding
                   </span>
                   .
+                </p>
+                <p className="text-base md:text-lg text-[#4a4949] leading-relaxed mb-6 md:mb-8">
+                  Your venture deserves the same level of clarity and care, and
+                  we would be proud to help you write the next chapter of your
+                  story.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-between pt-6 md:pt-8 border-t border-gray-200">

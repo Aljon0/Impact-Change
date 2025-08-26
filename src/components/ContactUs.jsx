@@ -3,42 +3,12 @@ import { useNavigate } from "react-router-dom";
 import TrustBar from "./TrustBar";
 
 const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    phone: "",
-    projectType: "",
-    message: "",
-  });
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [focusedField, setFocusedField] = useState("");
-  const [formProgress, setFormProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsVisible(true);
-    // Calculate form progress
-    const filledFields = Object.values(formData).filter(
-      (value) => value.trim() !== ""
-    ).length;
-    setFormProgress((filledFields / Object.keys(formData).length) * 100);
-  }, [formData]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // Clear any previous error when user starts typing
-    if (submitError) setSubmitError("");
-  };
+  }, []);
 
   const handleScheduleCall = () => {
     navigate("/pricing?category=consulting");
@@ -46,7 +16,7 @@ const ContactUs = () => {
 
   const handleEmailClick = () => {
     const email = "will@startscaleandsucceed.com";
-    const subject = "Inquiry from Contact Form";
+    const subject = "Inquiry from Contact Page";
     const body = "Hello, I would like to discuss...";
 
     // Open default email client with pre-filled email
@@ -54,73 +24,6 @@ const ContactUs = () => {
       subject
     )}&body=${encodeURIComponent(body)}`;
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitError("");
-
-    try {
-      const response = await fetch("https://formspree.io/f/xpwlgvwz", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          company: formData.company,
-          phone: formData.phone,
-          projectType: formData.projectType,
-          message: formData.message,
-          // Add a subject line for better email organization
-          _subject: `New Contact Form Submission from ${formData.firstName} ${formData.lastName}`,
-          // Optional: Add a custom reply-to
-          _replyto: formData.email,
-        }),
-      });
-
-      if (response.ok) {
-        console.log("Form submitted successfully:", formData);
-        setIsSubmitted(true);
-
-        // Reset form after 5 seconds
-        setTimeout(() => {
-          setIsSubmitted(false);
-          setFormData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            company: "",
-            phone: "",
-            projectType: "",
-            message: "",
-          });
-        }, 5000);
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit form");
-      }
-    } catch (error) {
-      console.error("Form submission error:", error);
-      setSubmitError(
-        "Sorry, there was an error sending your message. Please try again or contact us directly."
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const projectTypeOptions = [
-    { value: "", label: "Select your adventure..." },
-    { value: "pitch-deck", label: "Pitch Deck Creation" },
-    { value: "business-plan", label: "Business Plan Writing" },
-    { value: "fundraising", label: "Fundraising Support" },
-    { value: "market-research", label: "Market Research" },
-    { value: "strategy", label: "Strategic Consulting" },
-    { value: "other", label: "Something Amazing" },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#eeecec] via-[#f5f5f5] to-[#e8e6e6] relative overflow-hidden">
@@ -212,28 +115,10 @@ const ContactUs = () => {
 
       <TrustBar />
 
-      {/* Enhanced Contact Form Section - White background like About page */}
+      {/* Contact Information Section - Replaced the form section */}
       <section className="py-20 bg-white relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
-            {/* Progress Bar */}
-            <div className="mb-8">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-gray-600">
-                  Form Progress
-                </span>
-                <span className="text-sm font-medium text-[#131e3D]">
-                  {Math.round(formProgress)}%
-                </span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-gradient-to-r from-[#131e3D] to-blue-500 h-2 rounded-full transition-all duration-500"
-                  style={{ width: `${formProgress}%` }}
-                ></div>
-              </div>
-            </div>
-
             <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
               <div className="text-center mb-12">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#131e3D] to-blue-600 rounded-full mb-6">
@@ -243,17 +128,17 @@ const ContactUs = () => {
                   Let's Build Something Remarkable Together
                 </h2>
                 <p className="text-[#4a4949] text-lg">
-                  Fill out the form below and I'll get back to you within 24
-                  hours.
+                  Choose your preferred method to get in touch
                 </p>
               </div>
 
-              {isSubmitted ? (
-                <div className="text-center py-12">
-                  <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Email Option */}
+                <div className="group relative">
+                  <div className="bg-gray-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 h-full">
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                       <svg
-                        className="w-10 h-10 text-white"
+                        className="w-8 h-8 text-blue-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -262,322 +147,58 @@ const ContactUs = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth="2"
-                          d="M5 13l4 4L19 7"
-                        ></path>
+                          d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
                       </svg>
                     </div>
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-24 border-4 border-green-200 rounded-full animate-ping"></div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#131e3D] mb-4">
-                    🎉 Thank You!
-                  </h3>
-                  <p className="text-[#4a4949] text-lg">
-                    Your message has been sent successfully. I'll be in touch
-                    soon!
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  {/* Error Message */}
-                  {submitError && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
-                      {submitError}
-                    </div>
-                  )}
-
-                  {/* Name Fields */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="relative group">
-                      <label
-                        htmlFor="firstName"
-                        className="block text-sm font-medium text-[#4a4949] mb-2"
-                      >
-                        First Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        required
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        onFocus={() => setFocusedField("firstName")}
-                        onBlur={() => setFocusedField("")}
-                        disabled={isSubmitting}
-                        className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
-                          focusedField === "firstName" || formData.firstName
-                            ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
-                            : "border-gray-200 hover:border-gray-300"
-                        } ${
-                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                        placeholder="Your first name..."
-                      />
-                      {formData.firstName && (
-                        <div className="absolute right-3 top-12 text-green-500">
-                          ✓
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="relative group">
-                      <label
-                        htmlFor="lastName"
-                        className="block text-sm font-medium text-[#4a4949] mb-2"
-                      >
-                        Last Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        required
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        onFocus={() => setFocusedField("lastName")}
-                        onBlur={() => setFocusedField("")}
-                        disabled={isSubmitting}
-                        className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
-                          focusedField === "lastName" || formData.lastName
-                            ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
-                            : "border-gray-200 hover:border-gray-300"
-                        } ${
-                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                        placeholder="Your last name..."
-                      />
-                      {formData.lastName && (
-                        <div className="absolute right-3 top-12 text-green-500">
-                          ✓
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Email and Company */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="relative group">
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-[#4a4949] mb-2"
-                      >
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        onFocus={() => setFocusedField("email")}
-                        onBlur={() => setFocusedField("")}
-                        disabled={isSubmitting}
-                        className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
-                          focusedField === "email" || formData.email
-                            ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
-                            : "border-gray-200 hover:border-gray-300"
-                        } ${
-                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                        placeholder="your@email.com"
-                      />
-                      {formData.email && (
-                        <div className="absolute right-3 top-12 text-green-500">
-                          ✓
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="relative group">
-                      <label
-                        htmlFor="company"
-                        className="block text-sm font-medium text-[#4a4949] mb-2"
-                      >
-                        Company Name
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        onFocus={() => setFocusedField("company")}
-                        onBlur={() => setFocusedField("")}
-                        disabled={isSubmitting}
-                        className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
-                          focusedField === "company" || formData.company
-                            ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
-                            : "border-gray-200 hover:border-gray-300"
-                        } ${
-                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                        placeholder="Your amazing company..."
-                      />
-                      {formData.company && (
-                        <div className="absolute right-3 top-12 text-green-500">
-                          ✓
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Phone and Project Type */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="relative group">
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium text-[#4a4949] mb-2"
-                      >
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        onFocus={() => setFocusedField("phone")}
-                        onBlur={() => setFocusedField("")}
-                        disabled={isSubmitting}
-                        className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
-                          focusedField === "phone" || formData.phone
-                            ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
-                            : "border-gray-200 hover:border-gray-300"
-                        } ${
-                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                        placeholder="+1 (555) 123-4567"
-                      />
-                      {formData.phone && (
-                        <div className="absolute right-3 top-12 text-green-500">
-                          ✓
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="relative group">
-                      <label
-                        htmlFor="projectType"
-                        className="block text-sm font-medium text-[#4a4949] mb-2"
-                      >
-                        Project Type *
-                      </label>
-                      <select
-                        id="projectType"
-                        name="projectType"
-                        required
-                        value={formData.projectType}
-                        onChange={handleInputChange}
-                        onFocus={() => setFocusedField("projectType")}
-                        onBlur={() => setFocusedField("")}
-                        disabled={isSubmitting}
-                        className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 ${
-                          focusedField === "projectType" || formData.projectType
-                            ? "border-[#131e3D] bg-white shadow-lg transform scale-105"
-                            : "border-gray-200 hover:border-gray-300"
-                        } ${
-                          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                      >
-                        {projectTypeOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                      {formData.projectType && (
-                        <div className="absolute right-8 top-12 text-green-500">
-                          ✓
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div className="relative group">
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-[#4a4949] mb-2"
-                    >
-                      Tell me about your project *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      onFocus={() => setFocusedField("message")}
-                      onBlur={() => setFocusedField("")}
-                      disabled={isSubmitting}
-                      className={`w-full px-4 py-4 border-2 rounded-xl transition-all duration-300 resize-none ${
-                        focusedField === "message" || formData.message
-                          ? "border-[#131e3D] bg-white shadow-lg"
-                          : "border-gray-200 hover:border-gray-300"
-                      } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
-                      placeholder="Tell me about your vision, goals, timeline, and how I can help you build something remarkable..."
-                    />
-                    {formData.message && (
-                      <div className="absolute right-3 top-12 text-green-500">
-                        ✓
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="text-center pt-4">
+                    <h3 className="text-xl font-semibold text-[#131e3D] mb-2">
+                      Email Us
+                    </h3>
+                    <p className="text-[#4a4949] mb-6">
+                      Get a response within 24 hours
+                    </p>
                     <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`relative overflow-hidden bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-12 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group ${
-                        isSubmitting
-                          ? "opacity-50 cursor-not-allowed scale-100 hover:scale-100"
-                          : "cursor-pointer"
-                      }`}
+                      onClick={handleEmailClick}
+                      className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-3 rounded-full transition-all duration-200 hover:scale-105 cursor-pointer"
                     >
-                      <span className="relative z-10 flex items-center justify-center">
-                        {isSubmitting ? (
-                          <>
-                            <svg
-                              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              ></circle>
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                              ></path>
-                            </svg>
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            Submit
-                            <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">
-                              →
-                            </span>
-                          </>
-                        )}
-                      </span>
-                      {!isSubmitting && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      )}
+                      Send an Email
                     </button>
                   </div>
-                </form>
-              )}
+                </div>
+
+                {/* Schedule Call Option */}
+                <div className="group relative">
+                  <div className="bg-gray-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 h-full">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <svg
+                        className="w-8 h-8 text-green-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-semibold text-[#131e3D] mb-2">
+                      Schedule a Call
+                    </h3>
+                    <p className="text-[#4a4949] mb-6">
+                      Book a free consultation
+                    </p>
+                    <button
+                      onClick={handleScheduleCall}
+                      className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-3 rounded-full transition-all duration-200 hover:scale-105 cursor-pointer"
+                    >
+                      Schedule Now
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

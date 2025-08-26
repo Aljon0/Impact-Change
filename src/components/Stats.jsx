@@ -64,24 +64,8 @@ const Stats = () => {
   return (
     <section className="py-12 sm:py-16 bg-[#0054ac]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* First row - Main stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12 text-center mb-12 sm:mb-16">
-          <div className="flex flex-col items-center p-2 sm:p-4">
-            <div className="mb-2 sm:mb-4">
-              <img
-                src="/HomePage/Star.png"
-                alt="Star icon"
-                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto"
-              />
-            </div>
-            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
-              <AnimatedCounter end={5} suffix=".0 Stars" duration={1500} />
-            </div>
-            <div className="text-xs sm:text-sm md:text-base text-blue-100">
-              <AnimatedCounter end={1800} suffix="+ Reviews" duration={2000} />
-            </div>
-          </div>
-
+        {/* Single row with all stats */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-12 text-center mb-8 sm:mb-12">
           <div className="flex flex-col items-center p-2 sm:p-4">
             <div className="mb-2 sm:mb-4">
               <img
@@ -119,25 +103,6 @@ const Stats = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center p-2 sm:p-4">
-            <div className="mb-2 sm:mb-4">
-              <img
-                src="/HomePage/Achievement.png"
-                alt="Achievement icon"
-                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto"
-              />
-            </div>
-            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">
-              <AnimatedCounter end={2} suffix=" Exits" duration={1000} />
-            </div>
-            <div className="text-xs sm:text-sm md:text-base text-blue-100">
-              Successful
-            </div>
-          </div>
-        </div>
-
-        {/* Second row - Additional stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12 text-center mb-8 sm:mb-12">
           <div className="flex flex-col items-center p-2 sm:p-4">
             <div className="mb-2 sm:mb-4">
               <svg

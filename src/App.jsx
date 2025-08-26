@@ -6,7 +6,6 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import AdvisorEquity from "./components/AdvisorEquity";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import IntakeForm from "./components/IntakeForm";
@@ -20,11 +19,11 @@ import { Portfolio } from "./components/Portfolio/Portfolio";
 import PricingPage from "./components/PricingPage";
 import Reviews from "./components/Reviews";
 import BusinessPlanWriting from "./components/services/BusinessPlanWriting";
-import InvestorEquity from "./components/services/InvestorEquity";
 import InvestorOnePager from "./components/services/InvestorOnePager";
 import LinkedinProfile from "./components/services/LinkedinProfile";
 import MarketResearch from "./components/services/MarketResearch";
 import PitchDeck from "./components/services/PitchDeck";
+import StrategicFundraisingAdvisory from "./components/services/StrategicFundraisingAdvisory.jsx";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
@@ -63,7 +62,7 @@ function App() {
 
           {/* Services Routes */}
           <Route path="/services" element={<div>Services Page</div>} />
-          <Route path="/services/advisor-equity" element={<AdvisorEquity />} />
+
           <Route
             path="/services/business-plans"
             element={<div>Business Plans Page</div>}
@@ -83,8 +82,8 @@ function App() {
             element={<BusinessPlanWriting />}
           />
           <Route
-            path="/services/investor-equity"
-            element={<InvestorEquity />}
+            path="/services/strategic-advisory"
+            element={<StrategicFundraisingAdvisory />}
           />
           <Route path="/intake-form" element={<IntakeForm />} />
           <Route path="/payment-flow" element={<PaymentFlow />} />

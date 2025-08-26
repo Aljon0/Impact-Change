@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -59,10 +58,10 @@ const About = () => {
                 <span className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-blue-600 to-[#131e3D] rounded-full"></span>
                 Today, Impact Change is a collective of researchers, writers,
                 designers and financial modellers who partner with founders to
-                craft investor‑ready pitch decks, robust business plans and
-                comprehensive market analyses. We combine operator experience
-                with investor insight to deliver clarity, credibility and clean
-                design, helping more than{" "}
+                craft investor‑ready pitch decks, robust business plans,
+                comprehensive market analyses, and paid consultations. We
+                combine operator experience with investor insight to deliver
+                clarity, credibility and clean design, helping more than{" "}
                 <span className="font-bold bg-gradient-to-r from-[#131e3D] to-blue-600 bg-clip-text text-transparent">
                   1,500 founders raise over $2 billion
                 </span>
@@ -71,40 +70,67 @@ const About = () => {
 
               <p className="text-base sm:text-lg text-[#4a4949] leading-relaxed">
                 Want to meet the team? Learn more on our{" "}
-                <Link
-                  to="/who-we-are"
+                <a
+                  href="/who-we-are"
                   className="font-bold bg-gradient-to-r from-blue-600 to-[#131e3D] bg-clip-text text-transparent hover:from-[#131e3D] hover:to-blue-600 transition-all duration-300 underline decoration-blue-500 hover:decoration-[#131e3D]"
                 >
                   Who we are
-                </Link>{" "}
+                </a>{" "}
                 page.
               </p>
             </div>
 
-            {/* Animated CTA button */}
+            {/* Animated CTA buttons */}
             <div className="transform animate-fade-in-up delay-400 pt-2 sm:pt-4">
-              <Link
-                to="/who-we-are"
-                className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-semibold rounded-lg sm:rounded-xl shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl transform hover:-translate-y-0.5 sm:hover:-translate-y-1 transition-all duration-300 ease-out hover:from-indigo-600 hover:via-blue-600 hover:to-indigo-700 relative overflow-hidden"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative z-10 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
-                  Meet Our Team
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </span>
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <a
+                  href="/who-we-are"
+                  className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-900 text-white font-semibold rounded-lg sm:rounded-xl shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl transform hover:-translate-y-0.5 sm:hover:-translate-y-1 transition-all duration-300 ease-out hover:from-blue-300 hover:via-blue-600 hover:to-blue-900 relative overflow-hidden"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="relative z-10 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                    Meet Our Team
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </span>
+                </a>
+
+                <a
+                  href="https://calendly.com/will-startscaleandsucceed/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#131e3D] to-blue-800 text-white font-semibold rounded-lg sm:rounded-xl shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl transform hover:-translate-y-0.5 sm:hover:-translate-y-1 transition-all duration-300 ease-out hover:from-[#0f1629] hover:via-[#131e3D] hover:to-blue-700 relative overflow-hidden"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="relative z-10 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                    Paid Consultation
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:scale-110 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -3,15 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LinkedinProfile = () => {
-  const highlights = [
-    { number: "500+", label: "Personal Profiles Optimized" },
-    { number: "180+", label: "Company Pages Enhanced" },
-    { number: "3x", label: "Average Increase in Profile Views" },
-    { number: "250%", label: "Rise in Follower Engagement" },
-    { number: "100%", label: "Keyword Optimized" },
-    { number: "No. 1", label: "for B2B Brand Building" },
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
       {/* Hero Section */}
@@ -33,32 +24,29 @@ const LinkedinProfile = () => {
             audience with authority.
           </p>
 
-          <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
-            <Link to="/pricing?category=linkedin" className="relative">
-              Get Started Today
-              <ArrowRight
-                className="inline ml-3 group-hover:translate-x-2 transition-transform"
-                size={24}
-              />
-            </Link>
-          </button>
-        </div>
-      </div>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
+              <Link
+                to="/pricing?category=linkedin"
+                className="flex items-center"
+              >
+                Get Started Today
+                <ArrowRight
+                  className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                  size={24}
+                />
+              </Link>
+            </button>
 
-      {/* Highlights Section */}
-      <div className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {highlights.map((highlight, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-blue-900 mb-3">
-                  {highlight.number}
-                </div>
-                <div className="text-gray-700 text-sm md:text-base font-medium">
-                  {highlight.label}
-                </div>
-              </div>
-            ))}
+            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors flex items-center justify-center">
+              <Link to="/portfolio" className="flex items-center">
+                View Portfolio
+                <ArrowRight
+                  className="inline ml-3 group-hover:translate-x-2 transition-transform"
+                  size={24}
+                />
+              </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -171,7 +159,7 @@ const LinkedinProfile = () => {
           <div className="text-center mt-12">
             <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
               <Link to="/portfolio" className="relative">
-                Explore Our Portfolio
+                View Portfolio
                 <ArrowRight
                   className="inline ml-3 group-hover:translate-x-2 transition-transform"
                   size={24}

@@ -257,7 +257,7 @@ const Header = () => {
                     <DropdownItem
                       to="/services/market-research"
                       onClick={closeAllDropdowns}
-                      description="In-depth analysis & insights"
+                      description="Clear insights on markets and competitors"
                     >
                       Market Research
                     </DropdownItem>
@@ -271,37 +271,31 @@ const Header = () => {
                     <DropdownItem
                       to="/services/linkedin-profile"
                       onClick={closeAllDropdowns}
-                      description="Professional brand building"
+                      description="Compelling presentations that win attention"
                     >
                       LinkedIn Profile Optimization
                     </DropdownItem>
                     <DropdownItem
                       to="/services/one-pager"
                       onClick={closeAllDropdowns}
-                      description="Concise investor summary"
+                      description="Profiles that position you for growth"
                     >
                       Investor One-Pager
                     </DropdownItem>
                     <DropdownItem
                       to="/services/business-plan"
                       onClick={closeAllDropdowns}
-                      description="Complete 5-year forecast"
+                      description="5-year plans that inspire confidence"
                     >
                       Business Plan Writing
                     </DropdownItem>
+
                     <DropdownItem
-                      to="/services/investor-equity"
+                      to="/services/strategic-advisory"
                       onClick={closeAllDropdowns}
-                      description="Fundraising & scaling support"
+                      description="Currently closed until 2026"
                     >
-                      Investor Equity
-                    </DropdownItem>
-                    <DropdownItem
-                      to="/services/advisor-equity"
-                      onClick={closeAllDropdowns}
-                      description="Equity compensation for advisors"
-                    >
-                      Advisor Equity
+                      Strategic Fundraising & Advisory
                     </DropdownItem>
                   </AnimatedDropdown>
                 </div>

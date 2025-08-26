@@ -8,7 +8,6 @@ export const BusinessPlansPortfolio = () => {
       title: "Momentum Labs",
       industry: "Brand Strategy Consulting",
       funding: "$10M ARR Target",
-      pages: "24 pages",
       timeline: "3 years",
       image: "/HomePage/BusinessPlan/MomentumLabs.png",
       description:
@@ -24,7 +23,6 @@ export const BusinessPlansPortfolio = () => {
       title: "LEMME",
       industry: "Fashion & Streetwear",
       funding: "$500K Seed Round",
-      pages: "24 pages",
       timeline: "15% equity",
       image: "/HomePage/BusinessPlan/Lemme.png",
       description:
@@ -40,7 +38,6 @@ export const BusinessPlansPortfolio = () => {
       title: "Chroma Shift",
       industry: "Interactive Footwear",
       funding: "$1.5M Seed Investment",
-      pages: "14 pages",
       timeline: "3-5 years",
       image: "/HomePage/BusinessPlan/ChromaShift.png",
       description:
@@ -56,7 +53,6 @@ export const BusinessPlansPortfolio = () => {
       title: "Axiom Structures",
       industry: "Modular Construction",
       funding: "AUD $250K Seed",
-      pages: "29 pages",
       timeline: "5 years",
       image: "/HomePage/BusinessPlan/AxiomStructures.png",
       description:
@@ -72,7 +68,6 @@ export const BusinessPlansPortfolio = () => {
       title: "BeautyBot",
       industry: "Beauty Tech SaaS",
       funding: "€3M Series A",
-      pages: "22 pages",
       timeline: "€25M valuation",
       image: "/HomePage/BusinessPlan/BeautyBot.png",
       description:
@@ -88,7 +83,6 @@ export const BusinessPlansPortfolio = () => {
       title: "Sentio Hotel",
       industry: "Eco-Luxury Wellness Resort",
       funding: "$65M Total Investment",
-      pages: "14 pages",
       timeline: "15-18% IRR",
       image: "/HomePage/BusinessPlan/SentioHotel.png",
       description:
@@ -135,7 +129,7 @@ export const BusinessPlansPortfolio = () => {
                     <img
                       src={plan.image}
                       alt={`${plan.title} Business Plan`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain p-4 bg-gradient-to-br from-blue-50 to-indigo-100"
                       onError={(e) => {
                         // Fallback to gradient background if image fails to load
                         e.target.style.display = "none";
@@ -171,21 +165,13 @@ export const BusinessPlansPortfolio = () => {
                 {/* Content Section - Right Side */}
                 <div className="lg:w-2/3 p-4 sm:p-6 md:p-8 bg-white">
                   <div className="mb-4 sm:mb-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
                       <div className="bg-blue-50 rounded-lg p-3 text-center">
                         <div className="text-xs sm:text-sm text-blue-600 font-medium mb-1">
                           Funding Target
                         </div>
                         <div className="text-sm sm:text-base font-bold text-gray-900">
                           {plan.funding}
-                        </div>
-                      </div>
-                      <div className="bg-green-50 rounded-lg p-3 text-center">
-                        <div className="text-xs sm:text-sm text-green-600 font-medium mb-1">
-                          Document Length
-                        </div>
-                        <div className="text-sm sm:text-base font-bold text-gray-900">
-                          {plan.pages}
                         </div>
                       </div>
                       <div className="bg-purple-50 rounded-lg p-3 text-center">
