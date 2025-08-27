@@ -17,6 +17,68 @@ const PricingPage = () => {
     }
   }, [categoryFromUrl]);
 
+  // Define image mappings for each category and plan
+  const imageMapping = {
+    "pitch-decks": [
+      {
+        name: "12 slides",
+        image: "/HomePage/PitchDeck_1/BeautyBot.webp",
+      },
+      {
+        name: "18 slides",
+        image: "/HomePage/PitchDeck_1/ChromaShift.webp",
+      },
+      {
+        name: "24 slides",
+        image: "/HomePage/PitchDeck_1/Lemme.webp",
+      },
+    ],
+    "business-plans": [
+      {
+        name: "Without Financials",
+        image: "/HomePage/BusinessPlan/BeautyBot.png",
+      },
+      {
+        name: "With Financials",
+        image: "/HomePage/BusinessPlan/ChromaShift.png",
+      },
+    ],
+    "market-research": [
+      {
+        name: "Essential",
+        image: "/HomePage/MarketResearch/AiWellness.png",
+      },
+      {
+        name: "Comprehensive",
+        image: "/HomePage/MarketResearch/LuxuryChocolate.png",
+      },
+    ],
+    linkedin: [
+      {
+        name: "Personal Page",
+        image: "/HomePage/OnePager/Axiom.jpg",
+      },
+      {
+        name: "Company Page",
+        image: "/HomePage/OnePager/BaseLineLabs.jpg",
+      },
+    ],
+    consulting: [
+      {
+        name: "30 minutes",
+        image: "/HomePage/OnePager/ChromaShift.jpg",
+      },
+      {
+        name: "45 minutes",
+        image: "/HomePage/OnePager/Cuddle.jpg",
+      },
+      {
+        name: "60 minutes",
+        image: "/HomePage/OnePager/Elevatex.jpg",
+      },
+    ],
+  };
+
   const pricingData = {
     "pitch-decks": [
       {
@@ -134,6 +196,13 @@ const PricingPage = () => {
     { id: "consulting", name: "Consulting" },
   ];
 
+  // Function to get image for a specific plan
+  const getImageForPlan = (planName) => {
+    const categoryImages = imageMapping[selectedCategory] || [];
+    const imageData = categoryImages.find((img) => img.name === planName);
+    return imageData ? imageData.image : null;
+  };
+
   const handleGetStarted = (plan) => {
     // For consulting category, don't navigate to intake form
     if (selectedCategory === "consulting") {
@@ -213,63 +282,89 @@ const PricingPage = () => {
       {/* Pricing Cards */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {pricingData[selectedCategory].map((plan, index) => (
-            <div
-              key={plan.name}
-              className={`relative group transform transition-all duration-500 hover:scale-105 ${
-                plan.popular ? "lg:scale-110 z-10" : ""
-              }`}
-            >
-              {/* Popular Badge */}
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                  <div className="bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-xl">
-                    Most Popular
-                  </div>
-                </div>
-              )}
+          {pricingData[selectedCategory].map((plan, index) => {
+            const planImage = getImageForPlan(plan.name);
 
-              {/* Card */}
-              <div className="relative h-full bg-white rounded-3xl shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
-                {/* Gradient Header */}
-                <div
-                  className={`h-32 bg-gradient-to-r ${plan.gradient} relative`}
-                >
-                  <div className="absolute inset-0 bg-black/10"></div>
-                  <div className="absolute top-4 right-4 w-20 h-20 bg-white/20 rounded-full blur-xl opacity-50"></div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 relative z-10 -mt-6">
-                  <div className="bg-white rounded-2xl p-6 shadow-lg mb-6 group-hover:shadow-xl transition-all duration-300">
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-700 transition-colors duration-300">
-                      {plan.name}
-                    </h3>
-                    <div className="flex items-baseline">
-                      <span
-                        className={`text-4xl font-bold bg-gradient-to-r ${plan.gradient} bg-clip-text text-transparent`}
-                      >
-                        {plan.displayPrice}
-                      </span>
+            return (
+              <div
+                key={plan.name}
+                className={`relative group transform transition-all duration-500 hover:scale-105 ${
+                  plan.popular ? "lg:scale-110 z-10" : ""
+                }`}
+              >
+                {/* Popular Badge */}
+                {plan.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-xl">
+                      Most Popular
                     </div>
                   </div>
+                )}
 
-                  {/* CTA Button */}
-                  <button
-                    onClick={() => handleGetStarted(plan)}
-                    className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-xl font-semibold transition-all cursor-pointer duration-500 transform hover:scale-105 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden group/btn`}
-                  >
-                    <span className="relative z-10">
-                      {selectedCategory === "consulting"
-                        ? "Schedule Now"
-                        : "Get Started"}
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
-                  </button>
+                {/* Card */}
+                <div className="relative h-full bg-white rounded-3xl shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
+                  {/* Image Header (replaces gradient) */}
+                  <div className="h-32 relative overflow-hidden">
+                    {planImage ? (
+                      <img
+                        src={planImage}
+                        alt={`${plan.name} preview`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        onError={(e) => {
+                          // Fallback to gradient if image fails to load
+                          e.target.style.display = "none";
+                          e.target.nextSibling.style.display = "block";
+                        }}
+                      />
+                    ) : null}
+
+                    {/* Fallback gradient (hidden by default, shown if image fails) */}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-r ${
+                        plan.gradient
+                      } ${planImage ? "hidden" : "block"}`}
+                      style={{ display: planImage ? "none" : "block" }}
+                    >
+                      <div className="absolute inset-0 bg-black/10"></div>
+                      <div className="absolute top-4 right-4 w-20 h-20 bg-white/20 rounded-full blur-xl opacity-50"></div>
+                    </div>
+
+                    {/* Overlay for better text readability */}
+                    <div className="absolute inset-0 bg-black/20"></div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-8 relative z-10 -mt-6">
+                    <div className="bg-white rounded-2xl p-6 shadow-lg mb-6 group-hover:shadow-xl transition-all duration-300">
+                      <h3 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-700 transition-colors duration-300">
+                        {plan.name}
+                      </h3>
+                      <div className="flex items-baseline">
+                        <span
+                          className={`text-4xl font-bold bg-gradient-to-r ${plan.gradient} bg-clip-text text-transparent`}
+                        >
+                          {plan.displayPrice}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <button
+                      onClick={() => handleGetStarted(plan)}
+                      className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-xl font-semibold transition-all cursor-pointer duration-500 transform hover:scale-105 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden group/btn`}
+                    >
+                      <span className="relative z-10">
+                        {selectedCategory === "consulting"
+                          ? "Schedule Now"
+                          : "Get Started"}
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
