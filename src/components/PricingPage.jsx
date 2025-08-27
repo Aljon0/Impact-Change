@@ -204,11 +204,12 @@ const PricingPage = () => {
   };
 
   const handleGetStarted = (plan) => {
-    // For consulting category, don't navigate to intake form
+    // For consulting category, redirect to Calendly
     if (selectedCategory === "consulting") {
-      // You can replace this with your Calendly link later
-      // For now, it will just open a blank page
-      window.open("#", "_blank");
+      window.open(
+        "https://calendly.com/will-startscaleandsucceed/30min",
+        "_blank"
+      );
       return;
     }
 

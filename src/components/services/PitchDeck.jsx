@@ -80,9 +80,9 @@ const PitchDeck = () => {
           </div>
         </section>
 
-        {/* About Service Section */}
+        {/* About Service Section - Now with 2 columns */}
         <section className="mb-20">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto">
             <div
               className={`transform transition-all duration-1000 delay-300 ${
                 isVisible
@@ -90,32 +90,57 @@ const PitchDeck = () => {
                   : "translate-y-10 opacity-0"
               }`}
             >
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-8 leading-tight">
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-12 leading-tight text-center">
                 Crafting Your
                 <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   Investment-Winning Story
                 </span>
               </h2>
 
-              <div className="bg-white/80 backdrop-blur-sm border border-blue-100 rounded-3xl p-8 lg:p-12 shadow-xl hover:shadow-2xl transition-all duration-300">
-                <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                  Your pitch deck is often the <strong>first impression</strong>{" "}
-                  you make on an investor. We specialize in turning your complex
-                  business idea into a clear, compelling, and visually engaging
-                  narrative. Our team of expert writers and designers works with
-                  you to structure your story, highlight your unique value
-                  proposition, and present your financial projections with
-                  clarity.
-                </p>
+              {/* 2-Column Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* Left Column - GIF Image */}
+                <div className="relative group">
+                  <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl group-hover:shadow-2xl sm:group-hover:shadow-3xl transition-all duration-500 transform group-hover:-translate-y-1 lg:group-hover:-translate-y-2 group-hover:rotate-1">
+                    {/* Animated gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800 opacity-15 group-hover:opacity-25 transition-opacity duration-500 z-10 animate-gradient-shift"></div>
 
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  The result is a{" "}
-                  <span className="text-blue-600 font-semibold">
-                    professional, persuasive pitch deck
-                  </span>{" "}
-                  that not only looks stunning but is strategically designed to
-                  capture attention and secure the meetings that matter.
-                </p>
+                    <img
+                      src="/HomePage/PitchDeck.gif"
+                      alt="Pitch Deck Animation"
+                      className="w-full h-auto transition-transform duration-700 group-hover:scale-105 lg:group-hover:scale-110"
+                    />
+
+                    {/* Floating animated orbs */}
+                    <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800 rounded-full opacity-70 blur-lg sm:blur-xl animate-pulse-glow"></div>
+                    <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 w-14 sm:w-16 lg:w-20 h-14 sm:h-16 lg:h-20 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800 rounded-full opacity-50 blur-md sm:blur-lg animate-bounce-slow"></div>
+                  </div>
+                </div>
+
+                {/* Right Column - Content */}
+                <div className="space-y-6">
+                  <div className="bg-white/80 backdrop-blur-sm border border-blue-100 rounded-3xl p-8 lg:p-10 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                      Your pitch deck is often the{" "}
+                      <strong>first impression</strong> you make on an investor.
+                      We specialize in turning your complex business idea into a
+                      clear, compelling, and visually engaging narrative. Our
+                      team of expert writers and designers works with you to
+                      structure your story, highlight your unique value
+                      proposition, and present your financial projections with
+                      clarity.
+                    </p>
+
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      The result is a{" "}
+                      <span className="text-blue-600 font-semibold">
+                        professional, persuasive pitch deck
+                      </span>{" "}
+                      that not only looks stunning but is strategically designed
+                      to capture attention and secure the meetings that matter.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

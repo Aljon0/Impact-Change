@@ -100,51 +100,78 @@ const MarketResearch = () => {
           </div>
         </section>
 
-        {/* About Service Section */}
+        {/* About Service Section - Now with 2 columns */}
         <section className="mb-24">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div
               className={`transform transition-all duration-1000 delay-300 ${
                 isVisible
-                  ? "translate-x-0 opacity-100"
-                  : "-translate-x-10 opacity-0"
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-10 opacity-0"
               }`}
             >
-              <div className="mb-8">
+              {/* Header */}
+              <div className="text-center mb-12">
                 <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 font-semibold rounded-full mb-6">
                   <Target className="mr-2" size={18} />
                   Market Validation
                 </span>
+
+                <h2 className="text-4xl lg:text-6xl font-bold text-gray-800 mb-8 leading-tight">
+                  Validate Your Vision
+                  <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    with Data
+                  </span>
+                </h2>
               </div>
 
-              <h2 className="text-4xl lg:text-6xl font-bold text-gray-800 mb-8 leading-tight">
-                Validate Your Vision
-                <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  with Data
-                </span>
-              </h2>
+              {/* 2-Column Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* Left Column - GIF Image */}
+                <div className="relative group">
+                  <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl group-hover:shadow-2xl sm:group-hover:shadow-3xl transition-all duration-500 transform group-hover:-translate-y-1 lg:group-hover:-translate-y-2 group-hover:rotate-1">
+                    {/* Animated gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 opacity-15 group-hover:opacity-25 transition-opacity duration-500 z-10 animate-gradient-shift"></div>
 
-              <p className="text-xl text-gray-600 leading-relaxed mb-8">
-                In the critical early stages,{" "}
-                <strong className="text-gray-800">
-                  assumptions can be costly
-                </strong>
-                . Our Comprehensive Market Research service is designed to
-                replace guesswork with a deep, data-driven understanding of your
-                target market, competitors, and industry trends.
-              </p>
+                    <img
+                      src="/HomePage/MarketResearch.gif"
+                      alt="Market Research Animation"
+                      className="w-full h-auto transition-transform duration-700 group-hover:scale-105 lg:group-hover:scale-110"
+                    />
 
-              <p className="text-lg text-gray-600 leading-relaxed mb-10">
-                We dive into customer demographics, analyze market size and
-                potential, and identify key opportunities and threats. This
-                foundational knowledge empowers you to make{" "}
-                <span className="text-blue-600 font-semibold">
-                  informed decisions
-                </span>
-                , refine your business strategy, and build a product that truly
-                meets market needs, setting you up for a successful launch and
-                long-term growth.
-              </p>
+                    {/* Floating animated orbs */}
+                    <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 rounded-full opacity-70 blur-lg sm:blur-xl animate-pulse-glow"></div>
+                    <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 w-14 sm:w-16 lg:w-20 h-14 sm:h-16 lg:h-20 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 rounded-full opacity-50 blur-md sm:blur-lg animate-bounce-slow"></div>
+                  </div>
+                </div>
+
+                {/* Right Column - Content */}
+                <div className="space-y-6">
+                  <div className="bg-gradient-to-r from-white/90 to-blue-50/90 backdrop-blur-sm border border-blue-200 rounded-3xl p-8 lg:p-10 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <p className="text-xl text-gray-600 leading-relaxed mb-8">
+                      In the critical early stages,{" "}
+                      <strong className="text-gray-800">
+                        assumptions can be costly
+                      </strong>
+                      . Our Comprehensive Market Research service is designed to
+                      replace guesswork with a deep, data-driven understanding
+                      of your target market, competitors, and industry trends.
+                    </p>
+
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      We dive into customer demographics, analyze market size
+                      and potential, and identify key opportunities and threats.
+                      This foundational knowledge empowers you to make{" "}
+                      <span className="text-blue-600 font-semibold">
+                        informed decisions
+                      </span>
+                      , refine your business strategy, and build a product that
+                      truly meets market needs, setting you up for a successful
+                      launch and long-term growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

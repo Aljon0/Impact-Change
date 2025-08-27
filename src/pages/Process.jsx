@@ -98,26 +98,7 @@ const ProcessPage = () => {
             A proven five-step methodology that transforms your vision into
             investor-ready materials that drive real results
           </p>
-          <div className="flex justify-center space-x-4 sm:space-x-6 lg:space-x-8">
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
-                5
-              </div>
-              <div className="text-blue-200 text-xs sm:text-sm">Steps</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
-                1,500+
-              </div>
-              <div className="text-blue-200 text-xs sm:text-sm">Projects</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
-                $2B+
-              </div>
-              <div className="text-blue-200 text-xs sm:text-sm">Raised</div>
-            </div>
-          </div>
+          <div className="flex justify-center space-x-4 sm:space-x-6 lg:space-x-8"></div>
         </div>
       </section>
 
