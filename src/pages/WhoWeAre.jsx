@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import TrustBar from "../components/TrustBar";
 
 const WhoWeAre = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,7 +12,7 @@ const WhoWeAre = () => {
   const teamMembers = [
     {
       role: "Researchers",
-      icon: "🔬",
+      icon: "/HomePage/Icons/Researchers.jpg",
       description:
         "Deep market analysis and competitive intelligence specialists with experience across multiple industries and verticals.",
       skills: [
@@ -26,7 +25,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Designers",
-      icon: "🎨",
+      icon: "/HomePage/Icons/Designers.jpg",
       description:
         "Creative professionals who craft compelling visual narratives that resonate with investors and stakeholders.",
       skills: [
@@ -39,7 +38,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Writers",
-      icon: "✍️",
+      icon: "/HomePage/Icons/Writers.jpg",
       description:
         "Strategic storytellers who transform complex business concepts into clear, persuasive investment narratives.",
       skills: [
@@ -52,7 +51,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Consultants",
-      icon: "💼",
+      icon: "/HomePage/Icons/Consultants.jpg",
       description:
         "Strategic advisors who turn complex ideas into clear plans and persuasive materials that move businesses forward.",
       skills: [
@@ -65,7 +64,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Accountants",
-      icon: "📊",
+      icon: "/HomePage/Icons/Accountants.jpg",
       description:
         "Financial experts who build robust models and ensure accuracy in all financial projections and valuations.",
       skills: [
@@ -78,7 +77,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Modellers",
-      icon: "📈",
+      icon: "/HomePage/Icons/Modellers.jpg",
       description:
         "Quantitative specialists who create sophisticated financial models that withstand investor scrutiny.",
       skills: [
@@ -96,19 +95,19 @@ const WhoWeAre = () => {
       title: "Startup Operator Experience",
       description:
         "We have lived the founder journey by building, scaling, and exiting ventures across multiple industries. We know firsthand the challenges and opportunities that come with startup life.",
-      icon: "⚡",
+      icon: "/HomePage/Icons/StartupOperator.jpg",
     },
     {
       title: "Corporate Finance Expertise",
       description:
         "Our background includes deep experience with institutions like Wells Fargo and American Express. We bring the rigor, structure, and credibility of corporate finance to every project.",
-      icon: "🏛️",
+      icon: "/HomePage/Icons/CorporateFinance.jpg",
     },
     {
       title: "Human Powered Intelligence",
       description:
         "We understand, and we treat your idea as our own. We then transform what you have, know and believe to create a narrative that brings clarity, credibility, and results.",
-      icon: "🧠",
+      icon: "/HomePage/Icons/HumanPowered.jpg",
     },
   ];
 
@@ -186,8 +185,23 @@ const WhoWeAre = () => {
                 onMouseLeave={() => setActiveCard(null)}
               >
                 <div className="text-center mb-4 md:mb-6">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-100 to-[#eeecec] rounded-lg md:rounded-xl flex items-center justify-center text-2xl md:text-3xl mb-2 md:mb-4 mx-auto">
-                    {member.icon}
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-100 to-[#eeecec] rounded-lg md:rounded-xl flex items-center justify-center mb-2 md:mb-4 mx-auto overflow-hidden">
+                    <img
+                      src={member.icon}
+                      alt={member.role}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback if image fails to load
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.display = "block";
+                      }}
+                    />
+                    <div
+                      className="hidden w-full h-full bg-gradient-to-br from-blue-100 to-[#eeecec] flex items-center justify-center text-2xl md:text-3xl font-bold text-[#131e3D]"
+                      style={{ display: "none" }}
+                    >
+                      {member.role.charAt(0)}
+                    </div>
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-[#131e3D] mb-2 md:mb-3">
                     {member.role}
@@ -245,8 +259,23 @@ const WhoWeAre = () => {
                 key={index}
                 className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-lg hover:shadow-md md:hover:shadow-xl transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 text-center"
               >
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#131e3D] to-blue-600 rounded-lg md:rounded-xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 mx-auto text-white">
-                  {value.icon}
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#131e3D] to-blue-600 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto overflow-hidden">
+                  <img
+                    src={value.icon}
+                    alt={value.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback if image fails to load
+                      e.target.style.display = "none";
+                      e.target.nextSibling.style.display = "flex";
+                    }}
+                  />
+                  <div
+                    className="hidden w-full h-full bg-gradient-to-br from-[#131e3D] to-blue-600 items-center justify-center text-2xl md:text-3xl font-bold text-white"
+                    style={{ display: "none" }}
+                  >
+                    {value.title.charAt(0)}
+                  </div>
                 </div>
                 <h3 className="text-lg md:text-xl font-bold text-[#131e3D] mb-2 md:mb-4">
                   {value.title}
@@ -269,8 +298,24 @@ const WhoWeAre = () => {
 
             <div className="relative bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 shadow-lg md:shadow-xl border border-gray-100">
               <div className="text-center mb-6 md:mb-8">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#131e3D] to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <span className="text-xl md:text-2xl text-white">👨‍💼</span>
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#131e3D] to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 overflow-hidden">
+                  <img
+                    src="/Will.png"
+                    alt="Will - Founder & CEO"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      // Fallback if image fails to load
+                      e.target.style.display = "none";
+                      e.target.nextSibling.style.display = "flex";
+                    }}
+                  />
+                  <div
+                    className="hidden w-full h-full bg-gradient-to-br from-[#131e3D] to-blue-600 items-center justify-center text-2xl md:text-3xl font-bold text-white"
+                    style={{ display: "none" }}
+                  >
+                    W
+                  </div>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#131e3D] mb-1 md:mb-2">
                   A Note from Our Founder
@@ -351,8 +396,10 @@ const WhoWeAre = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <button className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-3 cursor-pointer md:px-8 md:py-4 rounded-full font-semibold hover:bg-white hover:text-[#131e3D] transition-all duration-300">
-              <Link to="/pricing" className="mr-2 text-sm md:text-base">
-                Start Your Project
+              <Link to="/pricing">
+                <span className="mr-2 text-sm md:text-base">
+                  Start Your Project
+                </span>
               </Link>
               <span className="text-lg md:text-xl">→</span>
             </button>
@@ -360,7 +407,8 @@ const WhoWeAre = () => {
         </div>
       </section>
 
-      <TrustBar />
+      {/* Trust Bar placeholder - uncomment when TrustBar component is available */}
+      {/* <TrustBar /> */}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import {
   AlertTriangle,
-  ArrowRight,
   Award,
   Calendar,
   CheckCircle,
@@ -12,6 +11,7 @@ import {
   XCircle,
 } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const StrategicFundraisingAdvisory = () => {
   return (
@@ -344,11 +344,10 @@ const StrategicFundraisingAdvisory = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
               <button className="group bg-white text-blue-700 px-8 sm:px-10 py-3 sm:py-4 lg:py-5 rounded-full font-semibold text-base sm:text-lg hover:bg-blue-50 transition-all duration-300 flex items-center justify-center transform hover:scale-105">
-                View Core Services
-                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
+                <Link to="/portfolio">View Portfolio</Link>
               </button>
-              <button className="border-2 border-white/30 text-white px-8 sm:px-10 py-3 sm:py-4 lg:py-5 rounded-full font-semibold text-base sm:text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
-                Contact Us
+              <button className="border-2 border-white/30 text-white px-8 sm:px-10 py-3 sm:py-4 lg:py-5 rounded-full font-semibold text-base cursor-pointer sm:text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                <Link to="/Contact">Contact Us</Link>
               </button>
             </div>
           </div>

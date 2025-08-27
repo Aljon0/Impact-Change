@@ -2,12 +2,12 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-// Enhanced LazyImage component with better loading states and intersection observer
-const LazyImage = ({ src, alt, className }) => {
+// Enhanced LazyMedia component that handles both images and videos
+const LazyMedia = ({ src, alt, className, type = "image" }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const imgRef = useRef(null);
+  const mediaRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -23,8 +23,8 @@ const LazyImage = ({ src, alt, className }) => {
       }
     );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
+    if (mediaRef.current) {
+      observer.observe(mediaRef.current);
     }
 
     return () => observer.disconnect();
@@ -40,7 +40,7 @@ const LazyImage = ({ src, alt, className }) => {
   };
 
   return (
-    <div ref={imgRef} className={`${className} relative overflow-hidden`}>
+    <div ref={mediaRef} className={`${className} relative overflow-hidden`}>
       {/* Skeleton loader */}
       {!isLoaded && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse">
@@ -48,16 +48,29 @@ const LazyImage = ({ src, alt, className }) => {
         </div>
       )}
 
-      {/* Actual image */}
+      {/* Actual media */}
       {isInView && (
         <>
           {hasError ? (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400">
               <div className="text-center">
                 <div className="text-2xl mb-2">📷</div>
-                <div className="text-sm">Image unavailable</div>
+                <div className="text-sm">Media unavailable</div>
               </div>
             </div>
+          ) : type === "video" ? (
+            <video
+              src={src}
+              className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+                isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+              }`}
+              onLoadedData={handleLoad}
+              onError={handleError}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
           ) : (
             <img
               src={src}
@@ -184,7 +197,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$3.2M",
       stage: "Series A",
       industry: "Design Tech",
-      image: "/HomePage/PitchDeck_1/ChromaShift.webp",
+      image: "/HomePage/PitchDeck_1/ChromaShift.mp4",
+      mediaType: "video",
       description:
         "Professional color management software enabling consistent brand experiences across digital and print media.",
     },
@@ -327,7 +341,7 @@ export const PitchDecksPortfolio = () => {
       `}</style>
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-slate-900 to-gray-900">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="inline-flex items-center text-slate-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base cursor-pointer">
             <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
@@ -353,8 +367,8 @@ export const PitchDecksPortfolio = () => {
                 onClick={() => handleCategoryChange(category.id)}
                 className={`px-3 py-1 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
                   selectedCategory === category.id
-                    ? "bg-slate-800 text-white shadow-md sm:shadow-lg"
-                    : "bg-white text-slate-800 hover:bg-slate-50 shadow-sm sm:shadow-md border border-slate-200"
+                    ? "bg-blue-800 text-white shadow-md sm:shadow-lg"
+                    : "bg-white text-blue-800 hover:bg-slate-50 shadow-sm sm:shadow-md border border-slate-200"
                 }`}
               >
                 {category.label}
@@ -380,9 +394,10 @@ export const PitchDecksPortfolio = () => {
             >
               <div className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
                 <div className="relative h-48 sm:h-56 overflow-hidden">
-                  <LazyImage
+                  <LazyMedia
                     src={deck.image}
                     alt={deck.title}
+                    type={deck.mediaType || "image"}
                     className="w-full h-full transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
