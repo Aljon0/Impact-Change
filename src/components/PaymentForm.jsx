@@ -1,14 +1,37 @@
-import { Building, CreditCard, Lock, User } from "lucide-react";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import { Building, Lock, User } from "lucide-react";
 import React from "react";
 
 const PaymentForm = ({
   paymentData,
   handleInputChange,
-  handleCardNumberChange,
-  handleExpiryChange,
-  handleCvvChange,
   handleSubmitPayment,
 }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const cardElementOptions = {
+    style: {
+      base: {
+        fontSize: "16px",
+        color: "#424770",
+        "::placeholder": {
+          color: "#aab7c4",
+        },
+        padding: "10px 12px",
+      },
+      invalid: {
+        color: "#9e2146",
+      },
+    },
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-lg p-8">
       <div className="flex items-center mb-6">
@@ -68,8 +91,7 @@ const PaymentForm = ({
 
       {/* Payment Information */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <CreditCard className="w-5 h-5 mr-2" />
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
           Payment Information
         </h3>
         <div className="space-y-4">
@@ -77,41 +99,26 @@ const PaymentForm = ({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Card Number *
             </label>
-            <input
-              type="text"
-              required
-              value={paymentData.cardNumber}
-              onChange={handleCardNumberChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              placeholder="1234 5678 9012 3456"
-            />
+            <div className="px-4 py-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent outline-none transition-all">
+              <CardNumberElement options={cardElementOptions} />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Expiry Date *
               </label>
-              <input
-                type="text"
-                required
-                value={paymentData.expiryDate}
-                onChange={handleExpiryChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                placeholder="MM/YY"
-              />
+              <div className="px-4 py-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent outline-none transition-all">
+                <CardExpiryElement options={cardElementOptions} />
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                CVV *
+                CVC *
               </label>
-              <input
-                type="text"
-                required
-                value={paymentData.cvv}
-                onChange={handleCvvChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                placeholder="123"
-              />
+              <div className="px-4 py-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent outline-none transition-all">
+                <CardCvcElement options={cardElementOptions} />
+              </div>
             </div>
           </div>
         </div>

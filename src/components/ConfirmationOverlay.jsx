@@ -1,3 +1,4 @@
+import { useElements, useStripe } from "@stripe/react-stripe-js";
 import { CreditCard } from "lucide-react";
 import React from "react";
 
@@ -7,6 +8,13 @@ const ConfirmationOverlay = ({
   handleConfirmOrder,
   setCurrentStep,
 }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleConfirm = () => {
+    handleConfirmOrder(stripe, elements);
+  };
+
   return (
     <div className="fixed inset-0 backdrop-blur-xs bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform scale-100 transition-all">
@@ -50,7 +58,7 @@ const ConfirmationOverlay = ({
 
           <div className="space-y-3">
             <button
-              onClick={handleConfirmOrder}
+              onClick={handleConfirm}
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold cursor-pointer py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105"
             >
               Confirm & Pay ${calculateTotal()}

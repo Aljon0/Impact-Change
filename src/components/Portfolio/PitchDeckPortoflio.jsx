@@ -3,7 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Enhanced LazyMedia component that handles both images and videos
-const LazyMedia = ({ src, alt, className, type = "image" }) => {
+const LazyMedia = ({
+  src,
+  alt,
+  className,
+  type = "image",
+  videoRef,
+  isHovered,
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -29,6 +36,21 @@ const LazyMedia = ({ src, alt, className, type = "image" }) => {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (type === "video" && videoRef.current) {
+      if (isHovered) {
+        videoRef.current.play().catch((error) => {
+          console.error("Error playing video:", error);
+        });
+      } else {
+        videoRef.current.pause();
+        if (videoRef.current.currentTime > 0) {
+          videoRef.current.currentTime = 0;
+        }
+      }
+    }
+  }, [isHovered, type, videoRef]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -60,16 +82,17 @@ const LazyMedia = ({ src, alt, className, type = "image" }) => {
             </div>
           ) : type === "video" ? (
             <video
+              ref={videoRef}
               src={src}
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
                 isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
               }`}
               onLoadedData={handleLoad}
               onError={handleError}
-              autoPlay
               muted
               loop
               playsInline
+              preload="metadata"
             />
           ) : (
             <img
@@ -92,6 +115,7 @@ const LazyMedia = ({ src, alt, className, type = "image" }) => {
 export const PitchDecksPortfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isFiltering, setIsFiltering] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const categories = [
     { id: "all", label: "All Projects" },
@@ -113,7 +137,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$1.8M",
       stage: "Pre-Series A",
       industry: "Beauty Tech",
-      image: "/HomePage/PitchDeck_1/BeautyBot.webp",
+      image: "/HomePage/Videos/BeautyBot.mp4",
+      mediaType: "video",
       description:
         "AI-powered salon management platform revolutionizing beauty industry operations with smart booking and customer insights.",
     },
@@ -125,7 +150,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$2.2M",
       stage: "Seed Round",
       industry: "Hospitality",
-      image: "/HomePage/PitchDeck_1/RoyalShisha.webp",
+      image: "/HomePage/Videos/RoyalShisha.mp4",
+      mediaType: "video",
       description:
         "Luxury shisha lounge chain delivering authentic Middle Eastern hospitality with modern social experiences.",
     },
@@ -137,19 +163,21 @@ export const PitchDecksPortfolio = () => {
       raised: "$5.8M",
       stage: "Series A",
       industry: "Hospitality",
-      image: "/HomePage/PitchDeck_1/SentioHotel.webp",
+      image: "/HomePage/Videos/SentioHotel.mp4",
+      mediaType: "video",
       description:
         "Eco-luxury hotel brand combining sustainable practices with premium guest experiences in prime locations.",
     },
     {
       id: 4,
-      title: "Lokalist",
+      title: "Localist",
       subtitle: "Community Investment Platform",
       category: "fintech",
       raised: "$3.4M",
       stage: "Series A",
       industry: "PropTech",
-      image: "/HomePage/PitchDeck_1/Lokalist.webp",
+      image: "/HomePage/Videos/Localist.mp4",
+      mediaType: "video",
       description:
         "Democratizing real estate investment through community-driven development and transparent funding mechanisms.",
     },
@@ -161,7 +189,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$4.1M",
       stage: "Series A",
       industry: "Food Tech",
-      image: "/HomePage/PitchDeck_1/Sartoria.webp",
+      image: "/HomePage/Videos/SARTORIA.mp4",
+      mediaType: "video",
       description:
         "Farm-to-table platform connecting sustainable producers with conscious consumers through innovative supply chain solutions.",
     },
@@ -173,7 +202,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$6.2M",
       stage: "Series B",
       industry: "Fashion",
-      image: "/HomePage/PitchDeck_1/Noir.webp",
+      image: "/HomePage/Videos/Noir.mp4",
+      mediaType: "video",
       description:
         "High-end fashion house redefining luxury through sustainable materials and exclusive designer collaborations.",
     },
@@ -185,7 +215,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$2.9M",
       stage: "Seed Round",
       industry: "Fashion Tech",
-      image: "/HomePage/PitchDeck_1/Lemme.webp",
+      image: "/HomePage/Videos/Lemme.mp4",
+      mediaType: "video",
       description:
         "AI-powered fashion marketplace offering personalized styling and sustainable fashion choices for Gen Z consumers.",
     },
@@ -197,7 +228,7 @@ export const PitchDecksPortfolio = () => {
       raised: "$3.2M",
       stage: "Series A",
       industry: "Design Tech",
-      image: "/HomePage/PitchDeck_1/ChromaShift.mp4",
+      image: "/HomePage/Videos/ChromaShift.mp4",
       mediaType: "video",
       description:
         "Professional color management software enabling consistent brand experiences across digital and print media.",
@@ -306,7 +337,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$8.9M",
       stage: "Series B",
       industry: "Hospitality",
-      image: "/HomePage/PitchDeck_2/AINoorPlazaHotel.webp",
+      image: "/HomePage/Videos/Noor.mp4",
+      mediaType: "video",
       description:
         "Premium hotel chain offering world-class accommodations with authentic cultural experiences and modern luxury amenities.",
     },
@@ -383,57 +415,65 @@ export const PitchDecksPortfolio = () => {
             isFiltering ? "opacity-70" : "opacity-100"
           }`}
         >
-          {filteredDecks.map((deck, index) => (
-            <div
-              key={`${deck.id}-${selectedCategory}`}
-              className="group cursor-pointer"
-              style={{
-                animationDelay: `${index * 50}ms`,
-                animation: "fadeInUp 0.6s ease-out forwards",
-              }}
-            >
-              <div className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
-                <div className="relative h-48 sm:h-56 overflow-hidden">
-                  <LazyMedia
-                    src={deck.image}
-                    alt={deck.title}
-                    type={deck.mediaType || "image"}
-                    className="w-full h-full transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                  <div className="relative p-4 sm:p-6 h-full flex flex-col justify-between z-10">
-                    <div className="flex justify-between items-start">
-                      <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md sm:rounded-lg text-slate-800 text-xs sm:text-sm font-semibold shadow-sm">
-                        {deck.industry}
-                      </div>
-                      <div className="text-right bg-black/30 backdrop-blur-sm rounded-lg px-3 py-2">
-                        <div className="text-white font-bold text-sm sm:text-base md:text-lg">
-                          {deck.raised}
+          {filteredDecks.map((deck, index) => {
+            const videoRef = useRef(null);
+
+            return (
+              <div
+                key={`${deck.id}-${selectedCategory}`}
+                className="group cursor-pointer"
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                  animation: "fadeInUp 0.6s ease-out forwards",
+                }}
+                onMouseEnter={() => setHoveredCard(deck.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <div className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
+                  <div className="relative h-48 sm:h-56 overflow-hidden">
+                    <LazyMedia
+                      src={deck.image}
+                      alt={deck.title}
+                      type={deck.mediaType || "image"}
+                      className="w-full h-full transition-transform duration-500 group-hover:scale-105"
+                      videoRef={videoRef}
+                      isHovered={hoveredCard === deck.id}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div className="relative p-4 sm:p-6 h-full flex flex-col justify-between z-10">
+                      <div className="flex justify-between items-start">
+                        <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md sm:rounded-lg text-slate-800 text-xs sm:text-sm font-semibold shadow-sm">
+                          {deck.industry}
                         </div>
-                        <div className="text-gray-200 text-xs sm:text-sm">
-                          {deck.stage}
+                        <div className="text-right bg-black/30 backdrop-blur-sm rounded-lg px-3 py-2">
+                          <div className="text-white font-bold text-sm sm:text-base md:text-lg">
+                            {deck.raised}
+                          </div>
+                          <div className="text-gray-200 text-xs sm:text-sm">
+                            {deck.stage}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="p-4 sm:p-6">
-                  <div className="mb-3">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-1">
-                      {deck.title}
-                    </h3>
-                    <p className="text-slate-600 text-sm sm:text-base font-medium">
-                      {deck.subtitle}
+                  <div className="p-4 sm:p-6">
+                    <div className="mb-3">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-1">
+                        {deck.title}
+                      </h3>
+                      <p className="text-slate-600 text-sm sm:text-base font-medium">
+                        {deck.subtitle}
+                      </p>
+                    </div>
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
+                      {deck.description}
                     </p>
                   </div>
-                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                    {deck.description}
-                  </p>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Statistics Section */}

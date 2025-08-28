@@ -1,10 +1,9 @@
 import {
   ArrowRight,
-  BarChart3,
+  Calendar,
+  Clock,
+  CreditCard,
   FileText,
-  PenTool,
-  Search,
-  Truck,
 } from "lucide-react";
 import React from "react";
 
@@ -25,57 +24,52 @@ const ProcessPage = () => {
     },
     {
       id: 2,
-      icon: <Search className="w-6 h-6 sm:w-8 sm:h-8" />,
-      title: "Research & Analysis",
+      icon: <CreditCard className="w-6 h-6 sm:w-8 sm:h-8" />,
+      title: "Payment",
       description:
-        "Our team conducts in-depth market research, competitive analysis, and financial modeling to build a solid foundation for your project.",
+        "Secure payment processing to confirm your project. Once payment is received, we immediately begin working on your materials with our expert team.",
       details: [
-        "Market research",
-        "Competitive landscape analysis",
-        "Industry trend evaluation",
-        "Financial data gathering",
+        "Secure payment gateway",
+        "Instant confirmation",
+        "Project activation",
+        "Team assignment",
       ],
     },
     {
       id: 3,
-      icon: <PenTool className="w-6 h-6 sm:w-8 sm:h-8" />,
-      title: "Content & Strategy",
+      icon: <Clock className="w-6 h-6 sm:w-8 sm:h-8" />,
+      title: "7-Day Delivery",
       description:
-        "We craft compelling narratives, develop strategic messaging, and create detailed content that resonates with investors and stakeholders.",
+        "Our team works diligently to create your professional pitch deck or business plan within 7 business days, ensuring quality and attention to detail.",
       details: [
-        "Story development",
-        "Strategic messaging",
-        "Content creation",
-        "Value proposition refinement",
+        "Professional design creation",
+        "Content development",
+        "Quality assurance",
+        "Final review process",
       ],
     },
     {
       id: 4,
-      icon: <BarChart3 className="w-6 h-6 sm:w-8 sm:h-8" />,
-      title: "Design & Modeling",
+      icon: <Calendar className="w-6 h-6 sm:w-8 sm:h-8" />,
+      title: "Consultation Booking",
       description:
-        "Professional design and financial modeling bring your story to life with visually stunning presentations and robust financial projections.",
+        "Book a consultation session to review your completed materials, discuss improvements, and get expert guidance for your investor presentations.",
       details: [
-        "Visual design creation",
-        "Financial modeling",
-        "Data visualization",
-        "Brand integration",
-      ],
-    },
-    {
-      id: 5,
-      icon: <Truck className="w-6 h-6 sm:w-8 sm:h-8" />,
-      title: "Delivery & Support",
-      description:
-        "Receive your completed materials with ongoing support, revisions, and guidance to ensure your success with investors and stakeholders.",
-      details: [
-        "Final delivery",
-        "Review sessions",
-        "Revision support",
+        "Material review session",
+        "Expert feedback",
         "Presentation coaching",
+        "Q&A support",
       ],
+      hasButton: true,
     },
   ];
+
+  const handleBookConsultation = () => {
+    window.open(
+      "https://calendly.com/will-startscaleandsucceed/30min",
+      "_blank"
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -95,10 +89,9 @@ const ProcessPage = () => {
             Our Process
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
-            A proven five-step methodology that transforms your vision into
-            investor-ready materials that drive real results
+            A streamlined four-step process that delivers professional pitch
+            decks and business plans in just 7 days
           </p>
-          <div className="flex justify-center space-x-4 sm:space-x-6 lg:space-x-8"></div>
         </div>
       </section>
 
@@ -107,14 +100,14 @@ const ProcessPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">
-              From Concept to{" "}
+              From Order to{" "}
               <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                 Success
               </span>
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Our systematic approach ensures every project delivers maximum
-              impact and investor appeal
+              Our efficient process ensures you get professional materials
+              quickly with expert consultation support
             </p>
           </div>
 
@@ -159,6 +152,19 @@ const ProcessPage = () => {
                         </div>
                       ))}
                     </div>
+
+                    {/* Consultation Booking Button */}
+                    {step.hasButton && (
+                      <div className="pt-4 sm:pt-6">
+                        <button
+                          onClick={handleBookConsultation}
+                          className="inline-flex items-center space-x-2 sm:space-x-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all cursor-pointer duration-300 text-sm sm:text-base lg:text-lg"
+                        >
+                          <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+                          <span>Book Appointment</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   {/* Visual Element */}
@@ -176,6 +182,13 @@ const ProcessPage = () => {
                       <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-base lg:text-lg shadow-lg">
                         {step.id}
                       </div>
+
+                      {/* Special indicator for 7-day delivery */}
+                      {step.id === 3 && (
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg">
+                          7 Days
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

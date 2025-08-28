@@ -197,7 +197,7 @@ const WhoWeAre = () => {
                       }}
                     />
                     <div
-                      className="hidden w-full h-full bg-gradient-to-br from-blue-100 to-[#eeecec] flex items-center justify-center text-2xl md:text-3xl font-bold text-[#131e3D]"
+                      className=" w-full h-full bg-gradient-to-br from-blue-100 to-[#eeecec] flex items-center justify-center text-2xl md:text-3xl font-bold text-[#131e3D]"
                       style={{ display: "none" }}
                     >
                       {member.role.charAt(0)}

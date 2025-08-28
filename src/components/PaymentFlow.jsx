@@ -1,36 +1,74 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { ArrowLeft } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ConfirmationOverlay from "./ConfirmationOverlay";
 import OrderSummary from "./OrderSummary";
 import PaymentForm from "./PaymentForm";
 import SuccessMessage from "./SuccessMessage";
 
+// Initialize Stripe with your publishable key
+const stripePromise = loadStripe(
+  "pk_test_51OOZHSF4dh0KVw2foDKI0RukSl7emwQelRAt4r6uGAnRenzD3yUnezd71F9E9eBPsTpws89HbBYeH625ljXt81Pi008S4Jif56"
+);
+
 const PaymentFlow = () => {
   const [currentStep, setCurrentStep] = useState("payment"); // payment, confirmation, success
+  const [selectedService, setSelectedService] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [clientSecret, setClientSecret] = useState("");
+  const [stripeError, setStripeError] = useState(null);
+  const [paymentIntentId, setPaymentIntentId] = useState("");
 
-  // Get selected plan from memory instead of localStorage
-  const getInitialSelectedService = () => {
-    // Since we can't use localStorage in artifacts, we'll use a default service
-    // In a real app, this would come from localStorage or props
-    return {
-      id: "pd1",
-      name: "Pitch Deck - 12 slides",
-      price: 650,
-      category: "Pitch Decks",
-      displayPrice: "$650",
+  // Get selected plan from localStorage
+  useEffect(() => {
+    const getSelectedService = () => {
+      try {
+        const storedPlan = localStorage.getItem("selectedPlan");
+        if (storedPlan) {
+          return JSON.parse(storedPlan);
+        }
+      } catch (error) {
+        console.error("Error retrieving selected plan:", error);
+      }
+
+      // Fallback to a default service if nothing is found
+      return {
+        id: "pd1",
+        name: "Pitch Deck - 12 slides",
+        price: 650,
+        category: "Pitch Decks",
+        displayPrice: "$650",
+      };
     };
-  };
 
-  const [selectedService] = useState(getInitialSelectedService());
+    const service = getSelectedService();
+    setSelectedService(service);
+    setIsLoading(false);
+
+    // Create PaymentIntent as soon as the page loads
+    if (service.price > 0) {
+      fetch("http://localhost:4242/create-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: service.price }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setClientSecret(data.clientSecret);
+        })
+        .catch((error) => {
+          console.error("Error creating payment intent:", error);
+          setStripeError("Failed to initialize payment system");
+        });
+    }
+  }, []);
 
   const [paymentData, setPaymentData] = useState({
     email: "",
     fullName: "",
     company: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
     billingAddress: {
       street: "",
       city: "",
@@ -41,7 +79,7 @@ const PaymentFlow = () => {
   });
 
   const calculateTotal = () => {
-    return selectedService.price;
+    return selectedService ? selectedService.price : 0;
   };
 
   const handleInputChange = (field, value) => {
@@ -62,45 +100,47 @@ const PaymentFlow = () => {
     }
   };
 
-  const formatCardNumber = (value) => {
-    return value
-      .replace(/\s/g, "")
-      .replace(/(.{4})/g, "$1 ")
-      .trim();
-  };
-
-  const formatExpiryDate = (value) => {
-    return value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1/$2");
-  };
-
-  const handleCardNumberChange = (e) => {
-    const formatted = formatCardNumber(e.target.value);
-    if (formatted.replace(/\s/g, "").length <= 16) {
-      handleInputChange("cardNumber", formatted);
-    }
-  };
-
-  const handleExpiryChange = (e) => {
-    const formatted = formatExpiryDate(e.target.value);
-    if (formatted.length <= 5) {
-      handleInputChange("expiryDate", formatted);
-    }
-  };
-
-  const handleCvvChange = (e) => {
-    const value = e.target.value.replace(/\D/g, "");
-    if (value.length <= 4) {
-      handleInputChange("cvv", value);
-    }
-  };
-
   const handleSubmitPayment = () => {
     setCurrentStep("confirmation");
   };
 
-  const handleConfirmOrder = () => {
-    // Here you would integrate with Stripe
-    setCurrentStep("success");
+  const handleConfirmOrder = async (stripe, elements) => {
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.origin + "/success",
+        payment_method_data: {
+          billing_details: {
+            name: paymentData.fullName,
+            email: paymentData.email,
+            address: {
+              line1: paymentData.billingAddress.street,
+              city: paymentData.billingAddress.city,
+              state: paymentData.billingAddress.state,
+              postal_code: paymentData.billingAddress.zipCode,
+              country: paymentData.billingAddress.country,
+            },
+          },
+        },
+      },
+      redirect: "if_required",
+    });
+
+    if (error) {
+      setStripeError(error.message);
+      setIsLoading(false);
+      setCurrentStep("payment");
+    } else if (paymentIntent.status === "succeeded") {
+      setPaymentIntentId(paymentIntent.id);
+      setCurrentStep("success");
+      setIsLoading(false);
+    }
   };
 
   const PaymentHeader = () => (
@@ -115,8 +155,25 @@ const PaymentFlow = () => {
 
       <h1 className="text-3xl font-bold text-gray-900">Complete Your Order</h1>
       <p className="text-gray-600 mt-2">Secure checkout powered by Stripe</p>
+
+      {stripeError && (
+        <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
+          {stripeError}
+        </div>
+      )}
     </div>
   );
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading your order details...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -128,14 +185,15 @@ const PaymentFlow = () => {
             {/* Single Column Layout */}
             <div className="space-y-8">
               {/* Payment Form */}
-              <PaymentForm
-                paymentData={paymentData}
-                handleInputChange={handleInputChange}
-                handleCardNumberChange={handleCardNumberChange}
-                handleExpiryChange={handleExpiryChange}
-                handleCvvChange={handleCvvChange}
-                handleSubmitPayment={handleSubmitPayment}
-              />
+              {clientSecret && (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <PaymentForm
+                    paymentData={paymentData}
+                    handleInputChange={handleInputChange}
+                    handleSubmitPayment={handleSubmitPayment}
+                  />
+                </Elements>
+              )}
 
               {/* Order Summary Below */}
               <OrderSummary
@@ -154,14 +212,15 @@ const PaymentFlow = () => {
               <PaymentHeader />
 
               <div className="space-y-8">
-                <PaymentForm
-                  paymentData={paymentData}
-                  handleInputChange={handleInputChange}
-                  handleCardNumberChange={handleCardNumberChange}
-                  handleExpiryChange={handleExpiryChange}
-                  handleCvvChange={handleCvvChange}
-                  handleSubmitPayment={handleSubmitPayment}
-                />
+                {clientSecret && (
+                  <Elements stripe={stripePromise} options={{ clientSecret }}>
+                    <PaymentForm
+                      paymentData={paymentData}
+                      handleInputChange={handleInputChange}
+                      handleSubmitPayment={handleSubmitPayment}
+                    />
+                  </Elements>
+                )}
 
                 <OrderSummary
                   selectedService={selectedService}
@@ -184,6 +243,7 @@ const PaymentFlow = () => {
         <SuccessMessage
           paymentData={paymentData}
           selectedService={selectedService}
+          paymentIntentId={paymentIntentId}
           setCurrentStep={setCurrentStep}
         />
       )}
