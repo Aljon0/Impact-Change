@@ -31,14 +31,31 @@ const PaymentForm = ({
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (!isDisabled && stripe && elements) {
-      // Basic validation
-      if (!paymentData.email || !paymentData.fullName) {
-        alert("Please fill in all required fields");
-        return;
-      }
-      handleSubmitPayment();
+
+    if (!stripe || !elements) {
+      alert("Payment form is not ready. Please wait a moment and try again.");
+      return;
     }
+
+    if (isDisabled) {
+      return;
+    }
+
+    // Basic validation
+    if (!paymentData.email || !paymentData.fullName) {
+      alert("Please fill in all required fields (Email and Full Name)");
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(paymentData.email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    // Pass elements to the parent component
+    handleSubmitPayment(elements);
   };
 
   return (
@@ -87,6 +104,20 @@ const PaymentForm = ({
                 onChange={(e) => handleInputChange("fullName", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="John Doe"
+                disabled={isDisabled}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Company (Optional)
+              </label>
+              <input
+                type="text"
+                value={paymentData.company}
+                onChange={(e) => handleInputChange("company", e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Your Company"
                 disabled={isDisabled}
               />
             </div>
@@ -182,22 +213,36 @@ const PaymentForm = ({
               />
             </div>
 
-            <select
-              value={paymentData.billingAddress.country}
-              onChange={(e) =>
-                handleInputChange("billingAddress.country", e.target.value)
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              disabled={isDisabled}
-            >
-              <option value="">Select Country</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="GB">United Kingdom</option>
-              <option value="AU">Australia</option>
-              <option value="DE">Germany</option>
-              <option value="FR">France</option>
-            </select>
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="State/Province"
+                value={paymentData.billingAddress.state}
+                onChange={(e) =>
+                  handleInputChange("billingAddress.state", e.target.value)
+                }
+                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                disabled={isDisabled}
+              />
+
+              <select
+                value={paymentData.billingAddress.country}
+                onChange={(e) =>
+                  handleInputChange("billingAddress.country", e.target.value)
+                }
+                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                disabled={isDisabled}
+              >
+                <option value="">Select Country</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="AU">Australia</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="PH">Philippines</option>
+              </select>
+            </div>
           </div>
         </div>
 

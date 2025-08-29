@@ -7,9 +7,7 @@ import PaymentForm from "./PaymentForm";
 import SuccessMessage from "./SuccessMessage";
 
 // Initialize Stripe
-const stripePromise = loadStripe(
-  "pk_test_51OOZHSF4dh0KVw2foDKI0RukSl7emwQelRAt4r6uGAnRenzD3yUnezd71F9E9eBPsTpws89HbBYeH625ljXt81Pi008S4Jif56"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const PaymentFlow = () => {
   const [currentStep, setCurrentStep] = useState("payment");
@@ -79,13 +77,42 @@ const PaymentFlow = () => {
     }
   };
 
-  const handleSubmitPayment = () => {
-    setCurrentStep("confirmation");
+  // Validate form before proceeding to confirmation
+  const validateForm = (elements) => {
+    const cardElement = elements.getElement("cardNumber");
+    const expiryElement = elements.getElement("cardExpiry");
+    const cvcElement = elements.getElement("cardCvc");
+
+    // Check if required fields are filled
+    if (!paymentData.email || !paymentData.fullName) {
+      setStripeError("Please fill in all required fields");
+      return false;
+    }
+
+    // Note: Stripe elements don't provide direct access to check if they're complete
+    // We'll handle validation in the payment confirmation step
+    return true;
   };
 
-  // Payment confirmation
+  const handleSubmitPayment = (elements) => {
+    // Clear any previous errors
+    setStripeError(null);
+
+    if (validateForm(elements)) {
+      setCurrentStep("confirmation");
+    }
+  };
+
+  // Payment confirmation with better validation
   const handleConfirmOrder = async (stripe, elements) => {
+    console.log("Starting payment confirmation...");
+
     if (!stripe || !elements || !clientSecret) {
+      console.error("Missing required items:", {
+        stripe: !!stripe,
+        elements: !!elements,
+        clientSecret: !!clientSecret,
+      });
       setStripeError("Payment not ready");
       return;
     }
@@ -94,27 +121,45 @@ const PaymentFlow = () => {
     setStripeError(null);
 
     try {
-      // Get the CardNumberElement specifically
-      const cardElement = elements.getElement("cardNumber");
+      // Get all card elements
+      const cardNumberElement = elements.getElement("cardNumber");
+      const cardExpiryElement = elements.getElement("cardExpiry");
+      const cardCvcElement = elements.getElement("cardCvc");
 
-      if (!cardElement) {
-        throw new Error("Card element not found");
+      console.log("Card elements found:", {
+        cardNumber: !!cardNumberElement,
+        cardExpiry: !!cardExpiryElement,
+        cardCvc: !!cardCvcElement,
+      });
+
+      if (!cardNumberElement) {
+        throw new Error("Card number element not found");
       }
+
+      // Validate that all required payment fields are filled
+      if (!paymentData.email || !paymentData.fullName) {
+        throw new Error("Please fill in all required fields");
+      }
+
+      console.log(
+        "Attempting payment with client secret:",
+        clientSecret.substring(0, 20) + "..."
+      );
 
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret,
         {
           payment_method: {
-            card: cardElement,
+            card: cardNumberElement,
             billing_details: {
               name: paymentData.fullName,
               email: paymentData.email,
               address: {
-                line1: paymentData.billingAddress.street,
-                city: paymentData.billingAddress.city,
-                state: paymentData.billingAddress.state,
-                postal_code: paymentData.billingAddress.zipCode,
-                country: paymentData.billingAddress.country,
+                line1: paymentData.billingAddress.street || undefined,
+                city: paymentData.billingAddress.city || undefined,
+                state: paymentData.billingAddress.state || undefined,
+                postal_code: paymentData.billingAddress.zipCode || undefined,
+                country: paymentData.billingAddress.country || undefined,
               },
             },
           },
@@ -122,8 +167,41 @@ const PaymentFlow = () => {
       );
 
       if (error) {
-        console.error("Payment error:", error);
-        setStripeError(error.message);
+        console.error("Payment error details:", error);
+
+        // Enhanced error message handling
+        let errorMessage = error.message || "Payment failed";
+
+        switch (error.type) {
+          case "card_error":
+            errorMessage = error.message;
+            break;
+          case "validation_error":
+            if (error.code === "incomplete_number") {
+              errorMessage = "Please enter a complete card number";
+            } else if (error.code === "incomplete_cvc") {
+              errorMessage = "Please enter a valid security code (CVC)";
+            } else if (error.code === "incomplete_expiry") {
+              errorMessage = "Please enter a valid expiry date";
+            } else if (error.code === "incomplete_zip") {
+              errorMessage = "Please enter a valid zip code";
+            } else {
+              errorMessage = "Please check your card details and try again";
+            }
+            break;
+          case "authentication_required":
+            errorMessage =
+              "Your bank requires additional authentication. Please try again.";
+            break;
+          case "api_connection_error":
+            errorMessage =
+              "Network error. Please check your connection and try again.";
+            break;
+          default:
+            errorMessage = error.message || "Payment failed - please try again";
+        }
+
+        setStripeError(errorMessage);
         setCurrentStep("payment");
       } else {
         console.log("Payment successful:", paymentIntent);
@@ -132,7 +210,7 @@ const PaymentFlow = () => {
       }
     } catch (error) {
       console.error("Confirmation error:", error);
-      setStripeError(error.message || "Payment failed");
+      setStripeError(error.message || "Payment failed - please try again");
       setCurrentStep("payment");
     } finally {
       setIsLoading(false);
@@ -168,7 +246,7 @@ const PaymentFlow = () => {
         {/* Always render the payment form when not on success */}
         {currentStep !== "success" && (
           <div className="min-h-screen bg-gray-50 py-8 px-4">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-2xl mx-auto">
               <div className="mb-8">
                 <h1 className="text-3xl font-bold text-gray-900">
                   Complete Your Order
@@ -180,7 +258,7 @@ const PaymentFlow = () => {
                 )}
               </div>
 
-              <div className="grid lg:grid-cols-2 gap-8">
+              <div className="space-y-6">
                 <PaymentForm
                   paymentData={paymentData}
                   handleInputChange={handleInputChange}
