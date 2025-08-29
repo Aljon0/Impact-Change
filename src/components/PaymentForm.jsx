@@ -5,18 +5,19 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { Building, Lock, User } from "lucide-react";
+import { Lock, User } from "lucide-react";
 import React from "react";
 
 const PaymentForm = ({
   paymentData,
   handleInputChange,
   handleSubmitPayment,
+  isDisabled = false,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const cardElementOptions = {
+  const cardStyle = {
     style: {
       base: {
         fontSize: "16px",
@@ -24,205 +25,190 @@ const PaymentForm = ({
         "::placeholder": {
           color: "#aab7c4",
         },
-        padding: "10px 12px",
-      },
-      invalid: {
-        color: "#9e2146",
       },
     },
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!isDisabled && stripe && elements) {
+      // Basic validation
+      if (!paymentData.email || !paymentData.fullName) {
+        alert("Please fill in all required fields");
+        return;
+      }
+      handleSubmitPayment();
+    }
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8">
+    <div
+      className={`bg-white rounded-lg shadow-lg p-6 ${
+        isDisabled ? "opacity-50 pointer-events-none" : ""
+      }`}
+    >
       <div className="flex items-center mb-6">
         <Lock className="w-5 h-5 text-green-500 mr-2" />
-        <span className="text-sm text-gray-600">
-          Secure SSL encrypted payment
-        </span>
+        <span className="text-sm text-gray-600">Secure Payment</span>
       </div>
 
-      {/* Contact Information */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <User className="w-5 h-5 mr-2" />
-          Contact Information
-        </h3>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address *
-            </label>
-            <input
-              type="email"
-              required
-              value={paymentData.email}
-              onChange={(e) => handleInputChange("email", e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              placeholder="your@email.com"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name *
-            </label>
-            <input
-              type="text"
-              required
-              value={paymentData.fullName}
-              onChange={(e) => handleInputChange("fullName", e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              placeholder="John Doe"
-            />
-          </div>
-        </div>
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Company Name (Optional)
-          </label>
-          <input
-            type="text"
-            value={paymentData.company}
-            onChange={(e) => handleInputChange("company", e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-            placeholder="Your Company"
-          />
-        </div>
-      </div>
+      <form onSubmit={handleFormSubmit}>
+        {/* Contact Info */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-4 flex items-center">
+            <User className="w-5 h-5 mr-2" />
+            Contact Information
+          </h3>
 
-      {/* Payment Information */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Payment Information
-        </h3>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Card Number *
-            </label>
-            <div className="px-4 py-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent outline-none transition-all">
-              <CardNumberElement options={cardElementOptions} />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Expiry Date *
+                Email *
               </label>
-              <div className="px-4 py-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent outline-none transition-all">
-                <CardExpiryElement options={cardElementOptions} />
-              </div>
+              <input
+                type="email"
+                required
+                value={paymentData.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="your@email.com"
+                disabled={isDisabled}
+              />
             </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                CVC *
+                Full Name *
               </label>
-              <div className="px-4 py-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent outline-none transition-all">
-                <CardCvcElement options={cardElementOptions} />
+              <input
+                type="text"
+                required
+                value={paymentData.fullName}
+                onChange={(e) => handleInputChange("fullName", e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="John Doe"
+                disabled={isDisabled}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Payment Info */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-4">Payment Information</h3>
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Card Number *
+              </label>
+              <div className="px-3 py-2 border border-gray-300 rounded-md">
+                <CardNumberElement
+                  options={{
+                    ...cardStyle,
+                    disabled: isDisabled,
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Expiry Date *
+                </label>
+                <div className="px-3 py-2 border border-gray-300 rounded-md">
+                  <CardExpiryElement
+                    options={{
+                      ...cardStyle,
+                      disabled: isDisabled,
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  CVC *
+                </label>
+                <div className="px-3 py-2 border border-gray-300 rounded-md">
+                  <CardCvcElement
+                    options={{
+                      ...cardStyle,
+                      disabled: isDisabled,
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Billing Address */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <Building className="w-5 h-5 mr-2" />
-          Billing Address
-        </h3>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Street Address *
-            </label>
+        {/* Billing Address */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-4">Billing Address</h3>
+
+          <div className="space-y-4">
             <input
               type="text"
-              required
+              placeholder="Street Address"
               value={paymentData.billingAddress.street}
               onChange={(e) =>
                 handleInputChange("billingAddress.street", e.target.value)
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              placeholder="123 Main Street"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              disabled={isDisabled}
             />
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                City *
-              </label>
+
+            <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
-                required
+                placeholder="City"
                 value={paymentData.billingAddress.city}
                 onChange={(e) =>
                   handleInputChange("billingAddress.city", e.target.value)
                 }
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                placeholder="New York"
+                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                disabled={isDisabled}
               />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                State *
-              </label>
               <input
                 type="text"
-                required
-                value={paymentData.billingAddress.state}
-                onChange={(e) =>
-                  handleInputChange("billingAddress.state", e.target.value)
-                }
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                placeholder="NY"
-              />
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                ZIP Code *
-              </label>
-              <input
-                type="text"
-                required
+                placeholder="ZIP"
                 value={paymentData.billingAddress.zipCode}
                 onChange={(e) =>
                   handleInputChange("billingAddress.zipCode", e.target.value)
                 }
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                placeholder="10001"
+                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                disabled={isDisabled}
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Country *
-              </label>
-              <select
-                required
-                value={paymentData.billingAddress.country}
-                onChange={(e) =>
-                  handleInputChange("billingAddress.country", e.target.value)
-                }
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              >
-                <option value="">Select Country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="UK">United Kingdom</option>
-                <option value="AU">Australia</option>
-              </select>
-            </div>
+
+            <select
+              value={paymentData.billingAddress.country}
+              onChange={(e) =>
+                handleInputChange("billingAddress.country", e.target.value)
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              disabled={isDisabled}
+            >
+              <option value="">Select Country</option>
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="GB">United Kingdom</option>
+              <option value="AU">Australia</option>
+              <option value="DE">Germany</option>
+              <option value="FR">France</option>
+            </select>
           </div>
         </div>
-      </div>
 
-      <button
-        onClick={handleSubmitPayment}
-        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white cursor-pointer font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
-      >
-        Review Order
-      </button>
+        <button
+          type="submit"
+          disabled={!stripe || !elements || isDisabled}
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+        >
+          Review Order
+        </button>
+      </form>
     </div>
   );
 };
