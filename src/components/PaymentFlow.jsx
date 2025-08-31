@@ -11,7 +11,8 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 // API base URL - use environment variable or fallback to localhost for development
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:4242";
+  import.meta.env.REACT_APP_API_BASE_URL ||
+  "https://impact-change-api.onrender.com";
 
 const PaymentFlow = () => {
   const [currentStep, setCurrentStep] = useState("payment");
