@@ -30,26 +30,6 @@ const Confirmation = ({ setShowConfirmation }) => {
           </p>
         </div>
 
-        <div className="bg-blue-50 rounded-lg p-6 mb-6">
-          <h3 className="text-xl font-semibold text-blue-800 mb-3">
-            What happens next?
-          </h3>
-          <div className="text-left space-y-2 text-gray-700">
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-              <span>Our team will review your submission within 24 hours</span>
-            </div>
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-              <span>We'll create your custom pitch deck and business plan</span>
-            </div>
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-              <span>Standard delivery within one week</span>
-            </div>
-          </div>
-        </div>
-
         <div className="space-y-4">
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition duration-300 text-lg cursor-pointer">
             <Link to="/payment-flow">Proceed to Payment</Link>
