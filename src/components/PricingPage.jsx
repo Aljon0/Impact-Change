@@ -227,6 +227,9 @@ const PricingPage = () => {
       price: plan.price,
       displayPrice: plan.displayPrice,
       category: selectedCategory,
+      categoryName:
+        categories.find((cat) => cat.id === selectedCategory)?.name ||
+        selectedCategory,
       gradient: plan.gradient,
     };
 

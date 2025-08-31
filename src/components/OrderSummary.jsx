@@ -2,6 +2,17 @@ import { CreditCard, Lock, Shield } from "lucide-react";
 import React from "react";
 
 const OrderSummary = ({ selectedService, calculateTotal }) => {
+  // Make sure we have a selectedService
+  if (!selectedService) {
+    return (
+      <div className="bg-white rounded-lg shadow-lg border border-gray-200">
+        <div className="p-6 text-center">
+          <p>Loading order details...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-lg border border-gray-200">
       {/* Header */}
@@ -26,7 +37,7 @@ const OrderSummary = ({ selectedService, calculateTotal }) => {
                 {selectedService.name}
               </h5>
               <p className="text-sm text-blue-700 font-medium mb-2">
-                {selectedService.category}
+                {selectedService.categoryName || selectedService.category}
               </p>
               <div className="pt-2 border-t border-blue-200">
                 <span className="text-xl font-bold text-gray-900">

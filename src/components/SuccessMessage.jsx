@@ -8,8 +8,40 @@ const SuccessMessage = ({
   setCurrentStep,
 }) => {
   const calculateTotal = () => {
-    return selectedService.price;
+    return selectedService ? selectedService.price : 0;
   };
+
+  // Get the category display name
+  const getCategoryDisplayName = () => {
+    if (!selectedService) return "Service";
+
+    if (selectedService.categoryName) {
+      return selectedService.categoryName;
+    }
+
+    // Fallback to formatted category ID if categoryName is not available
+    const categoryMap = {
+      "pitch-decks": "Pitch Decks",
+      "business-plans": "Business Plans",
+      "market-research": "Market Research",
+      "one-pager": "One Pager",
+      linkedin: "LinkedIn Optimization",
+      consulting: "Consulting",
+    };
+
+    return categoryMap[selectedService.category] || selectedService.category;
+  };
+
+  // Make sure we have a selectedService
+  if (!selectedService) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p>Loading order details...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -61,52 +93,30 @@ const SuccessMessage = ({
             {/* What Happens Next Section */}
             <div className="mb-8">
               <h2 className="text-lg font-semibold text-gray-900 mb-6">
-                What Happens Next?
+                What happens next?
               </h2>
 
-              {/* Standard Service Steps */}
-              <div className="space-y-6">
+              {/* Updated Service Steps */}
+              <div className="space-y-4">
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                    <span className="text-sm font-medium text-gray-700">1</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-1">
-                      We Get to Work
-                    </h3>
-                    <p className="text-gray-600 text-sm">
-                      Our team has received your order and will begin working on
-                      your project right away.
-                    </p>
-                  </div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-700 text-sm">
+                    Our team will review your submission within 24 hours
+                  </p>
                 </div>
 
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                    <span className="text-sm font-medium text-gray-700">2</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-1">
-                      Mid-Point Update
-                    </h3>
-                    <p className="text-gray-600 text-sm">
-                      We'll send you a progress update in about 3-4 days.
-                    </p>
-                  </div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-700 text-sm">
+                    We'll create your {getCategoryDisplayName().toLowerCase()}
+                  </p>
                 </div>
 
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                    <span className="text-sm font-medium text-gray-700">3</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-1">
-                      Final Delivery
-                    </h3>
-                    <p className="text-gray-600 text-sm">
-                      You can expect the final delivery within one week.
-                    </p>
-                  </div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-700 text-sm">
+                    Standard delivery within one week
+                  </p>
                 </div>
               </div>
             </div>

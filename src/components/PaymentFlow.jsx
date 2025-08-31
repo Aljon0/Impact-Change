@@ -31,14 +31,34 @@ const PaymentFlow = () => {
   });
 
   useEffect(() => {
-    // Get service from localStorage or use default
-    const service = {
-      id: "pd1",
-      name: "Pitch Deck - 12 slides",
-      price: 650,
-      category: "Pitch Decks",
-      displayPrice: "$650",
-    };
+    // Get service from localStorage
+    const storedPlan = localStorage.getItem("selectedPlan");
+    let service = null;
+
+    if (storedPlan) {
+      try {
+        service = JSON.parse(storedPlan);
+      } catch (error) {
+        console.error("Error parsing stored plan:", error);
+        // Fallback to default if parsing fails
+        service = {
+          id: "pd1",
+          name: "Pitch Deck - 12 slides",
+          price: 650,
+          category: "Pitch Decks",
+          displayPrice: "$650",
+        };
+      }
+    } else {
+      // Fallback to default if no stored plan
+      service = {
+        id: "pd1",
+        name: "Pitch Deck - 12 slides",
+        price: 650,
+        category: "Pitch Decks",
+        displayPrice: "$650",
+      };
+    }
 
     setSelectedService(service);
 

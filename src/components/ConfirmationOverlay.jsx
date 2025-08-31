@@ -16,6 +16,11 @@ const ConfirmationOverlay = ({
     handleConfirmOrder(stripe, elements);
   };
 
+  // Make sure we have a selectedService
+  if (!selectedService) {
+    return null;
+  }
+
   return (
     <div className="fixed inset-0 backdrop-blur-xs bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
@@ -34,7 +39,7 @@ const ConfirmationOverlay = ({
               <div>
                 <span className="font-medium">{selectedService.name}</span>
                 <p className="text-sm text-gray-500">
-                  {selectedService.category}
+                  {selectedService.categoryName || selectedService.category}
                 </p>
               </div>
               <span className="font-semibold text-blue-600">
@@ -52,7 +57,7 @@ const ConfirmationOverlay = ({
             <button
               onClick={handleConfirm}
               disabled={!stripe || !elements || isLoading}
-              className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
+              className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors cursor-pointer ${
                 isLoading
                   ? "bg-gray-400 text-gray-600"
                   : "bg-blue-600 hover:bg-blue-700 text-white"
@@ -71,7 +76,7 @@ const ConfirmationOverlay = ({
             <button
               onClick={() => setCurrentStep("payment")}
               disabled={isLoading}
-              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-lg transition-colors"
+              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium cursor-pointer py-3 px-6 rounded-lg transition-colors"
             >
               Back
             </button>

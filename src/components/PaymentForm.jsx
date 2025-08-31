@@ -249,7 +249,7 @@ const PaymentForm = ({
         <button
           type="submit"
           disabled={!stripe || !elements || isDisabled}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors cursor-pointer"
         >
           Review Order
         </button>
