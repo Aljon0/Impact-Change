@@ -81,7 +81,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/impact-change/"
                 className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
                 style={{ backgroundColor: "#011e76" }}
                 onMouseEnter={(e) =>

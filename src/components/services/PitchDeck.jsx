@@ -9,14 +9,6 @@ const PitchDeck = () => {
     setIsVisible(true);
   }, []);
 
-  const scrollToPortfolio = () => {
-    // Scroll to portfolio section
-    const portfolioSection = document.getElementById("portfolio");
-    if (portfolioSection) {
-      portfolioSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
       {/* Floating Elements */}
@@ -64,12 +56,12 @@ const PitchDeck = () => {
               </Link>
             </button>
 
-            <button
-              onClick={scrollToPortfolio}
-              className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold cursor-pointer text-lg rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 relative overflow-hidden flex items-center justify-center"
-            >
+            <button className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold cursor-pointer text-lg rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 relative overflow-hidden flex items-center justify-center">
               <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
-              <Link to="/portfolio" className="relative flex items-center">
+              <Link
+                to="/portfolio/pitch-decks"
+                className="relative flex items-center"
+              >
                 View Portfolio
                 <ArrowRight
                   className="inline ml-3 group-hover:translate-x-2 transition-transform"

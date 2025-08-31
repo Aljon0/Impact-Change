@@ -39,7 +39,10 @@ const BusinessPlanWriting = () => {
             </button>
 
             <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors flex items-center justify-center">
-              <Link to="/portfolio" className="flex items-center">
+              <Link
+                to="/portfolio/business-plans"
+                className="flex items-center"
+              >
                 View Portfolio
                 <ArrowRight
                   className="inline ml-3 group-hover:translate-x-2 transition-transform"
@@ -160,6 +163,13 @@ const BusinessPlanWriting = () => {
               Get a glimpse into the comprehensive structure and detailed
               financial forecasting of our professional business plans.
             </p>
+            <Link
+              to="/portfolio/business-plans"
+              className="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              View Business Plan Portfolio
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
           </div>
         </div>
       </div>

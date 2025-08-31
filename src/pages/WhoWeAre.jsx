@@ -12,7 +12,7 @@ const WhoWeAre = () => {
   const teamMembers = [
     {
       role: "Researchers",
-      icon: "/HomePage/Icons/Researchers.jpg",
+      icon: "/HomePage/Icons/Researchers.png",
       description:
         "Deep market analysis and competitive intelligence specialists with experience across multiple industries and verticals.",
       skills: [
@@ -25,7 +25,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Designers",
-      icon: "/HomePage/Icons/Designers.jpg",
+      icon: "/HomePage/Icons/Designers.png",
       description:
         "Creative professionals who craft compelling visual narratives that resonate with investors and stakeholders.",
       skills: [
@@ -38,7 +38,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Writers",
-      icon: "/HomePage/Icons/Writers.jpg",
+      icon: "/HomePage/Icons/Writers.png",
       description:
         "Strategic storytellers who transform complex business concepts into clear, persuasive investment narratives.",
       skills: [
@@ -51,7 +51,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Consultants",
-      icon: "/HomePage/Icons/Consultants.jpg",
+      icon: "/HomePage/Icons/Consultants.png",
       description:
         "Strategic advisors who turn complex ideas into clear plans and persuasive materials that move businesses forward.",
       skills: [
@@ -64,7 +64,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Accountants",
-      icon: "/HomePage/Icons/Accountants.jpg",
+      icon: "/HomePage/Icons/Accountants.png",
       description:
         "Financial experts who build robust models and ensure accuracy in all financial projections and valuations.",
       skills: [
@@ -77,7 +77,7 @@ const WhoWeAre = () => {
     },
     {
       role: "Modellers",
-      icon: "/HomePage/Icons/Modellers.jpg",
+      icon: "/HomePage/Icons/Modellers.png",
       description:
         "Quantitative specialists who create sophisticated financial models that withstand investor scrutiny.",
       skills: [
@@ -95,19 +95,19 @@ const WhoWeAre = () => {
       title: "Startup Operator Experience",
       description:
         "We have lived the founder journey by building, scaling, and exiting ventures across multiple industries. We know firsthand the challenges and opportunities that come with startup life.",
-      icon: "/HomePage/Icons/StartupOperator.jpg",
+      icon: "/HomePage/Icons/StartupOperator.png",
     },
     {
       title: "Corporate Finance Expertise",
       description:
         "Our background includes deep experience with institutions like Wells Fargo and American Express. We bring the rigor, structure, and credibility of corporate finance to every project.",
-      icon: "/HomePage/Icons/CorporateFinance.jpg",
+      icon: "/HomePage/Icons/CorporateFinance.png",
     },
     {
       title: "Human Powered Intelligence",
       description:
         "We understand, and we treat your idea as our own. We then transform what you have, know and believe to create a narrative that brings clarity, credibility, and results.",
-      icon: "/HomePage/Icons/HumanPowered.jpg",
+      icon: "/HomePage/Icons/HumanPowered.png",
     },
   ];
 
@@ -300,7 +300,7 @@ const WhoWeAre = () => {
               <div className="text-center mb-6 md:mb-8">
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#131e3D] to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 overflow-hidden">
                   <img
-                    src="/Will.png"
+                    src="/WillBryant.png"
                     alt="Will - Founder & CEO"
                     className="w-full h-full object-cover"
                     loading="lazy"
@@ -365,7 +365,7 @@ const WhoWeAre = () => {
                 <div className="flex flex-col sm:flex-row items-center justify-between pt-6 md:pt-8 border-t border-gray-200">
                   <div className="mb-3 sm:mb-0">
                     <p className="font-bold text-[#131e3D] text-base md:text-lg">
-                      Will
+                      Will Bryant
                     </p>
                     <p className="text-[#4a4949] text-sm md:text-base">
                       Founder & CEO, Impact Change

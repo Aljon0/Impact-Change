@@ -89,7 +89,7 @@ const MarketResearch = () => {
             </button>
 
             <button className="group px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-900 text-white font-bold cursor-pointer text-lg rounded-xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300">
-              <Link to="/portfolio">
+              <Link to="/portfolio/market-research">
                 View Portfolio
                 <ChevronRight
                   className="inline ml-3 group-hover:translate-x-2 transition-transform"

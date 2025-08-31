@@ -9,6 +9,10 @@ import SuccessMessage from "./SuccessMessage";
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
+// API base URL - use environment variable or fallback to localhost for development
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:4242";
+
 const PaymentFlow = () => {
   const [currentStep, setCurrentStep] = useState("payment");
   const [selectedService, setSelectedService] = useState(null);
@@ -42,21 +46,28 @@ const PaymentFlow = () => {
 
     setSelectedService(service);
 
-    // Create payment intent
-    fetch("http://localhost:4242/create-payment-intent", {
+    // Create payment intent with environment-based URL
+    fetch(`${API_BASE_URL}/create-payment-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount: service.price }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.clientSecret) {
           setClientSecret(data.clientSecret);
+        } else {
+          throw new Error("No client secret received");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
-        setStripeError("Failed to initialize payment");
+        setStripeError(`Failed to initialize payment: ${error.message}`);
       })
       .finally(() => {
         setIsLoading(false);
@@ -235,6 +246,9 @@ const PaymentFlow = () => {
           <p className="text-red-600">
             Failed to initialize payment. Please refresh.
           </p>
+          {stripeError && (
+            <p className="text-sm text-gray-600 mt-2">{stripeError}</p>
+          )}
         </div>
       </div>
     );

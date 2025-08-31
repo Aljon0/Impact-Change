@@ -12,15 +12,16 @@ const ProcessPage = () => {
     {
       id: 1,
       icon: <FileText className="w-6 h-6 sm:w-8 sm:h-8" />,
-      title: "Intake Form",
+      title: "Intake Form or Consultation",
       description:
-        "Complete our comprehensive intake form to help us understand your business, goals, and specific requirements for your pitch deck or business plan.",
+        "Complete our comprehensive intake form to help us understand your business and goals, or book a consultation to discuss your project requirements and get expert guidance.",
       details: [
         "Business overview assessment",
         "Goal identification",
         "Timeline establishment",
-        "Resource evaluation",
+        "Expert consultation available",
       ],
+      hasButton: true,
     },
     {
       id: 2,
@@ -47,20 +48,6 @@ const ProcessPage = () => {
         "Quality assurance",
         "Final review process",
       ],
-    },
-    {
-      id: 4,
-      icon: <Calendar className="w-6 h-6 sm:w-8 sm:h-8" />,
-      title: "Consultation Booking",
-      description:
-        "Book a consultation session to review your completed materials, discuss improvements, and get expert guidance for your investor presentations.",
-      details: [
-        "Material review session",
-        "Expert feedback",
-        "Presentation coaching",
-        "Q&A support",
-      ],
-      hasButton: true,
     },
   ];
 
@@ -89,7 +76,7 @@ const ProcessPage = () => {
             Our Process
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
-            A streamlined four-step process that delivers professional pitch
+            A streamlined three-step process that delivers professional pitch
             decks and business plans in just 7 days
           </p>
         </div>
@@ -161,7 +148,7 @@ const ProcessPage = () => {
                           className="inline-flex items-center space-x-2 sm:space-x-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all cursor-pointer duration-300 text-sm sm:text-base lg:text-lg"
                         >
                           <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-                          <span>Book Appointment</span>
+                          <span>Book Consultation</span>
                         </button>
                       </div>
                     )}

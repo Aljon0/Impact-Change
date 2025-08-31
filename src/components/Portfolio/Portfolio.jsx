@@ -26,7 +26,7 @@ export const Portfolio = () => {
         "Investor-ready presentations that tell your story and secure funding",
       count: "400+",
       link: "/portfolio/pitch-decks",
-      gradient: "from-blue-600 to-blue-800",
+      gradient: "from-blue-500 to-blue-700",
       icon: FileText,
     },
     {
@@ -35,7 +35,7 @@ export const Portfolio = () => {
         "Comprehensive business plans with detailed financial projections",
       count: "300+",
       link: "/portfolio/business-plans",
-      gradient: "from-blue-700 to-blue-900",
+      gradient: "from-blue-500 to-blue-700",
       icon: Building,
     },
     {
@@ -44,7 +44,7 @@ export const Portfolio = () => {
         "In-depth competitive analysis and market opportunity assessments",
       count: "500+",
       link: "/portfolio/market-research",
-      gradient: "from-blue-800 to-blue-950",
+      gradient: "from-blue-500 to-blue-700",
       icon: Search,
     },
     {

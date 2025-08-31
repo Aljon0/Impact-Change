@@ -38,7 +38,7 @@ const InvestorOnePager = () => {
             </button>
 
             <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors flex items-center justify-center">
-              <Link to="/portfolio" className="flex items-center">
+              <Link to="/portfolio/one-pagers" className="flex items-center">
                 View Portfolio
                 <ArrowRight
                   className="inline ml-3 group-hover:translate-x-2 transition-transform"
@@ -153,7 +153,7 @@ const InvestorOnePager = () => {
 
           <div className="text-center mt-12">
             <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center mx-auto">
-              <Link to="/portfolio" className="relative">
+              <Link to="/portfolio/one-pagers" className="relative">
                 Explore Our Portfolio
                 <ArrowRight
                   className="inline ml-3 group-hover:translate-x-2 transition-transform"

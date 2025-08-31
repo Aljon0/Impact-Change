@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import TrustBar from "./TrustBar";
 
 const ContactUs = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   const handleScheduleCall = () => {
-    navigate("/pricing?category=consulting");
+    // Placeholder for navigation - would typically use react-router
+    console.log("Navigate to pricing page with consulting category");
   };
 
   const handleEmailClick = () => {
@@ -82,9 +80,9 @@ const ContactUs = () => {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-[#131e3D] mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-[#131e3D] mb-6 leading-tight">
             Ready to Start Your
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-[#131e3D]">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-[#131e3D] mt-2">
               Next Big Thing?
             </span>
           </h1>
@@ -113,11 +111,9 @@ const ContactUs = () => {
         </div>
       </section>
 
-      <TrustBar />
-
-      {/* Contact Information Section - Modified with 3 columns */}
+      {/* Contact Information Section - Fixed with 3 balanced columns */}
       <section className="py-20 bg-white relative">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
             <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
               <div className="text-center mb-12">
@@ -132,7 +128,7 @@ const ContactUs = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {/* Email Option */}
                 <div className="group relative">
                   <div className="bg-gray-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 h-full">
@@ -166,39 +162,6 @@ const ContactUs = () => {
                   </div>
                 </div>
 
-                {/* Schedule Call Option */}
-                <div className="group relative">
-                  <div className="bg-gray-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 h-full">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <svg
-                        className="w-8 h-8 text-green-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold text-[#131e3D] mb-2">
-                      Schedule a Call
-                    </h3>
-                    <p className="text-[#4a4949] mb-6">
-                      Book a free consultation
-                    </p>
-                    <button
-                      onClick={handleScheduleCall}
-                      className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-3 rounded-full transition-all duration-200 hover:scale-105 cursor-pointer"
-                    >
-                      Schedule Now
-                    </button>
-                  </div>
-                </div>
-
                 {/* LinkedIn Option */}
                 <div className="group relative">
                   <div className="bg-gray-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 h-full">
@@ -212,7 +175,7 @@ const ContactUs = () => {
                       </svg>
                     </div>
                     <h3 className="text-xl font-semibold text-[#131e3D] mb-2">
-                      Connect on LinkedIn
+                      Follow us on LinkedIn
                     </h3>
                     <p className="text-[#4a4949] mb-6">
                       Professional networking
@@ -223,7 +186,7 @@ const ContactUs = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center bg-gradient-to-r from-[#131e3D] to-blue-600 text-white px-6 py-3 rounded-full transition-all duration-200 hover:scale-105"
                     >
-                      Will Bryant
+                      Impact Change
                     </a>
                   </div>
                 </div>

@@ -67,10 +67,10 @@ const Confirmation = ({ setShowConfirmation }) => {
           <p className="text-sm text-gray-600">
             Questions? Contact us at{" "}
             <a
-              href="mailto:support@impactchange.com"
+              href="mailto:will@startscaleandsucceed.com"
               className="text-blue-600 hover:underline"
             >
-              support@impactchange.com
+              will@startscaleandsucceed.com
             </a>
           </p>
         </div>

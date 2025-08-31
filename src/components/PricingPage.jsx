@@ -53,14 +53,10 @@ const PricingPage = () => {
         image: "/HomePage/MarketResearch/LuxuryChocolate.png",
       },
     ],
-    linkedin: [
+    "one-pager": [
       {
-        name: "Personal Page",
+        name: "Standard",
         image: "/HomePage/OnePager/Axiom.jpg",
-      },
-      {
-        name: "Company Page",
-        image: "/HomePage/OnePager/BaseLineLabs.jpg",
       },
     ],
     consulting: [
@@ -142,6 +138,16 @@ const PricingPage = () => {
         popular: true,
       },
     ],
+    "one-pager": [
+      {
+        id: "op1",
+        name: "Standard",
+        price: 100,
+        displayPrice: "$100",
+        gradient: "from-blue-300 via-blue-500 to-blue-700",
+        popular: true,
+      },
+    ],
     linkedin: [
       {
         id: "lo1",
@@ -192,6 +198,7 @@ const PricingPage = () => {
     { id: "pitch-decks", name: "Pitch Decks" },
     { id: "business-plans", name: "Business Plans" },
     { id: "market-research", name: "Market Research" },
+    { id: "one-pager", name: "One Pager" },
     { id: "linkedin", name: "LinkedIn Optimization" },
     { id: "consulting", name: "Consulting" },
   ];

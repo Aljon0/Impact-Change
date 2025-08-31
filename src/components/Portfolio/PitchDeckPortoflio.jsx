@@ -62,7 +62,10 @@ const LazyMedia = ({
   };
 
   return (
-    <div ref={mediaRef} className={`${className} relative overflow-hidden`}>
+    <div
+      ref={mediaRef}
+      className={`${className} relative overflow-hidden bg-black`}
+    >
       {/* Skeleton loader */}
       {!isLoaded && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse">
@@ -84,7 +87,7 @@ const LazyMedia = ({
             <video
               ref={videoRef}
               src={src}
-              className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+              className={`absolute inset-0 w-full h-full object-contain transition-all duration-700 ${
                 isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
               }`}
               onLoadedData={handleLoad}
@@ -113,20 +116,7 @@ const LazyMedia = ({
 };
 
 export const PitchDecksPortfolio = () => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [isFiltering, setIsFiltering] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
-
-  const categories = [
-    { id: "all", label: "All Projects" },
-    { id: "saas", label: "SaaS" },
-    { id: "ecommerce", label: "E-commerce" },
-    { id: "fintech", label: "FinTech" },
-    { id: "healthtech", label: "HealthTech" },
-    { id: "hospitality", label: "Hospitality" },
-    { id: "fashion", label: "Fashion" },
-    { id: "food", label: "Food & Beverage" },
-  ];
 
   const pitchDecks = [
     {
@@ -241,7 +231,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$2.1M",
       stage: "Seed Round",
       industry: "HealthTech",
-      image: "/HomePage/PitchDeck_2/Cuddle.webp",
+      image: "/HomePage/Videos/Cuddle.mp4",
+      mediaType: "video",
       description:
         "Innovative wellness platform focused on comfort solutions and mental health support through technology-driven experiences.",
     },
@@ -253,7 +244,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$4.5M",
       stage: "Series A",
       industry: "Gaming Tech",
-      image: "/HomePage/PitchDeck_2/NexusForge.webp",
+      image: "/HomePage/Videos/Nexus.mp4",
+      mediaType: "video",
       description:
         "Next-generation game development platform empowering creators with advanced tools and collaborative workflows.",
     },
@@ -265,7 +257,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$1.9M",
       stage: "Seed Round",
       industry: "HealthTech",
-      image: "/HomePage/PitchDeck_2/Zenscape.webp",
+      image: "/HomePage/Videos/Zenscape.mp4",
+      mediaType: "video",
       description:
         "Digital meditation platform combining ancient mindfulness practices with modern technology for stress reduction and mental clarity.",
     },
@@ -277,7 +270,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$7.3M",
       stage: "Series B",
       industry: "CleanTech",
-      image: "/HomePage/PitchDeck_2/SunharvestInnovations.webp",
+      image: "/HomePage/Videos/Sunharvest.mp4",
+      mediaType: "video",
       description:
         "Solar energy technology platform advancing sustainable power solutions with smart grid integration and energy optimization.",
     },
@@ -289,7 +283,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$5.1M",
       stage: "Series A",
       industry: "EdTech",
-      image: "/HomePage/PitchDeck_2/FutureMind.webp",
+      image: "/HomePage/Videos/FutureMind.mp4",
+      mediaType: "video",
       description:
         "Personalized AI-powered learning experiences that adapt to individual learning styles and accelerate skill development.",
     },
@@ -301,7 +296,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$3.7M",
       stage: "Series A",
       industry: "Food Tech",
-      image: "/HomePage/PitchDeck_2/Chef.webp",
+      image: "/HomePage/Videos/ChefAlex.mp4",
+      mediaType: "video",
       description:
         "Professional chef services platform connecting culinary experts with food enthusiasts for premium dining experiences.",
     },
@@ -313,7 +309,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$2.8M",
       stage: "Seed Round",
       industry: "Event Tech",
-      image: "/HomePage/PitchDeck_2/Elevatex.webp",
+      image: "/HomePage/Videos/ElevateX.mp4",
+      mediaType: "video",
       description:
         "Comprehensive event management platform streamlining planning, coordination, and execution of corporate and social events.",
     },
@@ -325,7 +322,8 @@ export const PitchDecksPortfolio = () => {
       raised: "$1.6M",
       stage: "Pre-Series A",
       industry: "HealthTech",
-      image: "/HomePage/PitchDeck_2/Wellness.webp",
+      image: "/HomePage/Videos/Lumia.mp4",
+      mediaType: "video",
       description:
         "Holistic wellness platform integrating mindfulness practices with personalized health tracking and community support.",
     },
@@ -344,18 +342,6 @@ export const PitchDecksPortfolio = () => {
     },
   ];
 
-  const filteredDecks =
-    selectedCategory === "all"
-      ? pitchDecks
-      : pitchDecks.filter((deck) => deck.category === selectedCategory);
-
-  const handleCategoryChange = (categoryId) => {
-    setIsFiltering(true);
-    setSelectedCategory(categoryId);
-    // Remove filtering state after animation completes
-    setTimeout(() => setIsFiltering(false), 300);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
       <style jsx>{`
@@ -373,7 +359,7 @@ export const PitchDecksPortfolio = () => {
       `}</style>
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-900">
+      <div className="bg-gradient-to-r from-blue-900 to-indigo-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="inline-flex items-center text-slate-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base cursor-pointer">
             <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
@@ -390,37 +376,14 @@ export const PitchDecksPortfolio = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {/* Category Filter */}
-        <div className="mb-8 sm:mb-12">
-          <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => handleCategoryChange(category.id)}
-                className={`px-3 py-1 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
-                  selectedCategory === category.id
-                    ? "bg-blue-800 text-white shadow-md sm:shadow-lg"
-                    : "bg-white text-blue-800 hover:bg-slate-50 shadow-sm sm:shadow-md border border-slate-200"
-                }`}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Portfolio Grid */}
-        <div
-          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8 transition-opacity duration-300 ${
-            isFiltering ? "opacity-70" : "opacity-100"
-          }`}
-        >
-          {filteredDecks.map((deck, index) => {
+        {/* Portfolio Grid - Changed to 2 columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
+          {pitchDecks.map((deck, index) => {
             const videoRef = useRef(null);
 
             return (
               <div
-                key={`${deck.id}-${selectedCategory}`}
+                key={deck.id}
                 className="group cursor-pointer"
                 style={{
                   animationDelay: `${index * 50}ms`,
@@ -430,12 +393,13 @@ export const PitchDecksPortfolio = () => {
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 <div className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
-                  <div className="relative h-48 sm:h-56 overflow-hidden">
+                  {/* Video container with proper aspect ratio */}
+                  <div className="relative overflow-hidden aspect-video bg-black">
                     <LazyMedia
                       src={deck.image}
                       alt={deck.title}
                       type={deck.mediaType || "image"}
-                      className="w-full h-full transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full"
                       videoRef={videoRef}
                       isHovered={hoveredCard === deck.id}
                     />
