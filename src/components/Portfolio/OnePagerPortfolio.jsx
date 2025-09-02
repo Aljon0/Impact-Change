@@ -1,5 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+
 export const OnePagerPortfolio = () => {
   const onePagers = [
     {
@@ -179,7 +179,7 @@ export const OnePagerPortfolio = () => {
             className="inline-flex items-center text-blue-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base cursor-pointer"
           >
             <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-            <Link to="/portfolio">Back to Portfolio</Link>
+            Back to Portfolio
           </button>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             One-Pager Portfolio
@@ -199,18 +199,26 @@ export const OnePagerPortfolio = () => {
               key={onePager.id}
               className="bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl overflow-hidden hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500"
             >
-              {/* Image Background Section */}
-              <div
-                className="relative h-48 sm:h-56 bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${onePager.image})`,
-                }}
-              >
-                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
+              {/* Image Section - Maximized */}
+              <div className="relative w-full">
+                <img
+                  src={onePager.image}
+                  alt={onePager.title}
+                  className="w-full h-64 sm:h-72 object-contain bg-gray-50"
+                  onError={(e) => {
+                    // Fallback to background color if image fails to load
+                    e.target.style.display = "none";
+                    e.target.parentElement.style.backgroundColor = "#f3f4f6";
+                    e.target.parentElement.style.minHeight = "16rem";
+                  }}
+                />
+
+                {/* Overlay with company info */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-4 sm:p-6">
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-1">
                     {onePager.title}
                   </h3>
-                  <p className="text-gray-200 text-sm sm:text-base mb-2">
+                  <p className="text-gray-200 text-sm sm:text-base mb-1">
                     {onePager.industry}
                   </p>
                   <p className="text-gray-300 text-xs sm:text-sm font-medium">
@@ -221,21 +229,20 @@ export const OnePagerPortfolio = () => {
 
               {/* Content Section */}
               <div className="p-4 sm:p-6">
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm mb-4">
-                  <div>
-                    <span className="text-gray-500 block">Funding:</span>
-                    <span className="font-semibold text-gray-900">
-                      {onePager.funding}
-                    </span>
-                  </div>
-                  <div></div>
+                <div className="mb-4">
+                  <span className="text-gray-500 text-xs sm:text-sm block mb-1">
+                    Funding:
+                  </span>
+                  <span className="font-semibold text-gray-900 text-sm sm:text-base">
+                    {onePager.funding}
+                  </span>
                 </div>
 
                 <p className="text-gray-600 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed">
                   {onePager.description}
                 </p>
 
-                <div className="mb-4 sm:mb-6">
+                <div>
                   <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">
                     Key Elements:
                   </h4>

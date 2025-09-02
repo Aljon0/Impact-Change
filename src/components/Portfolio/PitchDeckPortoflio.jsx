@@ -1,6 +1,5 @@
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 
 // Enhanced LazyMedia component that handles both images and videos
 const LazyMedia = ({
@@ -101,7 +100,7 @@ const LazyMedia = ({
             <img
               src={src}
               alt={alt}
-              className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+              className={`absolute inset-0 w-full h-full object-contain transition-all duration-700 ${
                 isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
               }`}
               onLoad={handleLoad}
@@ -363,7 +362,7 @@ export const PitchDecksPortfolio = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="inline-flex items-center text-slate-300 hover:text-white mb-4 sm:mb-6 transition-colors text-sm sm:text-base cursor-pointer">
             <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-            <Link to="/portfolio">Back to Portfolio</Link>
+            <span>Back to Portfolio</span>
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Pitch Deck Portfolio
@@ -376,8 +375,8 @@ export const PitchDecksPortfolio = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {/* Portfolio Grid - Changed to 2 columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
+        {/* Portfolio Grid - Changed to 3 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
           {pitchDecks.map((deck, index) => {
             const videoRef = useRef(null);
 
@@ -404,16 +403,16 @@ export const PitchDecksPortfolio = () => {
                       isHovered={hoveredCard === deck.id}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                    <div className="relative p-4 sm:p-6 h-full flex flex-col justify-between z-10">
+                    <div className="relative p-3 sm:p-4 lg:p-6 h-full flex flex-col justify-between z-10">
                       <div className="flex justify-between items-start">
-                        <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md sm:rounded-lg text-slate-800 text-xs sm:text-sm font-semibold shadow-sm">
+                        <div className="bg-white/90 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-md sm:rounded-lg text-slate-800 text-xs font-semibold shadow-sm">
                           {deck.industry}
                         </div>
-                        <div className="text-right bg-black/30 backdrop-blur-sm rounded-lg px-3 py-2">
-                          <div className="text-white font-bold text-sm sm:text-base md:text-lg">
+                        <div className="text-right bg-black/30 backdrop-blur-sm rounded-lg px-2 sm:px-3 py-1 sm:py-2">
+                          <div className="text-white font-bold text-sm">
                             {deck.raised}
                           </div>
-                          <div className="text-gray-200 text-xs sm:text-sm">
+                          <div className="text-gray-200 text-xs">
                             {deck.stage}
                           </div>
                         </div>
@@ -421,9 +420,9 @@ export const PitchDecksPortfolio = () => {
                     </div>
                   </div>
 
-                  <div className="p-4 sm:p-6">
+                  <div className="p-4 sm:p-5 lg:p-6">
                     <div className="mb-3">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-1">
+                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1">
                         {deck.title}
                       </h3>
                       <p className="text-slate-600 text-sm sm:text-base font-medium">
