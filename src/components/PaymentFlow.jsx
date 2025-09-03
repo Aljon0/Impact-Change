@@ -2,6 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import ConfirmationOverlay from "./ConfirmationOverlay";
+import emailService from "./EmailService";
 import OrderSummary from "./OrderSummary";
 import PaymentForm from "./PaymentForm";
 import SuccessMessage from "./SuccessMessage";
@@ -16,12 +17,16 @@ const PaymentFlow = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [stripeError, setStripeError] = useState(null);
   const [paymentIntentId, setPaymentIntentId] = useState("");
+  const [orderNumber, setOrderNumber] = useState("");
+  const [orderDate, setOrderDate] = useState("");
 
+  // Initialize paymentData to match what PaymentForm expects
   const [paymentData, setPaymentData] = useState({
     email: "",
-    fullName: "",
+    fullName: "", // PaymentForm expects fullName
     company: "",
     billingAddress: {
+      // PaymentForm expects billingAddress
       street: "",
       city: "",
       state: "",
@@ -45,7 +50,8 @@ const PaymentFlow = () => {
           id: "pd1",
           name: "Pitch Deck - 12 slides",
           price: 650,
-          category: "Pitch Decks",
+          category: "pitch-decks",
+          categoryName: "Pitch Decks",
           displayPrice: "$650",
         };
       }
@@ -55,15 +61,19 @@ const PaymentFlow = () => {
         id: "pd1",
         name: "Pitch Deck - 12 slides",
         price: 650,
-        category: "Pitch Decks",
+        category: "pitch-decks",
+        categoryName: "Pitch Decks",
         displayPrice: "$650",
       };
     }
 
     setSelectedService(service);
 
+    // Get API URL based on environment
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:4242";
+
     // Create payment intent
-    fetch("http://localhost:4242/create-payment-intent", {
+    fetch(`${apiUrl}/create-payment-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount: service.price }),
@@ -90,11 +100,33 @@ const PaymentFlow = () => {
       const [parent, child] = field.split(".");
       setPaymentData((prev) => ({
         ...prev,
-        [parent]: { ...prev[parent], [child]: value },
+        [parent]: {
+          ...prev[parent],
+          [child]: value,
+        },
       }));
     } else {
-      setPaymentData((prev) => ({ ...prev, [field]: value }));
+      setPaymentData((prev) => ({
+        ...prev,
+        [field]: value,
+      }));
     }
+  };
+
+  // Format payment data for the backend when submitting
+  const formatPaymentDataForBackend = (data) => {
+    return {
+      email: data.email,
+      name: data.fullName, // Backend expects 'name'
+      company: data.company || "",
+      address: {
+        line1: data.billingAddress?.street || "",
+        city: data.billingAddress?.city || "",
+        state: data.billingAddress?.state || "",
+        postal_code: data.billingAddress?.zipCode || "",
+        country: data.billingAddress?.country || "",
+      },
+    };
   };
 
   // Validate form before proceeding to confirmation
@@ -105,12 +137,19 @@ const PaymentFlow = () => {
 
     // Check if required fields are filled
     if (!paymentData.email || !paymentData.fullName) {
-      setStripeError("Please fill in all required fields");
+      setStripeError(
+        "Please fill in all required fields (Email and Full Name)"
+      );
       return false;
     }
 
-    // Note: Stripe elements don't provide direct access to check if they're complete
-    // We'll handle validation in the payment confirmation step
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(paymentData.email)) {
+      setStripeError("Please enter a valid email address");
+      return false;
+    }
+
     return true;
   };
 
@@ -166,22 +205,35 @@ const PaymentFlow = () => {
         clientSecret.substring(0, 20) + "..."
       );
 
+      // Format billing details for Stripe
+      const billingDetails = {
+        name: paymentData.fullName,
+        email: paymentData.email,
+      };
+
+      // Only add address if at least one field is filled
+      if (
+        paymentData.billingAddress.street ||
+        paymentData.billingAddress.city ||
+        paymentData.billingAddress.state ||
+        paymentData.billingAddress.zipCode ||
+        paymentData.billingAddress.country
+      ) {
+        billingDetails.address = {
+          line1: paymentData.billingAddress.street || undefined,
+          city: paymentData.billingAddress.city || undefined,
+          state: paymentData.billingAddress.state || undefined,
+          postal_code: paymentData.billingAddress.zipCode || undefined,
+          country: paymentData.billingAddress.country || undefined,
+        };
+      }
+
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret,
         {
           payment_method: {
             card: cardNumberElement,
-            billing_details: {
-              name: paymentData.fullName,
-              email: paymentData.email,
-              address: {
-                line1: paymentData.billingAddress.street || undefined,
-                city: paymentData.billingAddress.city || undefined,
-                state: paymentData.billingAddress.state || undefined,
-                postal_code: paymentData.billingAddress.zipCode || undefined,
-                country: paymentData.billingAddress.country || undefined,
-              },
-            },
+            billing_details: billingDetails,
           },
         }
       );
@@ -226,6 +278,13 @@ const PaymentFlow = () => {
       } else {
         console.log("Payment successful:", paymentIntent);
         setPaymentIntentId(paymentIntent.id);
+
+        // Generate order details for email
+        const generatedOrderNumber = emailService.generateOrderNumber();
+        const generatedOrderDate = new Date().toISOString();
+        setOrderNumber(generatedOrderNumber);
+        setOrderDate(generatedOrderDate);
+
         setCurrentStep("success");
       }
     } catch (error) {
@@ -305,13 +364,15 @@ const PaymentFlow = () => {
           />
         )}
 
-        {/* Success page */}
+        {/* Success page - pass formatted data for email */}
         {currentStep === "success" && (
           <SuccessMessage
-            paymentData={paymentData}
+            paymentData={formatPaymentDataForBackend(paymentData)}
             selectedService={selectedService}
             paymentIntentId={paymentIntentId}
             setCurrentStep={setCurrentStep}
+            orderNumber={orderNumber}
+            orderDate={orderDate}
           />
         )}
       </Elements>

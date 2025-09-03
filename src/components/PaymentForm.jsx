@@ -182,7 +182,7 @@ const PaymentForm = ({
             <input
               type="text"
               placeholder="Street Address"
-              value={paymentData.billingAddress.street}
+              value={paymentData.billingAddress.street || ""}
               onChange={(e) =>
                 handleInputChange("billingAddress.street", e.target.value)
               }

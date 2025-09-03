@@ -1,12 +1,21 @@
-import { Calendar, CheckCircle, Mail } from "lucide-react";
-import React from "react";
+import { AlertCircle, Calendar, CheckCircle, Mail } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import emailService from "./EmailService";
 
 const SuccessMessage = ({
   paymentData,
   selectedService,
   paymentIntentId,
   setCurrentStep,
+  orderNumber = null, // Optional prop for order number
+  orderDate = null, // Optional prop for order date
 }) => {
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailError, setEmailError] = useState(null);
+  const [isEmailSending, setIsEmailSending] = useState(false);
+  const [finalOrderNumber, setFinalOrderNumber] = useState(orderNumber);
+  const [apiConnected, setApiConnected] = useState(null);
+
   const calculateTotal = () => {
     return selectedService ? selectedService.price : 0;
   };
@@ -31,6 +40,82 @@ const SuccessMessage = ({
 
     return categoryMap[selectedService.category] || selectedService.category;
   };
+
+  // Test API connection first
+  useEffect(() => {
+    const testConnection = async () => {
+      try {
+        await emailService.testApiConnection();
+        setApiConnected(true);
+        console.log("API connection successful");
+      } catch (error) {
+        console.error("API connection failed:", error);
+        setApiConnected(false);
+        setEmailError(`Unable to connect to server: ${error.message}`);
+      }
+    };
+
+    testConnection();
+  }, []);
+
+  // Send invoice email when component mounts and API is connected
+  useEffect(() => {
+    const sendInvoiceEmail = async () => {
+      // Don't send if already sent, API not connected, or if required data is missing
+      if (
+        emailSent ||
+        apiConnected !== true ||
+        !selectedService ||
+        !paymentData?.email
+      ) {
+        console.log("Skipping email send:", {
+          emailSent,
+          apiConnected,
+          selectedService: !!selectedService,
+          email: paymentData?.email,
+        });
+        return;
+      }
+
+      setIsEmailSending(true);
+      setEmailError(null);
+
+      try {
+        // Format email data
+        const emailData = emailService.formatEmailData({
+          selectedService,
+          paymentData,
+          paymentIntentId,
+          orderNumber,
+          orderDate,
+        });
+
+        // Store the order number for display
+        setFinalOrderNumber(emailData.orderNumber);
+
+        // Send the email
+        const result = await emailService.sendInvoiceEmail(emailData);
+
+        console.log("Invoice email sent successfully:", result);
+        setEmailSent(true);
+      } catch (error) {
+        console.error("Failed to send invoice email:", error);
+        setEmailError(error.message);
+      } finally {
+        setIsEmailSending(false);
+      }
+    };
+
+    sendInvoiceEmail();
+  }, [
+    selectedService,
+    paymentData,
+    paymentIntentId,
+    orderNumber,
+    orderDate,
+    emailSent,
+    apiConnected, // Add apiConnected as dependency
+  ]);
 
   // Make sure we have a selectedService
   if (!selectedService) {
@@ -63,6 +148,16 @@ const SuccessMessage = ({
               Your purchase has been successfully processed.
             </p>
 
+            {/* Order Number Display */}
+            {finalOrderNumber && (
+              <div className="bg-blue-50 p-3 rounded-md mb-4 text-center">
+                <p className="text-sm text-blue-600">Order Number</p>
+                <p className="text-lg font-semibold text-blue-800">
+                  {finalOrderNumber}
+                </p>
+              </div>
+            )}
+
             {/* Payment ID */}
             {paymentIntentId && (
               <div className="bg-gray-50 p-3 rounded-md mb-4 text-center">
@@ -73,22 +168,96 @@ const SuccessMessage = ({
               </div>
             )}
 
-            {/* Email Notice */}
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
-              <div className="flex items-start">
-                <Mail className="w-5 h-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" />
-                <div>
-                  <p className="text-blue-800 font-medium">
-                    Please check your email
-                  </p>
-                  <p className="text-blue-700 text-sm mt-1">
-                    We've just sent an invoice and all your order details to{" "}
-                    <strong>{paymentData.email}</strong>. Be sure to check your
-                    spam folder just in case!
-                  </p>
+            {/* API Connection Status */}
+            {apiConnected === false && (
+              <div className="border-l-4 p-4 mb-4 bg-red-50 border-red-400">
+                <div className="flex items-start">
+                  <AlertCircle className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0 text-red-400" />
+                  <div>
+                    <p className="text-red-800 font-medium">Connection Issue</p>
+                    <p className="text-red-700 text-sm mt-1">
+                      Unable to connect to our email service. Your order was
+                      processed successfully, but we couldn't send the
+                      confirmation email automatically.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {/* Email Status Notice */}
+            {apiConnected === true && (
+              <div
+                className={`border-l-4 p-4 mb-8 ${
+                  emailError
+                    ? "bg-red-50 border-red-400"
+                    : emailSent
+                    ? "bg-green-50 border-green-400"
+                    : "bg-blue-50 border-blue-400"
+                }`}
+              >
+                <div className="flex items-start">
+                  <Mail
+                    className={`w-5 h-5 mt-0.5 mr-3 flex-shrink-0 ${
+                      emailError
+                        ? "text-red-400"
+                        : emailSent
+                        ? "text-green-400"
+                        : "text-blue-400"
+                    }`}
+                  />
+                  <div>
+                    {isEmailSending ? (
+                      <>
+                        <p className="text-blue-800 font-medium">
+                          Sending invoice email...
+                        </p>
+                        <p className="text-blue-700 text-sm mt-1">
+                          Please wait while we send your order details to{" "}
+                          <strong>{paymentData.email}</strong>
+                        </p>
+                      </>
+                    ) : emailError ? (
+                      <>
+                        <p className="text-red-800 font-medium">
+                          Email delivery issue
+                        </p>
+                        <p className="text-red-700 text-sm mt-1">
+                          We couldn't send the invoice to{" "}
+                          <strong>{paymentData.email}</strong>. Please contact
+                          support for your invoice copy.
+                        </p>
+                        <p className="text-red-600 text-xs mt-2">
+                          Error: {emailError}
+                        </p>
+                      </>
+                    ) : emailSent ? (
+                      <>
+                        <p className="text-green-800 font-medium">
+                          Invoice email sent successfully!
+                        </p>
+                        <p className="text-green-700 text-sm mt-1">
+                          Your order details and invoice have been sent to{" "}
+                          <strong>{paymentData.email}</strong>. Check your spam
+                          folder if you don't see it.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-blue-800 font-medium">
+                          Please check your email
+                        </p>
+                        <p className="text-blue-700 text-sm mt-1">
+                          We're sending an invoice and all your order details to{" "}
+                          <strong>{paymentData.email}</strong>. Be sure to check
+                          your spam folder just in case!
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* What Happens Next Section */}
             <div className="mb-8">
