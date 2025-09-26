@@ -35,12 +35,3 @@ The frontend connects to the backend API to handle donations, display content, a
 - [Axios](https://axios-http.com/) for backend communication
 
 ---
-
-## 📦 Installation & Setup
-
-### 1. Clone Repository
-
-```bash
-git clone https://github.com/your-username/impact-change-website.git
-cd impact-change-website/frontend
-```
